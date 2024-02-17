@@ -32,6 +32,8 @@ public class HelloController {
     @FXML
     private Button signUp;
 
+    @FXML
+    private Button start;
 
     @FXML
     void login1Clicked(ActionEvent event) {
@@ -48,7 +50,7 @@ public class HelloController {
                 } else if (gmailLogIn.getText().equals(gmail) && passwordLogIn.getText().equals(Password)) {
 
                     FXMLLoader fxmlLoader;
-                    root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+                    root = FXMLLoader.load(getClass().getResource("/org.example/Menu.fxml"));
                     flag=1;
                     Stage stage = (Stage) login1.getScene().getWindow();
                     stage.setScene(new Scene(root));
@@ -67,7 +69,7 @@ public class HelloController {
         try{
             Parent root;
             FXMLLoader fxmlLoader;
-            root = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/org.example/SignUp.fxml"));
             Stage stage = (Stage) login1.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -78,5 +80,17 @@ public class HelloController {
     }
 
     public void startClicked(MouseEvent mouseEvent) {
+        try{
+            Parent root;
+            FXMLLoader fxmlLoader;
+            root = FXMLLoader.load(getClass().getResource("/org.example/login.fxml"));
+            Stage stage = (Stage) start.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            new FadeIn(root).play();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
+
 }

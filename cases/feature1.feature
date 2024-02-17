@@ -1,5 +1,5 @@
 Feature: Login
-  I want to login on Shining Carpets
+  I want to login on YOUR EVENT
   Background:
     Given I go to loginchoise
     And the field 'email' is empty
