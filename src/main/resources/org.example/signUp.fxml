@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/SignUp.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.SignUpController">
+    <children>
+
+        <Label layoutX="91.0" layoutY="20.0" prefHeight="51.0" prefWidth="166.0" text="Shiny Carpet" textFill="#bc4e2a">
+            <font>
+                <Font name="System Bold Italic" size="24.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="60.0" />
+            </opaqueInsets>
+        </Label>
+        <VBox layoutX="130.0" layoutY="138.0" prefHeight="275.0" prefWidth="490.0">
+            <children>
+                <HBox prefHeight="40.0" prefWidth="535.0">
+                    <children>
+                        <Label prefHeight="35.0" prefWidth="165.0" text="ID" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="id" prefHeight="40.0" prefWidth="310.0" promptText="ID" style="-fx-background-radius: 50;">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </TextField>
+                    </children>
+                    <padding>
+                        <Insets bottom="2.0" top="2.0" />
+                    </padding>
+                </HBox>
+                <HBox prefHeight="40.0" prefWidth="490.0">
+                    <children>
+                        <Label prefHeight="35.0" prefWidth="165.0" text="Phone Number" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="phoneNumber" prefHeight="39.0" prefWidth="310.0" promptText=" Phone Number" style="-fx-background-radius: 50;">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                            <padding>
+                                <Insets top="2.0" />
+                            </padding>
+                        </TextField>
+                    </children>
+                    <padding>
+                        <Insets top="2.0" />
+                    </padding>
+                </HBox>
+                <HBox prefHeight="40.0" prefWidth="648.0">
+                    <padding>
+                        <Insets bottom="2.0" top="2.0" />
+                    </padding>
+                    <children>
+                        <HBox prefHeight="38.0" prefWidth="654.0">
+                            <children>
+                                <Label prefHeight="35.0" prefWidth="165.0" text="Address" textFill="#bc4e2a">
+                                    <font>
+                                        <Font name="System Bold Italic" size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="address" prefHeight="40.0" prefWidth="310.0" promptText="Address" style="-fx-background-radius: 50;" />
+                            </children>
+                            <padding>
+                                <Insets bottom="2.0" top="2.0" />
+                            </padding>
+                        </HBox>
+                    </children>
+                </HBox>
+                <HBox prefHeight="40.0" prefWidth="637.0">
+                    <children>
+                        <Label prefHeight="35.0" prefWidth="165.0" text="Gmail" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="gmail" prefHeight="40.0" prefWidth="310.0" promptText="Gmail" style="-fx-background-radius: 50;" />
+                    </children>
+                    <padding>
+                        <Insets bottom="2.0" top="2.0" />
+                    </padding>
+                </HBox>
+                <HBox prefHeight="40.0" prefWidth="680.0">
+                    <children>
+                        <Label prefHeight="35.0" prefWidth="165.0" text="User Name" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="userName" prefHeight="40.0" prefWidth="310.0" promptText="User Name" style="-fx-background-radius: 50;" />
+                    </children>
+                    <padding>
+                        <Insets bottom="2.0" top="2.0" />
+                    </padding>
+                </HBox>
+                <HBox prefHeight="40.0" prefWidth="592.0">
+                    <children>
+                        <Label prefHeight="35.0" prefWidth="165.0" text="Password" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <PasswordField fx:id="password" minHeight="38.0" minWidth="310.0" prefHeight="38.0" prefWidth="310.0" style="-fx-background-radius: 50;" />
+                    </children>
+                    <padding>
+                        <Insets bottom="2.0" top="2.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+        <Button fx:id="signUp2" layoutX="308.0" layoutY="432.0" mnemonicParsing="false" onAction="#signUp2Clicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Sign Up" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="14.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+
+        <Label layoutX="347.0" layoutY="51.0" prefHeight="40.0" prefWidth="130.0" text="Sign Up" textFill="#bc4e2a">
+            <font>
+                <Font name="System Bold Italic" size="24.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="60.0" />
+            </opaqueInsets>
+        </Label>
+        <Label fx:id="back" layoutX="698.0" layoutY="2.0" onMouseClicked="#backClicked" prefHeight="34.0" prefWidth="51.0" text="Back " textFill="#bc4e2a">
+            <font>
+                <Font name="System Bold Italic" size="18.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="60.0" />
+            </opaqueInsets>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Label>
+    </children>
+</AnchorPane>
