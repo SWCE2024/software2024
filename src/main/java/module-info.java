@@ -7,6 +7,7 @@ module org.example{
     requires com.oracle.database.jdbc;
     requires java.sql;
     requires java.desktop;
+    requires org.postgresql.jdbc;
 
     opens org.example to javafx.fxml;
     exports org.example;

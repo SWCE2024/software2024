@@ -1,44 +1,70 @@
 package org.example;
 
-import animatefx.animation.FadeIn;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import oracle.jdbc.pool.OracleDataSource;
+import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class database {
-    public static ResultSet createDatabase(String string) {
-        try {
-            OracleDataSource ods = new OracleDataSource();
-            ods.setURL("jdbc:oracle:thin:@localhost:1521:xe");
-            ods.setUser("SN");
-            ods.setPassword("123456");
-            Connection con = ods.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(string);
-            return rs;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public static void insertIntoDatabase(String string) {
-        try {
-            OracleDataSource ods = new OracleDataSource();
-            ods.setURL("jdbc:oracle:thin:@localhost:1521:xe");
-            ods.setUser("SN");
-            ods.setPassword("123456");
-            Connection con = ods.getConnection();
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(string);
+    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "123456";
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    private static final Logger logger = Logger.getLogger(database.class.getName());
+
+    private database() {
+    }
+
+    public static Connection getConnection(){
+
+
+        //Connection con = null ;
+
+        try {
+            DriverManager.registerDriver(new org.postgresql.Driver());
+
+            String connInfo="jdbc:postgresql://localhost:5432/postgres";
+            Class.forName("org.postgresql.Driver");
+            Connection con = DriverManager.getConnection(connInfo,"postgres","123456");
+            //  con.setAutoCommit(false);
+            return con;
+        } catch (ClassNotFoundException | SQLException e) {
+
+            //  System.out.println(e);
+            JOptionPane.showConfirmDialog(null, e.toString());
+            return null;
+        }
+
+
+
+    }
+
+
+    public static ResultSet runQuery(String query) {
+        ResultSet resultSet = null;
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)) {
+            resultSet = stmt.executeQuery();
+
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Database connection error: ", e);
+        }
+        return resultSet;
+    }
+
+    public static void insertIntoDatabase(String sql) {
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows > 0) {
+                logger.info("Insert successful, " + affectedRows + " rows affected.");
+            } else {
+                logger.info("Insert failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Database connection error: ", e);
         }
     }
 }
