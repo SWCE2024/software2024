@@ -13,10 +13,8 @@ import javafx.stage.Stage;
 import oracle.jdbc.pool.OracleDataSource;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.io.IOException;
+import java.sql.*;
 
 public class HelloController {
 
@@ -38,20 +36,23 @@ public class HelloController {
     @FXML
     void login1Clicked(ActionEvent event) {
         try {
-            int flag=0;
-            ResultSet rs = database.createDatabase("select GMAIL,PASSWORD from ADMIN");
+            int flag = 0;
+            String query = "SELECT GMAIL, PASSWORD FROM ADMIN WHERE GMAIL = ?";
+            PreparedStatement preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setString(1, gmailLogIn.getText()); // use the text field input directly
+            ResultSet rs = preparedStatement.executeQuery();
+
             while (rs.next()) {
-                String gmail = rs.getString(1);
-                String Password = rs.getString(2);
+                String gmail = rs.getString("GMAIL");
+                String password = rs.getString("PASSWORD");
                 Parent root;
-                if (gmailLogIn.getText().equals(gmail) && !passwordLogIn.getText().equals(Password)) {
+                if (!passwordLogIn.getText().equals(password)) {
                     JOptionPane.showMessageDialog(null, "Incorrect Password");
                     break;
-                } else if (gmailLogIn.getText().equals(gmail) && passwordLogIn.getText().equals(Password)) {
-
+                } else {
                     FXMLLoader fxmlLoader;
-                    root = FXMLLoader.load(getClass().getResource("/org.example/Menu.fxml"));
-                    flag=1;
+                    root = FXMLLoader.load(getClass().getResource("/org.example/MenuAdmin.fxml"));
+                    flag = 1;
                     Stage stage = (Stage) login1.getScene().getWindow();
                     stage.setScene(new Scene(root));
                     stage.show();
@@ -59,11 +60,16 @@ public class HelloController {
                     break;
                 }
             }
-            if (flag==0) JOptionPane.showMessageDialog(null, "Incorrect Gmail !");
-        }catch (Exception e){
-            throw new RuntimeException(e);
+            if (flag == 0) JOptionPane.showMessageDialog(null, "Incorrect Gmail !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database connection error");
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error loading the next scene");
         }
     }
+
     @FXML
     void signUp1Clicked(ActionEvent event) {
         try{
