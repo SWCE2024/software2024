@@ -10,14 +10,12 @@ Feature: Information for venue
     And he fill in 'Location' with "North Asira, downtown"
     And he fill in 'Capacity' with '200'
     And he fill in 'Pricing' with '5000'
-
-
     And he presses 'save' and flag is 'true'
     Then show massage 'information has been entered successfully'
 
 
   Scenario Outline: errors with input
-    When user click on insert order and flag is 'true'
+    When organizer click on insert venue and flag is 'true'
     And he fill in a 'VenueName' with '<VenueName>'
     And he fill in a 'Location' with '<Location>'
     And he fill in a 'Capacity' with '<Capacity>'
