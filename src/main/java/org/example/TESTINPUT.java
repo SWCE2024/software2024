@@ -57,43 +57,9 @@ public class TESTINPUT {
             return flags&&flagc&&flagn;
         }
     }
-    public static int  ordernameTest(String name) {
-        int flag=0;
-        name=(name.toUpperCase());
-        if(name.equals("CARPET")) flag=1;
-        else if( name.equals("COVER"))  flag=2;
-        else if(name.equals("BLANKET")) flag=3;
-        return flag;
-    }
-    public static boolean orderQuantityTest(String quantity) {
-        if ( quantity.length() >0) {
-            boolean flag = true;
-            for(int i=0;i<quantity.length();i++){
-                if(!Character.isDigit(quantity.charAt(i))){
-                    flag = false ;
-                    break;
-                }
-            }
-            return flag;
-        }
-        return false;
-    }
-    public static boolean orderSizeTest(String size) {
-        return TESTINPUT.orderQuantityTest(size);
 
-    }
-    public static boolean orderColorTest(String color) {
-        boolean flag = true;
-        for (int i = 0; i < color.length(); i++) {
-            if (Character.isDigit(color.charAt(i))) {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }
 
-    public static boolean orderPictureTest(String picture) {
-        return (picture.indexOf(".png")!=-1 || picture.indexOf(".jpg")!=-1) ;
-    }
+
+
+
 }
