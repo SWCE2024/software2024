@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javax.swing.*;
 import javafx.scene.control.TextField;
+
 
 public class SignUpController {
     static Logger logger = Logger.getLogger(SignUpController.class.getName());
@@ -56,88 +54,45 @@ public class SignUpController {
             stage.show();
             new FadeIn(root).play();
         }catch (IOException e){
-            logger.log(null," An error occurred while opening a new window:");
+            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
         }
     }
 
     @FXML
     void signUp2Clicked(ActionEvent event) {
+        String idText = id.getText();
+        String phoneNumberText = phoneNumber.getText();
+        String addressText = address.getText();
+        String gmailText = gmail.getText();
+        String userNameText = userName.getText();
+        String passwordText = password.getText();
 
-            String userId = id.getText();
-            String userPhone = phoneNumber.getText();
-            String userEmail = gmail.getText();
-            String userUsername = userName.getText();
-            String userPassword = password.getText();
-            if (!TESTINPUT.idTest(id.getText())) {
-                JOptionPane.showMessageDialog(null, "wrong id !", em, JOptionPane.ERROR_MESSAGE);
-                return;
-            } else if (!TESTINPUT.passwordTest(password.getText())) {
-                JOptionPane.showMessageDialog(null, "wrong PASSWORD !", em, JOptionPane.ERROR_MESSAGE);
-                return;
-            } else if (!TESTINPUT.phoneNumberTest(phoneNumber.getText())) {
-                JOptionPane.showMessageDialog(null, "wrong PHONE NUMBER !", em, JOptionPane.ERROR_MESSAGE);
-                return;
-            } else if (!TESTINPUT.gmailTest(gmail.getText())) {
-                JOptionPane.showMessageDialog(null, "wrong GMAIL !", em, JOptionPane.ERROR_MESSAGE);
-                return;
-            } else if (userId.isEmpty() || userPhone.isEmpty() || userEmail.isEmpty() || userUsername.isEmpty() || userPassword.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Field is Empty", em, JOptionPane.ERROR_MESSAGE);
-                return;
+        // Check if all inputs are valid
+        boolean validId = TESTINPUT.idTest(idText);
+        boolean validPhone = TESTINPUT.phoneNumberTest(phoneNumberText);
+        boolean validGmail = TESTINPUT.gmailTest(gmailText);
+        boolean validPassword = TESTINPUT.passwordTest(passwordText);
+
+        if (validId && validPhone && validGmail && validPassword) {
+            boolean isRegistered = Database.registerCustomer(idText, phoneNumberText, addressText, gmailText, userNameText, passwordText);
+            if (isRegistered) {
+                loadMenuParticipants();
+            } else {
+                JOptionPane.showMessageDialog(null, "Registration failed. Please check the information provided and try again.", em, JOptionPane.ERROR_MESSAGE);
             }
-        try (Connection conn = database.getConnection();
-             PreparedStatement checkStmt = conn.prepareStatement("SELECT CID, USERNAME FROM customer WHERE CID = ? OR USERNAME = ?")) {
-
-            checkStmt.setString(1, userId);
-            checkStmt.setString(2, userUsername);
-            ResultSet rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
-                String existingId = rs.getString("CID");
-                String existingUsername = rs.getString("USERNAME");
-
-                if (userId.equals(existingId)) {
-                    JOptionPane.showMessageDialog(null, "The ID is already in use", em, JOptionPane.ERROR_MESSAGE);
-                    return;
-                } else if (userUsername.equals(existingUsername)) {
-                    JOptionPane.showMessageDialog(null, "The USERNAME is already in use", em, JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-
-            try (PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO CUSTOMER (CID, PHONENUMBER, ADDRESS, GMAIL, USERNAME, PASSWORD) VALUES (?, ?, ?, ?, ?, ?)")) {
-                insertStmt.setString(1, userId);
-                insertStmt.setString(2, userPhone);
-                insertStmt.setString(3, address.getText());
-                insertStmt.setString(4, userEmail);
-                insertStmt.setString(5, userUsername);
-                insertStmt.setString(6, userPassword);
-
-                int affectedRows = insertStmt.executeUpdate();
-                if (affectedRows > 0) {
-                    JOptionPane.showMessageDialog(null, "Registration successful!", "INSERTED", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Registration failed.", em, JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-            // Redirect to the next scene
-            loadNextScene("/org.example/screen3.fxml");
-
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Database connection error: ", e);
-            JOptionPane.showMessageDialog(null, "A database error occurred.", em, JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter valid information in all fields.", em, JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void loadNextScene(String fxmlPath) {
+    private void loadMenuParticipants() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Parent root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
             Stage stage = (Stage) signUp2.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-            new FadeIn(root).play();
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
+            e.printStackTrace();
         }
     }
 }
