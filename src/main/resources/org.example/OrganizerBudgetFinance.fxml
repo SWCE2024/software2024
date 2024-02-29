@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.OrganizerBudgetFinance"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.OrganizerBudgetFinance">
+    <children>
+        <AnchorPane layoutX="-10.0" layoutY="-5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/screen2.css">
+            <children>
 
+                <Label layoutX="61.0" layoutY="19.0" prefHeight="51.0" prefWidth="166.0" text="YOUR EVENT" textFill="#4e4b4a">
+                    <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="60.0" />
+                    </opaqueInsets>
+                </Label>
+                <Label layoutX="344.0" layoutY="71.0" prefHeight="51.0" prefWidth="123.0" text="MENU" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="60.0" />
+                    </opaqueInsets>
+                </Label>
+                <Label fx:id="eventManagement" layoutX="61.0" layoutY="176.0" onMouseClicked="#eventManagementClicked" prefHeight="51.0" prefWidth="226.0" text="event management" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="25.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Label>
+                <Label fx:id="VenueManagement" layoutX="396.0" layoutY="176.0" onMouseClicked="#VenueManagementClicked" prefHeight="51.0" prefWidth="238.0" text="Venue Management" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="25.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Label>
+                <Label fx:id="VendorManagement" layoutX="47.0" layoutY="272.0" onMouseClicked="#VendorManagementClicked" prefHeight="46.0" prefWidth="253.0" text="Vendor Management" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="25.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Label>
+                <Label fx:id="BudgetFinance" layoutX="388.0" layoutY="281.0" onMouseClicked="#BudgetFinanceClicked" prefHeight="46.0" prefWidth="253.0" text="Budget &amp; Finance" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="25.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Label>
+                <Label fx:id="calender" layoutX="255.0" layoutY="376.0" onMouseClicked="#calender" text="CalenderScheduling " textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="25.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

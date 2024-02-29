@@ -36,11 +36,5 @@ public class feature1SignIn {
         assertEquals(true,true);
     }
 
-    @When("he fills in {string} with {string}")
-    public void heFillsInWith(String field, String value) {
-        System.out.println("Filling in " + field + " with " + value);
-        assertEquals(value.isEmpty() ? "" : value, value);
-    }
-
 
 }

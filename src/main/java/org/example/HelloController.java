@@ -10,11 +10,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import oracle.jdbc.pool.OracleDataSource;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
+import java.util.logging.Level;
+import static org.example.SignUpController.logger;
 
 public class HelloController {
 
@@ -26,47 +26,50 @@ public class HelloController {
 
     @FXML
     private PasswordField passwordLogIn;
-
     @FXML
     private Button signUp;
-
     @FXML
     private Button start;
-
     @FXML
-    void login1Clicked(ActionEvent event) {
+    public void login1Clicked(ActionEvent event) {
+        String email = gmailLogIn.getText();
+        String password = passwordLogIn.getText();
         try {
-            int flag = 0;
-            String query = "SELECT GMAIL, PASSWORD FROM ADMIN WHERE GMAIL = ?";
-            PreparedStatement preparedStatement = database.getConnection().prepareStatement(query);
-            preparedStatement.setString(1, gmailLogIn.getText()); // use the text field input directly
-            ResultSet rs = preparedStatement.executeQuery();
 
-            while (rs.next()) {
-                String gmail = rs.getString("GMAIL");
-                String password = rs.getString("PASSWORD");
+            if (Database.validateLogin(email, password, "ADMIN")) {
+                System.out.println("login admin successfully.");
                 Parent root;
-                if (!passwordLogIn.getText().equals(password)) {
-                    JOptionPane.showMessageDialog(null, "Incorrect Password");
-                    break;
-                } else {
-                    FXMLLoader fxmlLoader;
-                    root = FXMLLoader.load(getClass().getResource("/org.example/MenuAdmin.fxml"));
-                    flag = 1;
-                    Stage stage = (Stage) login1.getScene().getWindow();
-                    stage.setScene(new Scene(root));
-                    stage.show();
-                    new FadeIn(root).play();
-                    break;
-                }
+                FXMLLoader fxmlLoader;
+                root = FXMLLoader.load(getClass().getResource("/org.example/MenuAdmin.fxml"));
+                Stage stage = (Stage) login1.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+                new FadeIn(root).play();
+            } else if (Database.validateLogin(email, password, "customer")) {
+                System.out.println("login customer successfully.");
+                Parent root;
+                FXMLLoader fxmlLoader;
+                root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
+                Stage stage = (Stage) login1.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+                new FadeIn(root).play();
             }
-            if (flag == 0) JOptionPane.showMessageDialog(null, "Incorrect Gmail !");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Database connection error");
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error loading the next scene");
+            else if (Database.validateLogin(email, password, "organizer")) {
+                System.out.println("login organizer successfully.");
+                Parent root;
+                FXMLLoader fxmlLoader;
+                root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
+                Stage stage = (Stage) login1.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+                new FadeIn(root).play();
+            } else {
+                System.out.println("please signup");
+                return;
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
         }
     }
 
@@ -76,12 +79,12 @@ public class HelloController {
             Parent root;
             FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/SignUp.fxml"));
-            Stage stage = (Stage) login1.getScene().getWindow();
+            Stage stage = (Stage) signUp.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
-        }catch (Exception e){
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
         }
     }
 
@@ -94,9 +97,8 @@ public class HelloController {
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
-        }catch (Exception e){
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
         }
     }
-
 }
