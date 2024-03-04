@@ -33,6 +33,7 @@ public class TESTINPUT {
             return false;
         else return true;
     }
+
     public static boolean VenuePricingTest(String Pricing) {
         int i = parseInt(Pricing);
         if (i<=0)

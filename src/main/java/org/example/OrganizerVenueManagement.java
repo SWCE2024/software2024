@@ -55,6 +55,7 @@ public class OrganizerVenueManagement {
             Locationtxt.setText("");
             Capacitytxt.setText("");
             Pricingtxt.setText("");
+
         }
         else
             JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);

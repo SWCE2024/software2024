@@ -24,6 +24,7 @@ Feature: Information for venue
     Then the organizer should see '<message>'
 
 
+
     Examples:
       | VenueName         | Location | Capacity| Pricing   | message                                 |
       | Wedding Hall      |          | 300     | 5000      | Invalid Location, please check it       |
