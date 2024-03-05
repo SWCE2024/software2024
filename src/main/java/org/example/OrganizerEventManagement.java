@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -112,12 +113,12 @@ public class OrganizerEventManagement implements Initializable {
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                // Handle success (e.g., show a confirmation message)
+                JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // Handle failure (e.g., show an error message)
+                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            // Handle SQL Exception (e.g., show an error message)
+            logger.log(null," An error occurred while opening a new window:");
             e.printStackTrace();
         }
     }
@@ -156,12 +157,12 @@ public class OrganizerEventManagement implements Initializable {
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                // Handle success (e.g., show a confirmation message)
+                JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // Handle failure (e.g., show an error message)
+                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            // Handle SQL Exception (e.g., show an error message)
+            logger.log(null," An error occurred while opening a new window:");
             e.printStackTrace();
         }
     }
@@ -206,13 +207,12 @@ public class OrganizerEventManagement implements Initializable {
                 dateUpdate1.setText(rs.getDate("EventDate").toString());
                 locationUpdate1.setText(rs.getString("EventLocation"));
                 timeUpdate1.setText(rs.getString("EventTime"));
-                // If you have a description field, do the same for it
                 // descriptionUpdate1.setText(rs.getString("EventDescription")); // Uncomment if you have a description TextField
             } else {
-                // Handle case where event is not found (e.g., show an error message)
+                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            // Handle SQL Exception (e.g., show an error message)
+            logger.log(null," An error occurred while opening a new window:");
             e.printStackTrace();
         }
     }
@@ -245,12 +245,12 @@ public class OrganizerEventManagement implements Initializable {
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                // Handle success (e.g., show a confirmation message)
+                JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // Handle failure (e.g., no event found to delete)
+                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            // Handle SQL Exception (e.g., show an error message)
+            logger.log(null," An error occurred while opening a new window:");
             e.printStackTrace();
         }
     }
