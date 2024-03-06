@@ -22,6 +22,19 @@
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
+  <component name="DBNavigator.Project.DatabaseSessionManager">
+    <connection id="80b1dee1-a734-4ed4-8de6-534defa5e872" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="80b1dee1-a734-4ed4-8de6-534defa5e872" dataset="supermarket.Employee" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="80b1dee1-a734-4ed4-8de6-534defa5e872" dataset="supermarket1.branch" active-filter-id="ba61121a-f2b6-453c-a802-6483602319af">
+      <filter id="ba61121a-f2b6-453c-a802-6483602319af" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="branchid" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="80b1dee1-a734-4ed4-8de6-534defa5e872" dataset="supermarket.Branch" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="80b1dee1-a734-4ed4-8de6-534defa5e872" dataset="supermarket.Delivers" active-filter-id="EMPTY_FILTER" />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
@@ -34,8 +47,8 @@
           <description value="" />
           <database-type value="POSTGRES" />
           <config-type value="BASIC" />
-          <database-version value="16.2" />
-          <driver-source value="BUILTIN" />
+          <database-version value="16.1" />
+          <driver-source value="EXTERNAL" />
           <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />

@@ -1,9 +1,51 @@
 package org.example;
 
+import static java.lang.Integer.parseInt;
+
 public class TESTINPUT {
     private TESTINPUT(){
 
     }
+
+
+    public static boolean emptyTest(String name) {
+        if (name.equals(null)||name.isEmpty())
+            return false;
+        else return true;
+    }
+
+
+
+    public static boolean VenueNameTest(String name) {
+      if (name.equals(null)||name.isEmpty())
+          return false;
+      else return true;
+    }
+    public static boolean VenueLocationTest(String Location) {
+        if (Location.equals(null)||Location.isEmpty())
+            return false;
+        else return true;
+    }
+
+    public static boolean VenueCapacityTest(String Capacity) {
+        int i = parseInt(Capacity);
+        if (i<=0)
+            return false;
+        else return true;
+    }
+
+    public static boolean VenuePricingTest(String Pricing) {
+        int i = parseInt(Pricing);
+        if (i<=0)
+            return false;
+        else return true;
+
+
+    }
+
+
+
+
     public static boolean idTest(String id) {
         if (id.length() == 9) {
             boolean flag = true;

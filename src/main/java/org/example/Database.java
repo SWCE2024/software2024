@@ -2,6 +2,7 @@ package org.example;
 import java.sql.*;
 
 public class Database {
+    public static String[] search;
     private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USER = "postgres";
     private static final String PASSWORD = "123456";
@@ -53,4 +54,54 @@ public class Database {
 
 
     }
+
+
+
+
+
+
+
+
+    public static boolean AddVenue(String VenueID, String VenueName, String Location, String Capacity, String Pricing) {
+        String sql = "INSERT INTO software2024.\"Venue\" (\"VenueID\", \"VenueName\", \"Location\", \"Capacity\", \"Pricing\") VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, VenueID);
+            pstmt.setString(2, VenueName);
+            pstmt.setString(3, Location);
+            pstmt.setString(4, Capacity);
+            pstmt.setString(5, Pricing);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+    }
+    public static boolean DeleteVenue(String VenueID) {
+        String sql = "DELETE FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ VenueID+"'" ;
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             pstmt.executeUpdate();
+             return true;
+        }
+
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+    }
+
+
+
+
+
+
+
 }
