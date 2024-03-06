@@ -1,4 +1,8 @@
 package org.example;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 import static java.lang.Integer.parseInt;
 
@@ -98,6 +102,83 @@ public class TESTINPUT {
             }
             return flags&&flagc&&flagn;
         }
+    }
+
+    public static boolean dateTest(String Date){
+        LocalDate enteredDate = parseUserInput(Date);
+
+        // Check if the entered date is in the future
+        if (enteredDate != null && isFutureDate(enteredDate)) {
+           // System.out.println("The entered date is in the future.");
+            return true;
+        } else {
+            System.out.println("Invalid date, the date should be in the future.");
+            return false;
+        }
+
+    }
+
+    public static boolean timeTest(String Time){
+        if (isValidTime(Time)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static boolean countTest(String Attendecount){
+        try {
+            int count = Integer.parseInt(Attendecount);
+
+            if (isValidCount(count)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid integer.");
+            return false;
+        }
+
+    }
+    public static boolean pictureTest(String Picture){
+        if (Picture.indexOf(".png")!= -1 || Picture.indexOf(".jpg")!= -1) return true;
+        else
+            return false;
+    }
+
+    private static boolean isValidCount(int count) {
+        return count > 0;
+    }
+
+    private static boolean isValidTime(String inputTime) {
+        try {
+            LocalTime time = LocalTime.parse(inputTime);
+            return time.isAfter(LocalTime.MIN) && time.isBefore(LocalTime.MAX);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    private static LocalDate parseUserInput(String userInput) {
+        try {
+            // Parse the user input using the specified date format
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            return LocalDate.parse(userInput, formatter);
+        } catch (Exception e) {
+            // Handle parsing exceptions (e.g., invalid format)
+            System.out.println("Invalid date format. Please use the format yyyy-MM-dd.");
+            return null;
+        }
+    }
+
+    private static boolean isFutureDate(LocalDate date) {
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Compare the entered date with the current date
+        return date.isAfter(currentDate);
     }
 
 
