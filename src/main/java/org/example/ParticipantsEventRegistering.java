@@ -125,7 +125,7 @@ public class ParticipantsEventRegistering {
 
               String name = eventName.getText();
               String date = eventDate.getText();
-              String time = eventTime.getText();
+              String time = eventTime.getText()+":00";
               String count = attendeCount.getText();
               String comboBoxValue = (String) getSelectedComboBoxItem(ComboBox);
               String imagePath = getImagePathFromImageView(image);
@@ -133,7 +133,7 @@ public class ParticipantsEventRegistering {
               String dateString = date; // Replace this with your actual date string
               java.sql.Date sqlDate = java.sql.Date.valueOf(dateString);
 
-              String timeString = time; // Replace this with your actual date string
+              String timeString = time;  // Replace this with your actual time string
               java.sql.Time sqlTime = java.sql.Time.valueOf(timeString);
 
               String sql = "INSERT INTO software2024.\"Events\" (\"CID\",\"EventType\",\"EventName\",\"EventDate\",\"Location\",\"AttendeeCount\",\"MediaURL\",\"EventTime\") VALUES (?,?,?,?,?,?,?,?)";
@@ -141,12 +141,13 @@ public class ParticipantsEventRegistering {
               Connection con = Database.connect();
               PreparedStatement preparedStatement = con.prepareStatement(sql);
 
+
               preparedStatement.setString(1, "123");  // Assuming CID is an integer
               preparedStatement.setString(2, "Decoration");
               preparedStatement.setString(3, name);
               preparedStatement.setDate(4, sqlDate);
               preparedStatement.setString(5, comboBoxValue);
-              preparedStatement.setString(6, "count");
+              preparedStatement.setString(6, count);
               preparedStatement.setString(7, imagePath);
               preparedStatement.setTime(8, sqlTime);
 
