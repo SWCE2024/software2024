@@ -10,20 +10,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javax.swing.*;
-import java.io.IOException;
-import java.sql.*;
 import java.util.logging.Level;
 import static org.example.SignUpController.logger;
-
 public class HelloController {
-
     @FXML
     private TextField gmailLogIn;
-
     @FXML
     private Button login1;
-
     @FXML
     private PasswordField passwordLogIn;
     @FXML
@@ -72,7 +65,6 @@ public class HelloController {
             logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
         }
     }
-
     @FXML
     void signUp1Clicked(ActionEvent event) {
         try{
@@ -87,7 +79,6 @@ public class HelloController {
             logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
         }
     }
-
     public void startClicked(MouseEvent mouseEvent) {
         try{
             Parent root;

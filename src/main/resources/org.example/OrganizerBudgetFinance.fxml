@@ -2,16 +2,27 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.OrganizerBudgetFinance">
+<AnchorPane prefHeight="488.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.OrganizerBudgetFinance">
     <children>
-        <AnchorPane layoutX="-10.0" layoutY="-5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/screen2.css">
+        <AnchorPane layoutX="-3.0" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/screen2.css">
             <children>
-
-                <Label layoutX="61.0" layoutY="19.0" prefHeight="51.0" prefWidth="166.0" text="YOUR EVENT" textFill="#4e4b4a">
+                <ImageView fitHeight="91.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@accessories/eventt.jpg" />
+                    </image>
+                </ImageView>
+                <Label layoutX="91.0" layoutY="20.0" prefHeight="51.0" prefWidth="166.0" text="YOUR EVENT" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="24.0" />
                     </font>
@@ -19,51 +30,73 @@
                         <Insets left="60.0" />
                     </opaqueInsets>
                 </Label>
-                <Label layoutX="344.0" layoutY="71.0" prefHeight="51.0" prefWidth="123.0" text="MENU" textFill="#bc4e2a">
+                <Label layoutX="247.0" layoutY="64.0" prefHeight="54.0" prefWidth="317.0" text="Budget &amp; Finance" textFill="#bc4e2a">
                     <font>
-                        <Font name="System Bold Italic" size="24.0" />
+                        <Font name="System Bold Italic" size="36.0" />
                     </font>
                     <opaqueInsets>
                         <Insets left="60.0" />
                     </opaqueInsets>
                 </Label>
-                <Label fx:id="eventManagement" layoutX="61.0" layoutY="176.0" onMouseClicked="#eventManagementClicked" prefHeight="51.0" prefWidth="226.0" text="event management" textFill="#bc4e2a">
+                <Label fx:id="back" layoutX="678.0" layoutY="20.0" onMouseClicked="#backClicked" prefHeight="35.0" prefWidth="68.0" text="Back " textFill="#bc4e2a">
                     <font>
-                        <Font name="System Bold Italic" size="25.0" />
+                        <Font name="System Bold Italic" size="18.0" />
                     </font>
+                    <opaqueInsets>
+                        <Insets left="60.0" />
+                    </opaqueInsets>
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="VenueManagement" layoutX="396.0" layoutY="176.0" onMouseClicked="#VenueManagementClicked" prefHeight="51.0" prefWidth="238.0" text="Venue Management" textFill="#bc4e2a">
-                    <font>
-                        <Font name="System Bold Italic" size="25.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Label>
-                <Label fx:id="VendorManagement" layoutX="47.0" layoutY="272.0" onMouseClicked="#VendorManagementClicked" prefHeight="46.0" prefWidth="253.0" text="Vendor Management" textFill="#bc4e2a">
-                    <font>
-                        <Font name="System Bold Italic" size="25.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Label>
-                <Label fx:id="BudgetFinance" layoutX="388.0" layoutY="281.0" onMouseClicked="#BudgetFinanceClicked" prefHeight="46.0" prefWidth="253.0" text="Budget &amp; Finance" textFill="#bc4e2a">
-                    <font>
-                        <Font name="System Bold Italic" size="25.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Label>
-                <Label fx:id="calender" layoutX="255.0" layoutY="376.0" onMouseClicked="#calender" text="CalenderScheduling " textFill="#bc4e2a">
-                    <font>
-                        <Font name="System Bold Italic" size="25.0" />
-                    </font>
-                </Label>
+                <HBox layoutX="151.0" layoutY="125.0" prefHeight="35.0" prefWidth="598.0">
+                    <children>
+                        <Label prefHeight="30.0" prefWidth="74.0" text="Event ID" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets left="60.0" />
+                            </opaqueInsets>
+                        </Label>
+                        <TextField fx:id="id2" prefHeight="23.0" prefWidth="126.0">
+                            <opaqueInsets>
+                                <Insets bottom="10.0" top="50.0" />
+                            </opaqueInsets>
+                        </TextField>
+                        <Label prefHeight="30.0" prefWidth="14.0" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets left="60.0" />
+                            </opaqueInsets>
+                        </Label>
+                        <Label prefHeight="30.0" prefWidth="14.0" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets left="60.0" />
+                            </opaqueInsets>
+                        </Label>
+                        <Button fx:id="search" mnemonicParsing="false" onMouseClicked="#searchClicked" prefHeight="26.0" prefWidth="47.0" style="-fx-background-color: #ead5d5;" text="✅" textFill="#030000">
+                            <opaqueInsets>
+                                <Insets left="30.0" />
+                            </opaqueInsets>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </HBox>
+                <TableView fx:id="table" layoutX="188.0" layoutY="160.0" prefHeight="302.0" prefWidth="374.0">
+                    <columns>
+                        <TableColumn fx:id="eventId" prefWidth="114.4000244140625" text="Event Name" />
+                        <TableColumn fx:id="vendorPayments" prefWidth="136.7999725341797" text="Vendor Payments" />
+                        <TableColumn fx:id="venueFees" prefWidth="119.20001220703125" text="Venue rental fees" />
+                    </columns>
+                </TableView>
             </children>
         </AnchorPane>
     </children>

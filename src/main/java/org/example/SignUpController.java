@@ -2,12 +2,9 @@ package org.example;
 import animatefx.animation.FadeIn;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
-
 import java.io.IOException;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXMLLoader;
@@ -22,21 +19,16 @@ import javafx.scene.control.TextField;
 
 public class SignUpController {
     static Logger logger = Logger.getLogger(SignUpController.class.getName());
-
     @FXML
     private TextField address;
-
     @FXML
     private TextField userName;
-
     @FXML
     private TextField gmail;
-
     @FXML
     private TextField id;
     @FXML
     private TextField phoneNumber;
-
     @FXML
     private PasswordField password;
     @FXML
@@ -57,7 +49,6 @@ public class SignUpController {
             logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
         }
     }
-
     @FXML
     void signUp2Clicked(ActionEvent event) {
         String idText = id.getText();
@@ -66,13 +57,10 @@ public class SignUpController {
         String gmailText = gmail.getText();
         String userNameText = userName.getText();
         String passwordText = password.getText();
-
-        // Check if all inputs are valid
         boolean validId = TESTINPUT.idTest(idText);
         boolean validPhone = TESTINPUT.phoneNumberTest(phoneNumberText);
         boolean validGmail = TESTINPUT.gmailTest(gmailText);
         boolean validPassword = TESTINPUT.passwordTest(passwordText);
-
         if (validId && validPhone && validGmail && validPassword) {
             boolean isRegistered = Database.registerCustomer(idText, phoneNumberText, addressText, gmailText, userNameText, passwordText);
             if (isRegistered) {
@@ -84,7 +72,6 @@ public class SignUpController {
             JOptionPane.showMessageDialog(null, "Please enter valid information in all fields.", em, JOptionPane.ERROR_MESSAGE);
         }
     }
-
     private void loadMenuParticipants() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
