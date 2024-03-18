@@ -12,13 +12,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
-
 import static org.example.SignUpController.logger;
 
 public class OrganizerEventManagement implements Initializable {
@@ -96,21 +94,17 @@ public class OrganizerEventManagement implements Initializable {
         String eventDate = dateUpdate1.getText();
         String eventLocation = locationUpdate1.getText();
         String eventTime = timeUpdate1.getText();
-
         updateEvent(oldEventName, newEventName, eventDate, eventLocation, eventTime);
-
     }
     private void updateEvent(String oldName, String newName, String date, String location, String time) {
         String sql = "UPDATE software2024.\"EVENT\" SET \"EventName\" = ?, \"EventDate\" = ?, \"EventLocation\" = ?, \"EventTime\" = ? WHERE \"EventName\" = ?";
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
             pstmt.setString(1, newName);
             pstmt.setDate(2, Date.valueOf(date));
             pstmt.setString(3, location);
             pstmt.setString(4, time);
             pstmt.setString(5, oldName);
-
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -122,16 +116,12 @@ public class OrganizerEventManagement implements Initializable {
             e.printStackTrace();
         }
     }
-
-
     @FXML
     void addClicked(MouseEvent event) {
         addProductBox.setVisible(true);
         deleteBox.setVisible(false);
         updateProductBox.setVisible(false);
-
     }
-
     @FXML
     void addProduct1Clicked(MouseEvent event) {
         String eventName = eventNameAdd1.getText();
@@ -139,22 +129,17 @@ public class OrganizerEventManagement implements Initializable {
         String eventLocation = loacationAdd1.getText();
         String eventTime = timeAdd1.getText();
         String eventDescription = discriptionAdd11.getText();
-
         addEvent(eventName, eventDate, eventLocation, eventTime, eventDescription);
-
     }
-
     private void addEvent(String name, String date, String location, String time, String description) {
         String sql = "INSERT INTO software2024.\"EVENT\" (\"EventName\", \"EventDate\", \"EventLocation\", \"EventTime\", \"EventDiscription\") VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
             pstmt.setString(1, name);
             pstmt.setDate(2, Date.valueOf(date));
             pstmt.setString(3, location);
             pstmt.setString(4, time);
             pstmt.setString(5, description);
-
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -178,7 +163,6 @@ public class OrganizerEventManagement implements Initializable {
         }catch (IOException e){
             logger.log(null," An error occurred while opening a new window:");
         }
-
     }
     @FXML
     void deleteClicked(MouseEvent event) {
@@ -186,28 +170,23 @@ public class OrganizerEventManagement implements Initializable {
         deleteBox.setVisible(true);
         updateProductBox.setVisible(false);
     }
-
     @FXML
     void gitInformationClicked(MouseEvent event) {
         String eventName = eventNameUpdate1.getText();
         getEventInformation(eventName);
     }
-
     private void getEventInformation(String name) {
         String sql = "SELECT * FROM software2024.\"EVENT\" WHERE \"EventName\" = ?";
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
             pstmt.setString(1, name);
             ResultSet rs = pstmt.executeQuery();
-
             if (rs.next()) {
-                // Assuming the column names in the ResultSet are the same as in the database
                 eventNameUpdate1After.setText(rs.getString("EventName"));
                 dateUpdate1.setText(rs.getDate("EventDate").toString());
                 locationUpdate1.setText(rs.getString("EventLocation"));
                 timeUpdate1.setText(rs.getString("EventTime"));
-                // descriptionUpdate1.setText(rs.getString("EventDescription")); // Uncomment if you have a description TextField
+                // descriptionUpdate1.setText(rs.getString("EventDescription"));
             } else {
                 JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -216,15 +195,12 @@ public class OrganizerEventManagement implements Initializable {
             e.printStackTrace();
         }
     }
-
     @FXML
     void updateClicked(MouseEvent event) {
         addProductBox.setVisible(false);
         deleteBox.setVisible(false);
         updateProductBox.setVisible(true);
-
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addProductBox.setVisible(false);
@@ -240,9 +216,7 @@ public class OrganizerEventManagement implements Initializable {
         String sql = "DELETE FROM software2024.\"EVENT\" WHERE \"EventName\" = ?";
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
             pstmt.setString(1, name);
-
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);

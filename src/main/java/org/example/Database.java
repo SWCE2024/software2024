@@ -37,7 +37,6 @@ public class Database {
         String sql = "INSERT INTO software2024.\"customer\" (\"CID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
             pstmt.setString(1, id);
             pstmt.setString(2, phoneNumber);
             pstmt.setString(3, address);
@@ -54,13 +53,6 @@ public class Database {
 
 
     }
-
-
-
-
-
-
-
 
     public static boolean AddVenue(String VenueID, String VenueName, String Location, String Capacity, String Pricing) {
         String sql = "INSERT INTO software2024.\"Venue\" (\"VenueID\", \"VenueName\", \"Location\", \"Capacity\", \"Pricing\") VALUES (?, ?, ?, ?, ?)";
@@ -97,11 +89,4 @@ public class Database {
 
 
     }
-
-
-
-
-
-
-
 }
