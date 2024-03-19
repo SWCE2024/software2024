@@ -11,14 +11,11 @@ import javafx.stage.Stage;
 
 public class MenuAdmin {
 
-    @FXML
-    private Label OrganizerOperation;
+    @FXML private Label OrganizerOperation;
 
-    @FXML
-    private Label Report;
+    @FXML private Label Report;
 
-    @FXML
-    private Label UserManagement;
+    @FXML private Label UserManagement;
 
     @FXML
     void OrganizerManagementClicked(MouseEvent event) {
@@ -33,9 +30,7 @@ public class MenuAdmin {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
-
     }
-
     @FXML
     void ReportClicked(MouseEvent event) {
         try{
@@ -49,9 +44,7 @@ public class MenuAdmin {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
-
     }
-
     @FXML
     void UserManagementClicked(MouseEvent event) {
         try{
@@ -65,7 +58,6 @@ public class MenuAdmin {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
-
     }
 
 }
