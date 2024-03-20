@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import static org.example.SignUpController.logger;
 public class OrganizerBudgetFinance {
     @FXML
+    private TableColumn<EventFinance, String> BookingStatus;
+    @FXML
     private Label back;
 
     @FXML
@@ -42,12 +44,16 @@ public class OrganizerBudgetFinance {
         vendorPayments.setCellValueFactory(cellData -> cellData.getValue().vendorPaymentsProperty());
         venueFees.setCellValueFactory(cellData -> cellData.getValue().venueRentalFeesProperty());
         loadEventData();
+        BookingStatus.setCellValueFactory(cellData -> cellData.getValue().bookingStatusProperty());
+        loadEventData();
     }
 
     private void loadEventData() {
         String sql = "SELECT e.\"EventName\", " +
                 "(SELECT SUM(vb.\"PaymentAmount\") FROM software2024.\"VendorBooking\" vb WHERE vb.\"EventID\" = e.\"EventID\") AS VendorPayments, " +
-                "(SELECT SUM(vb.\"RentalFee\") FROM software2024.\"VenueBooking\" vb WHERE vb.\"EventID\" = e.\"EventID\") AS VenueRentalFees " +
+                "(SELECT SUM(vb.\"RentalFee\") FROM software2024.\"VenueBooking\" vb WHERE vb.\"EventID\" = e.\"EventID\") AS VenueRentalFees, " +
+                "(SELECT STRING_AGG(vb.\"BookingStatus\", ', ') FROM software2024.\"VendorBooking\" vb WHERE vb.\"EventID\" = e.\"EventID\") AS VendorBookingStatus, " +
+                "(SELECT STRING_AGG(vb.\"BookingStatus\", ', ') FROM software2024.\"VenueBooking\" vb WHERE vb.\"EventID\" = e.\"EventID\") AS VenueBookingStatus " +
                 "FROM software2024.\"Events\" e";
 
         try (Connection conn = Database.connect();
@@ -58,14 +64,19 @@ public class OrganizerBudgetFinance {
                 String eventName = rs.getString("EventName");
                 String vendorPayments = rs.getString("VendorPayments");
                 String venueRentalFees = rs.getString("VenueRentalFees");
-                EventFinance eventFinance = new EventFinance(eventName, vendorPayments, venueRentalFees);
+                String vendorBookingStatus = rs.getString("VendorBookingStatus");
+                String venueBookingStatus = rs.getString("VenueBookingStatus");
+                // Combine the statuses if needed, or handle them separately
+                String combinedStatus = vendorBookingStatus + "; " + venueBookingStatus;
+                EventFinance eventFinance = new EventFinance(eventName, vendorPayments, venueRentalFees, combinedStatus);
                 table.getItems().add(eventFinance);
             }
         } catch (SQLException e) {
-            logger.log(null," An error occurred while opening a new window:");
+            logger.log(null,"An error occurred while opening a new window:");
             e.printStackTrace();
         }
     }
+
     @FXML
     void searchClicked(MouseEvent event) {
         if (!id2.getText().trim().isEmpty()) {
@@ -79,7 +90,9 @@ public class OrganizerBudgetFinance {
     private void loadSingleEvent(String eventID) {
         String sql = "SELECT e.\"EventName\", " +
                 "(SELECT SUM(vb.\"PaymentAmount\") FROM software2024.\"VendorBooking\" vb WHERE vb.\"EventID\" = e.\"EventID\") AS VendorPayments, " +
-                "(SELECT SUM(vb.\"RentalFee\") FROM software2024.\"VenueBooking\" vb WHERE vb.\"EventID\" = e.\"EventID\") AS VenueRentalFees " +
+                "(SELECT SUM(venb.\"RentalFee\") FROM software2024.\"VenueBooking\" venb WHERE venb.\"EventID\" = e.\"EventID\") AS VenueRentalFees, " +
+                "(SELECT STRING_AGG(DISTINCT vb.\"BookingStatus\", ', ') FROM software2024.\"VendorBooking\" vb WHERE vb.\"EventID\" = e.\"EventID\") AS VendorBookingStatus, " +
+                "(SELECT STRING_AGG(DISTINCT venb.\"BookingStatus\", ', ') FROM software2024.\"VenueBooking\" venb WHERE venb.\"EventID\" = e.\"EventID\") AS VenueBookingStatus " +
                 "FROM software2024.\"Events\" e " +
                 "WHERE e.\"EventID\" = ?";
 
@@ -91,14 +104,19 @@ public class OrganizerBudgetFinance {
                 String eventName = rs.getString("EventName");
                 String vendorPayments = rs.getString("VendorPayments");
                 String venueRentalFees = rs.getString("VenueRentalFees");
-                EventFinance eventFinance = new EventFinance(eventName, vendorPayments, venueRentalFees);
+                String vendorBookingStatus = rs.getString("VendorBookingStatus");
+                String venueBookingStatus = rs.getString("VenueBookingStatus");
+                // Combine the statuses if needed, or handle them separately
+                String combinedStatus = vendorBookingStatus + "; " + venueBookingStatus;
+                EventFinance eventFinance = new EventFinance(eventName, vendorPayments, venueRentalFees, combinedStatus);
                 table.getItems().add(eventFinance);
             }
         } catch (SQLException e) {
-            logger.log(null," An error occurred while opening a new window:");
+            logger.log(null," An error occurred while fetching single event data:");
             e.printStackTrace();
         }
     }
+
     @FXML
     void backClicked(MouseEvent event) {
         try {
