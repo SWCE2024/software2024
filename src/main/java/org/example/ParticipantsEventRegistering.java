@@ -96,31 +96,6 @@ public class ParticipantsEventRegistering {
       else if (!TESTINPUT.countTest(attendeCount.getText()))
           JOptionPane.showMessageDialog(null,"Unvalid Attende Count","ERROR",JOptionPane.ERROR_MESSAGE);
       else {
-         ////////////database and sql here
-         /* String name = eventName.getText();
-          String date = eventDate.getText();
-          String time = eventTime.getText();
-          String count =attendeCount.getText();
-          String comboBoxValue = (String) getSelectedComboBoxItem(ComboBox); // Adjust the type based on your ComboBox data type
-          String imagePath = getImagePathFromImageView(image);
-
-          String sql="INSERT INTO software2024.\" Events\" (\"CID\",\"EventType\",\"EventName\",\"EventDate\",\"Location\",\"AttendeeCount\",\"MediaURL\",\"EventTime\") VALUES (?,?,?, ?, ?, ?, ?,?)";
-          Connection con = Database.connect();
-          PreparedStatement preparedStatement = con.prepareStatement(sql);
-
-              preparedStatement.setInt(1, Integer.parseInt("123"));
-              preparedStatement.setString(2, "Decoration");
-              preparedStatement.setString(3, name);
-              preparedStatement.setString(4, date);
-              preparedStatement.setString(5, comboBoxValue);
-              preparedStatement.setInt(6, Integer.parseInt(count));
-              preparedStatement.setString(7, imagePath);
-              preparedStatement.setString(8,time);
-
-              preparedStatement.executeUpdate();
-                  JOptionPane.showMessageDialog(null,"Done","Added Successfully",JOptionPane.INFORMATION_MESSAGE);
-                  */
-          ////////////////
           try {
 
               String name = eventName.getText();
