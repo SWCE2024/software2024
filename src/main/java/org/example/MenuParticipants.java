@@ -3,35 +3,38 @@ package org.example;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-
 import animatefx.animation.FadeIn;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javax.mail.MessagingException;
+import javax.swing.*;
+import java.util.List;
+
 public class MenuParticipants {
 
-    @FXML
-    private Label DirectCommunication;
-
-    @FXML
-    private Label EventCalender;
-
-    @FXML
-    private Label EventRegistering;
-
-    @FXML
-    private Label TicketManagement;
-
+    @FXML private Label DirectCommunication;
+    @FXML private Label EventCalender;
+    @FXML private Label EventRegistering;
+    @FXML private Label TicketManagement;
+    private String em="successful";
     @FXML
     void DirectCommunicationClicked(MouseEvent event) {
-
-
+        List<String> participantEmails = Database.fetchParticipantEmails();
+        String subject = "YOUR EVENT Application";
+        String messageText = "We are happy that you chose our store. Please let us know if you have any questions";
+        for (String email : participantEmails) {
+            try {
+                EmailUtil.sendEmail(email, subject, messageText);
+                System.out.println("Email sent successfully to " + email);
+                JOptionPane.showMessageDialog(null, "Email sent successfully.", em, JOptionPane.INFORMATION_MESSAGE);
+            } catch (MessagingException e) {
+                System.out.println("Could not send email to " + email);
+                e.printStackTrace();
+            }
+        }
     }
-
     @FXML
     void EventCalenderClicked(MouseEvent event) {
         try{
@@ -45,9 +48,7 @@ public class MenuParticipants {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
-
     }
-
     @FXML
     void EventRegisteringClicked(MouseEvent event) {
         try{
@@ -61,9 +62,7 @@ public class MenuParticipants {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
-
     }
-
     @FXML
     void TicketManagementClicked(MouseEvent event) {
         try{
@@ -77,7 +76,6 @@ public class MenuParticipants {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
-
     }
 
 }

@@ -1,5 +1,7 @@
 package org.example;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
     public static String[] search;
@@ -16,6 +18,21 @@ public class Database {
             e.printStackTrace();
         }
         return conn;
+    }
+
+    public static List<String> fetchParticipantEmails() {
+        List<String> emails = new ArrayList<>();
+        String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\"";
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                emails.add(rs.getString("GMAIL"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return emails;
     }
 
     public static boolean validateLogin(String email, String password, String table) {
