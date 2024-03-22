@@ -8,7 +8,6 @@ public class EventCalender {
     private final SimpleStringProperty eventDate;
     private final SimpleStringProperty eventTime;
     private final SimpleStringProperty eventType;
-
     public EventCalender(String eventName, String eventDate, String eventTime, String eventType ) {
         this.eventName = new SimpleStringProperty(eventName);
         this.eventDate = new SimpleStringProperty(eventDate);
