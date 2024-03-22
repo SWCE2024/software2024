@@ -5,7 +5,6 @@ import io.cucumber.java.en.When;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 public class calender {
-
     @When("the organizer click the search calendar and flag is {string}")
     public void the_organizer_click_the_search_calendar_and_flag_is(String string)
     {
