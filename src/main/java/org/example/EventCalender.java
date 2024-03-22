@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class EventCalender {
 
-
     private final SimpleStringProperty eventName;
     private final SimpleStringProperty eventDate;
     private final SimpleStringProperty eventTime;
