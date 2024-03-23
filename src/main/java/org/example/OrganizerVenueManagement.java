@@ -1,13 +1,25 @@
 package org.example;
+        import animatefx.animation.FadeIn;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
+        import javafx.fxml.FXMLLoader;
+        import javafx.scene.Parent;
+        import javafx.scene.Scene;
         import javafx.scene.control.Button;
         import javafx.scene.control.Label;
         import javafx.scene.control.TextField;
+        import javafx.scene.input.MouseEvent;
+        import javafx.stage.Stage;
+
         import javax.swing.*;
+        import java.io.IOException;
         import java.sql.*;
         import static org.example.Database.connect;
+        import static org.example.SignUpController.logger;
+
 public class OrganizerVenueManagement {
+    @FXML
+    private Label back;
     @FXML
     private Button AddBotton;
     @FXML
@@ -62,7 +74,8 @@ public class OrganizerVenueManagement {
     }
 
     @FXML
-    void DeleteBottonClicked(ActionEvent event) {
+    void DeleteBottonClicked(ActionEvent event)
+    {
         String VenueID=VenueIDtxt.getText();
         boolean isRegistered = Database.DeleteVenue(VenueID );
         if (isRegistered)
@@ -78,7 +91,8 @@ public class OrganizerVenueManagement {
             JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
     @FXML
-    void SearchBottonClicked(ActionEvent event) {
+    void SearchBottonClicked(ActionEvent event)
+    {
 
         String VenueID=VenueIDtxt.getText();
         String sql = " SELECT * FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ VenueID+"'" ;
@@ -101,7 +115,8 @@ public class OrganizerVenueManagement {
         }
     }
     @FXML
-    void UpdateBottonClicked(ActionEvent event) {
+    void UpdateBottonClicked(ActionEvent event)
+    {
 
         String VenueID=VenueIDtxt.getText();
         String VenueName=VenueNametxt.getText();
@@ -129,6 +144,23 @@ public class OrganizerVenueManagement {
 
 
 
+
     }
+
+
+    @FXML
+    void backClicked(MouseEvent event) {
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
+            Stage stage = (Stage) back.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            new FadeIn(root).play();
+        }catch (IOException e){
+            logger.log(null," An error occurred while opening a new window:");
+        }
+    }
+
 
 }
