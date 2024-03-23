@@ -74,7 +74,8 @@ public class OrganizerVenueManagement {
     }
 
     @FXML
-    void DeleteBottonClicked(ActionEvent event) {
+    void DeleteBottonClicked(ActionEvent event)
+    {
         String VenueID=VenueIDtxt.getText();
         boolean isRegistered = Database.DeleteVenue(VenueID );
         if (isRegistered)
@@ -90,7 +91,8 @@ public class OrganizerVenueManagement {
             JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
     @FXML
-    void SearchBottonClicked(ActionEvent event) {
+    void SearchBottonClicked(ActionEvent event)
+    {
 
         String VenueID=VenueIDtxt.getText();
         String sql = " SELECT * FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ VenueID+"'" ;
@@ -113,7 +115,8 @@ public class OrganizerVenueManagement {
         }
     }
     @FXML
-    void UpdateBottonClicked(ActionEvent event) {
+    void UpdateBottonClicked(ActionEvent event)
+    {
 
         String VenueID=VenueIDtxt.getText();
         String VenueName=VenueNametxt.getText();

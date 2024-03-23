@@ -22,6 +22,57 @@ public class Database {
         return conn;
     }
 
+
+
+
+
+    public static boolean AddOrg(String ID, String name, String address, String gmail, String phone ,String pass)
+    {
+        String sql = "INSERT INTO software2024.\"organizer\" (\"OID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1,ID);
+            pstmt.setString(2, phone);
+            pstmt.setString(3, address);
+            pstmt.setString(4, gmail);
+            pstmt.setString(5, name);
+            pstmt.setString(6, pass);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+    }
+
+
+
+
+
+    public static boolean DeleteOrg(String ID)
+    {
+        String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ ID+"'" ;
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.executeUpdate();
+            return true;
+        }
+
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+
+
     public static List<String> fetchParticipantEmails() {
         List<String> emails = new ArrayList<>();
         String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\"";
@@ -139,7 +190,8 @@ public class Database {
 
     }
 
-    public static boolean AddVenue(String VenueID, String VenueName, String Location, String Capacity, String Pricing) {
+    public static boolean AddVenue(String VenueID, String VenueName, String Location, String Capacity, String Pricing)
+    {
         String sql = "INSERT INTO software2024.\"Venue\" (\"VenueID\", \"VenueName\", \"Location\", \"Capacity\", \"Pricing\") VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -159,7 +211,8 @@ public class Database {
 
 
     }
-    public static boolean DeleteVenue(String VenueID) {
+    public static boolean DeleteVenue(String VenueID)
+    {
         String sql = "DELETE FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ VenueID+"'" ;
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
