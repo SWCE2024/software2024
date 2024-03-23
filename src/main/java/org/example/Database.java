@@ -23,10 +23,53 @@ public class Database {
     }
 
 
+    public static List<Date> getDateEvents()
+    {
+        List<Date> date =new ArrayList<>();
+       int count =0 ;
+
+
+        String sql = "SELECT \"EventDate\" FROM software2024.\"Events\"  " ;
+        try
+        {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            boolean c =true;
+
+            while (c)
+            {
+                if (rs.next())
+                    count++;
+                else
+                    c=false;
+
+            }
 
 
 
-    public static boolean AddOrg(String ID, String name, String address, String gmail, String phone ,String pass)
+            System.out.println(count);
+
+             rs = stmt.executeQuery(sql);
+
+            for(int i =0;i<count;i++)
+                if (rs.next())
+                    date.add(rs.getDate("EventDate")) ;
+
+
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+return date;
+
+    }
+
+    public static boolean AddOrg(String ID, String name, String address, String gmail, String phone , String pass)
     {
         String sql = "INSERT INTO software2024.\"organizer\" (\"OID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = connect();
