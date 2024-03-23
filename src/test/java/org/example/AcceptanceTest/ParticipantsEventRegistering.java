@@ -61,8 +61,4 @@ public class ParticipantsEventRegistering {
         assertTrue(true);
     }
 
-
-
-
-
 }

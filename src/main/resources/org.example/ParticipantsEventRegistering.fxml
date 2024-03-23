@@ -157,5 +157,16 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Label>
+      <Label fx:id="next" layoutX="561.0" layoutY="449.0" onMouseClicked="#nextClicked" prefHeight="27.0" prefWidth="174.0" text="Let's select your event details " textFill="#bc4e2a">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <opaqueInsets>
+            <Insets left="60.0" />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
     </children>
 </AnchorPane>

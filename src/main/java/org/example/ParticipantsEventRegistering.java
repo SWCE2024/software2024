@@ -2,6 +2,7 @@ package org.example;
 
 import animatefx.animation.FadeIn;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,22 +11,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
-
-import java.util.ResourceBundle;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 public class ParticipantsEventRegistering {
@@ -52,6 +50,9 @@ public class ParticipantsEventRegistering {
 
     @FXML
     private TextField eventTime;
+
+    @FXML
+    private Label next;
 
     @FXML
     private ImageView image;
@@ -86,6 +87,23 @@ public class ParticipantsEventRegistering {
 
     }
 
+    @FXML
+    void nextClicked(MouseEvent event) {
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsVendor.fxml"));
+            Stage stage=(Stage) next.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            FadeIn fadeIn = new FadeIn(root);
+            fadeIn.play();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     @FXML
     void addNewEvent(ActionEvent event) throws SQLException {
@@ -117,7 +135,7 @@ public class ParticipantsEventRegistering {
               PreparedStatement preparedStatement = con.prepareStatement(sql);
 
 
-              preparedStatement.setString(1, "123");  // Assuming CID is an integer
+              preparedStatement.setString(1, Database.getUserID());  // Assuming CID is an integer
               preparedStatement.setString(2, "Decoration");
               preparedStatement.setString(3, name);
               preparedStatement.setDate(4, sqlDate);

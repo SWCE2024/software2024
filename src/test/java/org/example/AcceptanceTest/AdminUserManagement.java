@@ -37,7 +37,8 @@ public class AdminUserManagement {
 
     @Given("an admin wants to update an existing user")
     public void anAdminWantsToUpdateAnExistingUser() {
-       assertTrue(true);
+       ////
+        assertTrue(true);
     }
     @When("he provides the {string}")
     public void heProvidesThe(String string) {
@@ -58,15 +59,12 @@ public class AdminUserManagement {
     }
     @Given("an admin wants to delete an existing user")
     public void anAdminWantsToDeleteAnExistingUser() {
+        //////check id
         assertTrue(true);
     }
     @When("he provides the {string} of the user to be deleted")
     public void heProvidesTheOfTheUserToBeDeleted(String string) {
        userID = string;
-    }
-    @When("the user exists in the database")
-    public void theUserExistsInTheDatabase() {
-        assertTrue(true);
     }
     @Then("the user should be successfully deleted")
     public void theUserShouldBeSuccessfullyDeleted() {

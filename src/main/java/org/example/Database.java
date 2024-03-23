@@ -9,6 +9,17 @@ public class Database {
     private static final String USER = "postgres";
     private static final String PASSWORD = "123456";
 
+    private static String userID;
+
+    public static String getUserID() {
+        String id=userID;
+        return userID ;
+    }
+
+    public static void setUserID(String ID) {
+        userID = ID;
+    }
+
     public static Connection connect() {
         Connection conn = null;
         try {

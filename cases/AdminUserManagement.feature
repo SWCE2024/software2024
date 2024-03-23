@@ -17,6 +17,5 @@ Feature: User Management
   Scenario: Delete User
     Given an admin wants to delete an existing user
     When he provides the "user ID" of the user to be deleted
-    And the user exists in the database
     And they click the "Delete" button
     Then the user should be successfully deleted
