@@ -47,10 +47,6 @@ public class ReminderCustomer
             e.printStackTrace();
         }
 
-
-
-
-
     }
 
 
