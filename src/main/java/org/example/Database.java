@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Database {
     public static String[] search;
+    public static String subject="";
+
     private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USER = "postgres";
     private static final String PASSWORD = "123456";
@@ -34,6 +36,72 @@ public class Database {
         }
         return emails;
     }
+
+
+
+
+    public static String GetParticipantMessageTicket()
+    {
+        String  message= "";
+        int cid=0;
+
+        String sql = "SELECT \"CID\" FROM software2024.\"customer\"  WHERE \"GMAIL\" ="+"'"+ HelloController.getEmail()+"'" ;
+        try
+        {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next())
+                cid = rs.getInt("CID");
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+        try
+        {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs ;
+
+            if(cid==0)
+                System.out.println("error in the id ");
+
+            else {
+                //tect the ctatuce of event done or not
+                sql = "SELECT * FROM software2024.\"Events\"  WHERE \"CID\" ='" + cid + "'";
+                rs = stmt.executeQuery(sql);
+
+
+                if (rs.next())
+                {
+                    subject = rs.getString("EventName");
+
+                    message = "Hello\n" +
+                            "We invite you to attend my private party on " + rs.getString("EventDate") + " at " + rs.getString("EventTime") + "\n" +
+                            "the location is " + rs.getString("Location") + ".\n" +
+                            "Your presence is an honor for us, and may you be well";
+
+
+                }
+                else
+                    System.out.println("error in massage!");
+
+            }
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return message;
+    }
+
+
 
     public static boolean validateLogin(String email, String password, String table) {
         String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = '" + email + "' AND \"PASSWORD\" = '" + password + "'";

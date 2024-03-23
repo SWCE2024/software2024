@@ -23,6 +23,14 @@ public class HelloController {
     private Button signUp;
     @FXML
     private Button start;
+
+    private static String emailreturn;
+
+    public  static String getEmail()
+    {
+        return emailreturn;
+    }
+
     @FXML
     public void login1Clicked(ActionEvent event) {
         String email = gmailLogIn.getText();
@@ -41,6 +49,7 @@ public class HelloController {
             } else if (Database.validateLogin(email, password, "customer")) {
                 System.out.println("login customer successfully.");
                 Parent root;
+                emailreturn=email;
                 FXMLLoader fxmlLoader;
                 root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
                 Stage stage = (Stage) login1.getScene().getWindow();
