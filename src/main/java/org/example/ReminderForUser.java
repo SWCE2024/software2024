@@ -11,18 +11,19 @@ public class ReminderForUser
 
         LocalDate currentdate =LocalDate.now();
 
-        List<Date> date=new ArrayList<>();
+        List<Date> date;
+        List<String> cid =Database.custumerCID;
+        String gmail ;
+
         date =Database.getDateEvents();
-
-
 
              for (int i =0 ;i<date.size();i++)
              {
 
                  if (currentdate.toString().equals(date.get(i).toString()))
                  {
-
-
+                     gmail =Database.getgmailReminder(cid.get(i));
+                     ReminderCustomer.sendReminder(gmail);
 
                  }
 
@@ -30,15 +31,8 @@ public class ReminderForUser
 
 
              System.out.println(currentdate);
-
-
-
         System.out.println(currentdate);
         System.out.println(date);
-
-
-
-
     }
 
 }
