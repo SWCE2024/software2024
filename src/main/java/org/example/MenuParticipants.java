@@ -21,18 +21,21 @@ public class MenuParticipants {
     private String em="successful";
     @FXML
     void DirectCommunicationClicked(MouseEvent event) {
-        List<String> participantEmails = Database.fetchParticipantEmails();
+        String participantEmail = HelloController.getEmail();
         String subject = "YOUR EVENT Application";
         String messageText = "We are happy that you chose our store. Please let us know if you have any questions";
-        for (String email : participantEmails) {
+        if (participantEmail != null && !participantEmail.isEmpty()) {
             try {
-                EmailUtil.sendEmail(email, subject, messageText);
-                System.out.println("Email sent successfully to " + email);
+                EmailUtil.sendEmail(participantEmail, subject, messageText);
+                System.out.println("Email sent successfully to " + participantEmail);
                 JOptionPane.showMessageDialog(null, "Email sent successfully.", em, JOptionPane.INFORMATION_MESSAGE);
             } catch (MessagingException e) {
-                System.out.println("Could not send email to " + email);
+                System.out.println("Could not send email to " + participantEmail);
                 e.printStackTrace();
             }
+        } else {
+            // Optionally handle the case where there is no email address to send to.
+            System.out.println("No email address available for the current participant.");
         }
     }
     @FXML
