@@ -32,7 +32,7 @@ public class Organizer_DeleteServiceProvider {
     void backClicked(MouseEvent event) {
         try {
             Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerVendorManegement.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerVendorManagement.fxml"));
             Stage stage=(Stage) back.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
