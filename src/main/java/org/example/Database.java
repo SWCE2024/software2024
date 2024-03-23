@@ -6,6 +6,8 @@ import java.util.List;
 public class Database {
     public static String[] search;
     public static String subject="";
+    public static List <String> custumerCID=new ArrayList<>();
+
 
     private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USER = "postgres";
@@ -29,7 +31,7 @@ public class Database {
        int count =0 ;
 
 
-        String sql = "SELECT \"EventDate\" FROM software2024.\"Events\"  " ;
+        String sql = "SELECT * FROM software2024.\"Events\"  " ;
         try
         {
             Connection conn = connect();
@@ -53,9 +55,11 @@ public class Database {
              rs = stmt.executeQuery(sql);
 
             for(int i =0;i<count;i++)
-                if (rs.next())
-                    date.add(rs.getDate("EventDate")) ;
+                if (rs.next()) {
+                    date.add(rs.getDate("EventDate"));
+                    custumerCID.add(rs.getString("CID"));
 
+                }
 
 
         }
@@ -68,6 +72,35 @@ public class Database {
 return date;
 
     }
+
+
+    public static String getgmailReminder(String id )
+    {
+
+        String gml=new String ();
+        String sql = "SELECT * FROM software2024.\"customer\" WHERE \"CID\" ='"+id+"'" ;
+        try
+        {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next())
+                gml = rs.getString("GMAIL");
+
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+             return gml ;
+
+    }
+
+
+
+
 
     public static boolean AddOrg(String ID, String name, String address, String gmail, String phone , String pass)
     {
