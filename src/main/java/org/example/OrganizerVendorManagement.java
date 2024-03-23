@@ -1,4 +1,97 @@
 package org.example;
 
+import animatefx.animation.FadeIn;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 public class OrganizerVendorManagement {
+
+    @FXML
+    private Label Add;
+
+    @FXML
+    private Label back;
+
+    @FXML
+    private Label delete;
+
+    @FXML
+    private Label update;
+
+    @FXML
+    void AddClicked(MouseEvent event) {
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_AddServiceProvider.fxml"));
+            Stage stage=(Stage) Add.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            FadeIn fadeIn = new FadeIn(root);
+            fadeIn.play();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    @FXML
+    void DeleteClicked(MouseEvent event) {
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_DeleteServiceProvider.fxml"));
+            Stage stage=(Stage) delete.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            FadeIn fadeIn = new FadeIn(root);
+            fadeIn.play();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @FXML
+    void UpdateClicked(MouseEvent event) {
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_UpdateServiceProvider.fxml"));
+            Stage stage=(Stage) update.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            FadeIn fadeIn = new FadeIn(root);
+            fadeIn.play();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @FXML
+    void backClicked(MouseEvent event) {
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
+            Stage stage=(Stage) back.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            FadeIn fadeIn = new FadeIn(root);
+            fadeIn.play();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }

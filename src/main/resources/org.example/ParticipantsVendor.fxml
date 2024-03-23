@@ -1,14 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.ParticipantsVendor"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="488.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ParticipantsVendor">
+    <children>
+        <AnchorPane layoutX="-1.0" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/screen2.css">
+            <children>
+                <ImageView fitHeight="91.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@accessories/eventt.jpg" />
+                    </image>
+                </ImageView>
+                <Label layoutX="21.0" layoutY="20.0" prefHeight="19.0" prefWidth="126.0" text="YOUR EVENT" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="60.0" />
+                    </opaqueInsets>
+                </Label>
+                <Label layoutX="197.0" layoutY="20.0" prefHeight="54.0" prefWidth="355.0" text="Vendor Manegement" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="36.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="60.0" />
+                    </opaqueInsets>
+                </Label>
+                <Label fx:id="back" layoutX="688.0" layoutY="9.0" onMouseClicked="#backClicked" prefHeight="35.0" prefWidth="47.0" text="Back " textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="60.0" />
+                    </opaqueInsets>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Label>
+                <TableView fx:id="table" layoutX="70.0" layoutY="158.0" prefHeight="242.0" prefWidth="253.0">
+                    <columns>
+                        <TableColumn fx:id="phoneNumber" prefWidth="114.4000244140625" text="Phone Number" />
+                        <TableColumn fx:id="price" prefWidth="136.7999725341797" text="Price" />
+                    </columns>
+                </TableView>
+                <TextField fx:id="searchText" layoutX="585.0" layoutY="208.0" prefHeight="23.0" prefWidth="126.0">
+                    <opaqueInsets>
+                        <Insets bottom="10.0" top="50.0" />
+                    </opaqueInsets>
+                </TextField>
+                <Label layoutX="341.0" layoutY="206.0" prefHeight="30.0" prefWidth="233.0" text="Enter the value you want to search" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="60.0" />
+                    </opaqueInsets>
+                </Label>
+                <Button fx:id="search" layoutX="491.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#searchClicked" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #ead5d5;" text="Search Now  ✅" textFill="#030000">
+                    <opaqueInsets>
+                        <Insets left="30.0" />
+                    </opaqueInsets>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <font>
+                        <Font name="Arial Narrow" size="13.0" />
+                    </font>
+                </Button>
+                <Label layoutX="380.0" layoutY="158.0" prefHeight="30.0" prefWidth="111.0" text="   Search by:" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="60.0" />
+                    </opaqueInsets>
+                </Label>
+                <ComboBox fx:id="comboBoxSearch" layoutX="529.0" layoutY="160.0" prefHeight="26.0" prefWidth="155.0" />
+                <Label layoutX="353.0" layoutY="361.0" prefHeight="30.0" prefWidth="254.0" text="Vendor's Number you want to reserve:" textFill="#bc4e2a">
+                    <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets left="60.0" />
+                    </opaqueInsets>
+                </Label>
+                <TextField fx:id="reserveText" layoutX="607.0" layoutY="363.0" prefHeight="23.0" prefWidth="126.0">
+                    <opaqueInsets>
+                        <Insets bottom="10.0" top="50.0" />
+                    </opaqueInsets>
+                </TextField>
+            <ComboBox fx:id="comboBoxCategory" layoutX="380.0" layoutY="102.0" prefHeight="26.0" prefWidth="155.0" />
+            <Label layoutX="229.0" layoutY="94.0" prefHeight="35.0" prefWidth="146.0" text="   Category :" textFill="#bc4e2a">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets left="60.0" />
+               </opaqueInsets>
+            </Label>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

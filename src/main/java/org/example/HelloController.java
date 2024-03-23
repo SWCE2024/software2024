@@ -10,6 +10,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import static org.example.SignUpController.logger;
 public class HelloController {
@@ -56,6 +61,24 @@ public class HelloController {
                 stage.setScene(new Scene(root));
                 stage.show();
                 new FadeIn(root).play();
+                ////////////
+                String sql = "SELECT \"CID\" FROM software2024.\"customer\" WHERE \"GMAIL\" = ?";
+                int id = 0;
+
+                try (
+                        Connection connection=Database.connect();
+                        PreparedStatement preparedStatement = connection.prepareStatement(sql)
+                ) {
+                    preparedStatement.setString(1,email);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    if (resultSet.next()) {
+                         id = resultSet.getInt("CID");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                ////////////
+                Database.setUserID(String.valueOf(id));
             }
             else if (Database.validateLogin(email, password, "organizer")) {
                 System.out.println("login organizer successfully.");

@@ -1,24 +1,22 @@
 package org.example;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import static java.lang.Integer.parseInt;
+
 
 public class TESTINPUT {
     private TESTINPUT(){
 
     }
-
-
     public static boolean emptyTest(String name) {
         if (name.equals(null)||name.isEmpty())
             return false;
         else return true;
     }
-
-
 
     public static boolean VenueNameTest(String name) {
       if (name.equals(null)||name.isEmpty())
@@ -46,9 +44,6 @@ public class TESTINPUT {
 
 
     }
-
-
-
 
     public static boolean idTest(String id) {
         if (id.length() == 9) {
@@ -148,6 +143,49 @@ public class TESTINPUT {
             return false;
     }
 
+    public static boolean checkInputs(String phoneNumber, String price){
+        boolean flag=false;
+
+        if (!(phoneNumber.length()==10)) {
+            System.out.println("Invalid phone number. Phone number should consist of 10 digits.");
+            return false;
+        }
+        if (Integer.parseInt(price)<0) {
+            System.out.println("Invalid price. Price should be greater than zero.");
+            return false;
+        }
+        return true;
+    }
+   /* public static boolean checkExsistOrNot(int serviceProviderID) throws SQLException {
+        boolean exists = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn =Database.connect();
+            String sql = "SELECT COUNT(*) AS count FROM ServiceProviders WHERE ServiceProviderID = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, serviceProviderID);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                exists = (count > 0);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return exists;
+    }*/
     private static boolean isValidCount(int count) {
         return count > 0;
     }

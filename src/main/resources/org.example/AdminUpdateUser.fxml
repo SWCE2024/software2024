@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/SignUp.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AdminUpdateUser">
+    <children>
+        <VBox layoutX="157.0" layoutY="151.0" prefHeight="299.0" prefWidth="490.0">
+            <children>
+                <HBox prefHeight="43.0" prefWidth="490.0">
+                    <children>
+                        <Label prefHeight="35.0" prefWidth="165.0" text="Username" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="usernameText" prefHeight="34.0" prefWidth="310.0" promptText="username" style="-fx-background-radius: 50;">
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </TextField>
+                    </children>
+                    <padding>
+                        <Insets bottom="2.0" top="2.0" />
+                    </padding>
+                </HBox>
+                <HBox prefHeight="44.0" prefWidth="490.0">
+                    <children>
+                        <Label prefHeight="35.0" prefWidth="165.0" text="Phone Number" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="phoneNumberText" prefHeight="35.0" prefWidth="308.0" promptText="Phone Number" style="-fx-background-radius: 50;" />
+                    </children>
+                    <padding>
+                        <Insets top="2.0" />
+                    </padding>
+                </HBox>
+                <HBox prefHeight="40.0" prefWidth="648.0">
+                    <padding>
+                        <Insets bottom="2.0" top="2.0" />
+                    </padding>
+                    <children>
+                        <Label prefHeight="35.0" prefWidth="165.0" text="Gmail" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="gmailText" prefHeight="35.0" prefWidth="308.0" promptText="Gmail" style="-fx-background-radius: 50;" />
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="490.0">
+                    <padding>
+                        <Insets top="2.0" />
+                    </padding>
+                    <children>
+                        <HBox prefHeight="40.0" prefWidth="490.0">
+                            <padding>
+                                <Insets bottom="2.0" top="2.0" />
+                            </padding>
+                            <children>
+                                <Label prefHeight="35.0" prefWidth="165.0" text="Address" textFill="#bc4e2a">
+                                    <font>
+                                        <Font name="System Bold Italic" size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="addressText" prefHeight="35.0" prefWidth="308.0" promptText="Address" style="-fx-background-radius: 50;" />
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+                <HBox prefHeight="40.0" prefWidth="648.0">
+                    <padding>
+                        <Insets bottom="2.0" top="2.0" />
+                    </padding>
+                    <children>
+                        <Label prefHeight="35.0" prefWidth="165.0" text="Password" textFill="#bc4e2a">
+                            <font>
+                                <Font name="System Bold Italic" size="18.0" />
+                            </font>
+                        </Label>
+                        <PasswordField fx:id="passwordText" prefHeight="35.0" prefWidth="299.0" promptText="*******" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <Label layoutX="243.0" layoutY="23.0" prefHeight="35.0" prefWidth="318.0" text="Updating User Form" textFill="#bc4e2a">
+            <font>
+                <Font name="Berlin Sans FB Demi Bold" size="26.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="60.0" />
+            </opaqueInsets>
+        </Label>
+        <Label fx:id="back" layoutX="695.0" layoutY="14.0" onMouseClicked="#backClicked" prefHeight="24.0" prefWidth="47.0" text="Back " textFill="#bc4e2a">
+            <font>
+                <Font name="System Bold Italic" size="18.0" />
+            </font>
+            <opaqueInsets>
+                <Insets left="60.0" />
+            </opaqueInsets>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Label>
+        <Button fx:id="updateUser" layoutX="313.0" layoutY="420.0" mnemonicParsing="false" onAction="#update_User" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Update Now" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="14.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+      <HBox layoutX="157.0" layoutY="66.0" prefHeight="43.0" prefWidth="490.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="165.0" text="User ID =" textFill="#bc4e2a">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="userIdText" prefHeight="34.0" prefWidth="310.0" promptText="User ID" style="-fx-background-radius: 50;">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextField>
+         </children>
+         <padding>
+            <Insets bottom="2.0" top="2.0" />
+         </padding>
+      </HBox>
+      <Label layoutX="59.0" layoutY="68.0" prefHeight="35.0" prefWidth="165.0" text="Where " textFill="#bc4e2a">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="157.0" layoutY="116.0" prefHeight="35.0" prefWidth="165.0" text="Update :" textFill="#bc4e2a">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="get" layoutX="630.0" layoutY="394.0" mnemonicParsing="false" onAction="#get_information" prefHeight="30.0" prefWidth="60.0" style="-fx-background-radius: 20; -fx-background-color: #ffccc5;" text="Get " textFill="#a64646">
+         <font>
+            <Font name="Arial Bold Italic" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+    </children>
+</AnchorPane>

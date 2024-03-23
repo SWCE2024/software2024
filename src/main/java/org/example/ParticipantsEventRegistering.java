@@ -2,6 +2,7 @@ package org.example;
 
 import animatefx.animation.FadeIn;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,22 +11,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
-
-import java.util.ResourceBundle;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 public class ParticipantsEventRegistering {
@@ -52,6 +50,9 @@ public class ParticipantsEventRegistering {
 
     @FXML
     private TextField eventTime;
+
+    @FXML
+    private Label next;
 
     @FXML
     private ImageView image;
@@ -86,6 +87,23 @@ public class ParticipantsEventRegistering {
 
     }
 
+    @FXML
+    void nextClicked(MouseEvent event) {
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsVendor.fxml"));
+            Stage stage=(Stage) next.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            FadeIn fadeIn = new FadeIn(root);
+            fadeIn.play();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     @FXML
     void addNewEvent(ActionEvent event) throws SQLException {
@@ -96,31 +114,6 @@ public class ParticipantsEventRegistering {
       else if (!TESTINPUT.countTest(attendeCount.getText()))
           JOptionPane.showMessageDialog(null,"Unvalid Attende Count","ERROR",JOptionPane.ERROR_MESSAGE);
       else {
-         ////////////database and sql here
-         /* String name = eventName.getText();
-          String date = eventDate.getText();
-          String time = eventTime.getText();
-          String count =attendeCount.getText();
-          String comboBoxValue = (String) getSelectedComboBoxItem(ComboBox); // Adjust the type based on your ComboBox data type
-          String imagePath = getImagePathFromImageView(image);
-
-          String sql="INSERT INTO software2024.\" Events\" (\"CID\",\"EventType\",\"EventName\",\"EventDate\",\"Location\",\"AttendeeCount\",\"MediaURL\",\"EventTime\") VALUES (?,?,?, ?, ?, ?, ?,?)";
-          Connection con = Database.connect();
-          PreparedStatement preparedStatement = con.prepareStatement(sql);
-
-              preparedStatement.setInt(1, Integer.parseInt("123"));
-              preparedStatement.setString(2, "Decoration");
-              preparedStatement.setString(3, name);
-              preparedStatement.setString(4, date);
-              preparedStatement.setString(5, comboBoxValue);
-              preparedStatement.setInt(6, Integer.parseInt(count));
-              preparedStatement.setString(7, imagePath);
-              preparedStatement.setString(8,time);
-
-              preparedStatement.executeUpdate();
-                  JOptionPane.showMessageDialog(null,"Done","Added Successfully",JOptionPane.INFORMATION_MESSAGE);
-                  */
-          ////////////////
           try {
 
               String name = eventName.getText();
@@ -142,7 +135,7 @@ public class ParticipantsEventRegistering {
               PreparedStatement preparedStatement = con.prepareStatement(sql);
 
 
-              preparedStatement.setString(1, "123");  // Assuming CID is an integer
+              preparedStatement.setString(1, Database.getUserID());  // Assuming CID is an integer
               preparedStatement.setString(2, "Decoration");
               preparedStatement.setString(3, name);
               preparedStatement.setDate(4, sqlDate);
