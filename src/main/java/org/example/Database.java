@@ -2,117 +2,114 @@ package org.example;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
+
+
 
 public class Database {
-    public static String[] search;
-    public static String subject="";
-    public static List <String> custumerCID=new ArrayList<>();
+    private static String e="message";
+    private Database() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    private static String[] search;
+    private static String subject = "";
+
+    public static String getSubject() {
+        return subject;
+    }
+
+    public static void setSubject(String newSubject) {
+        subject = newSubject;
+    }
+    static List<String> custumerCID = new ArrayList<>();
+    public static void clearCustomerCID() {
+        custumerCID.clear();
+    }
+    public static boolean removeCustomerCID(String cid) {
+        return custumerCID.remove(cid);
+    }
+
+    public static String[] getSearch() {
+        return search;
+    }
 
 
+    public static void setSearch(String[] search) {
+        Database.search = search;
+    }
+
+
+    public static List<String> getCustomerCID() {
+        return custumerCID;
+    }
+
+    public static void addCustomerCID(String cid) {
+        custumerCID.add(cid);
+    }
     private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String USER = "postgres";
     private static final String PASSWORD = "123456";
-
     private static String userID;
-
     public static String getUserID() {
-        String id=userID;
         return userID ;
     }
-
-    public static void setUserID(String ID) {
-        userID = ID;
+    public static void setUserID(String id) {
+        userID = id;
     }
-
     public static Connection connect() {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connected to the PostgreSQL server successfully.");
+            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        return conn;
+        }return conn;
     }
-
-
     public static List<Date> getDateEvents()
     {
         List<Date> date =new ArrayList<>();
        int count =0 ;
-
-
         String sql = "SELECT * FROM software2024.\"Events\"  " ;
-        try
-        {
+        try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             boolean c =true;
-
             while (c)
             {
-                if (rs.next())
-                    count++;
-                else
-                    c=false;
-
+                if (rs.next()) count++;
+                else c=false;
             }
-
-
-
             System.out.println(count);
-
              rs = stmt.executeQuery(sql);
-
             for(int i =0;i<count;i++)
                 if (rs.next()) {
                     date.add(rs.getDate("EventDate"));
                     custumerCID.add(rs.getString("CID"));
-
                 }
-
-
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-return date;
-
+        return date;
     }
-
-
     public static String getgmailReminder(String id )
     {
-
         String gml=new String ();
         String sql = "SELECT * FROM software2024.\"customer\" WHERE \"CID\" ='"+id+"'" ;
-        try
-        {
+        try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next())
                 gml = rs.getString("GMAIL");
-
-
         }
-        catch (SQLException e)
-        {
+        catch (SQLException e) {
             e.printStackTrace();
-        }
-
-             return gml ;
-
+        }return gml ;
     }
-
-
-
-
-
     public static boolean AddOrg(String ID, String name, String address, String gmail, String phone , String pass)
     {
         String sql = "INSERT INTO software2024.\"organizer\" (\"OID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
@@ -132,14 +129,7 @@ return date;
             e.printStackTrace();
             return false;
         }
-
-
     }
-
-
-
-
-
     public static boolean DeleteOrg(String ID)
     {
         String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ ID+"'" ;
@@ -148,18 +138,11 @@ return date;
             pstmt.executeUpdate();
             return true;
         }
-
         catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-
-
-
-
-
-
     public static List<String> fetchParticipantEmails() {
         List<String> emails = new ArrayList<>();
         String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\"";
@@ -174,15 +157,10 @@ return date;
         }
         return emails;
     }
-
-
-
-
     public static String GetParticipantMessageTicket()
     {
         String  message= "";
         int cid=0;
-
         String sql = "SELECT \"CID\" FROM software2024.\"customer\"  WHERE \"GMAIL\" ="+"'"+ HelloController.getEmail()+"'" ;
         try
         {
@@ -196,50 +174,33 @@ return date;
         {
             e.printStackTrace();
         }
-
-
-
-        try
-        {
+        try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
             ResultSet rs ;
-
             if(cid==0)
                 System.out.println("error in the id ");
-
             else {
-                //tect the ctatuce of event done or not
                 sql = "SELECT * FROM software2024.\"Events\"  WHERE \"CID\" ='" + cid + "'";
                 rs = stmt.executeQuery(sql);
-
-
                 if (rs.next())
                 {
-                    subject = rs.getString("EventName");
-
+                    setSubject(rs.getString("EventName"));
                     message = "Hello\n" +
-                            "We invite you to attend my private party on " + rs.getString("EventDate") + " at " + rs.getString("EventTime") + "\n" +
+                            "We invite you to attend my private party on " + rs.getDate("EventDate") + " at " + rs.getTime("EventTime") + "\n" +
                             "the location is " + rs.getString("Location") + ".\n" +
                             "Your presence is an honor for us, and may you be well";
-
-
                 }
                 else
-                    System.out.println("error in massage!");
-
+                    logger.log(Level.SEVERE, "error in massage!", e);
             }
-
         }
         catch (SQLException e)
         {
             e.printStackTrace();
         }
-
         return message;
     }
-
-
 
     public static boolean validateLogin(String email, String password, String table) {
         String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = '" + email + "' AND \"PASSWORD\" = '" + password + "'";
@@ -255,6 +216,7 @@ return date;
         }
         return false;
     }
+
 
     public static boolean registerCustomer(String id, String phoneNumber, String address, String gmail, String userName, String password) {
         String sql = "INSERT INTO software2024.\"customer\" (\"CID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
@@ -273,8 +235,6 @@ return date;
             e.printStackTrace();
             return false;
         }
-
-
     }
 
     public static boolean AddVenue(String VenueID, String VenueName, String Location, String Capacity, String Pricing)
