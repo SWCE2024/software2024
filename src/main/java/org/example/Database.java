@@ -201,6 +201,7 @@ public class Database {
         }
         return message;
     }
+
     public static boolean validateLogin(String email, String password, String table) {
         String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = '" + email + "' AND \"PASSWORD\" = '" + password + "'";
         try (Connection conn = connect();
