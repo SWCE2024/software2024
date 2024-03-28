@@ -216,6 +216,7 @@ public class Database {
         return false;
     }
 
+
     public static boolean registerCustomer(String id, String phoneNumber, String address, String gmail, String userName, String password) {
         String sql = "INSERT INTO software2024.\"customer\" (\"CID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = connect();

@@ -79,7 +79,6 @@ public class MenuParticipants {
                 System.out.println("Email sent successfully to " + participantEmailForTicket);
                 JOptionPane.showMessageDialog(null, "Email sent successfully.", em, JOptionPane.INFORMATION_MESSAGE);
             }
-
             catch (MessagingException e)
             {
                 System.out.println("Could not send email to " + participantEmailForTicket);
