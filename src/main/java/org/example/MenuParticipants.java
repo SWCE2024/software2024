@@ -71,7 +71,7 @@ public class MenuParticipants {
     {
         String participantEmailForTicket = HelloController.getEmail();
         String messageText =Database.GetParticipantMessageTicket(); ;
-        String subject = Database.subject;
+        String subject = Database.getSubject();
 
 
             try
