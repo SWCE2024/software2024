@@ -214,6 +214,7 @@ public class Database {
             e.printStackTrace();
         }
         return false;
+
     }
 
     public static boolean registerCustomer(String id, String phoneNumber, String address, String gmail, String userName, String password) {

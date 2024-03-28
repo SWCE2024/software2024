@@ -73,7 +73,6 @@ public class MenuParticipants {
         String messageText =Database.GetParticipantMessageTicket(); ;
         String subject = Database.getSubject();
 
-
             try
             {
                 EmailTicket.sendEmail(participantEmailForTicket, subject, messageText);
