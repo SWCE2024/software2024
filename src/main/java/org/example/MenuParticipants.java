@@ -10,64 +10,66 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
 import javax.swing.*;
-import java.util.List;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 public class MenuParticipants {
 
-    @FXML private Label DirectCommunication;
-    @FXML private Label EventCalender;
-    @FXML private Label EventRegistering;
-    @FXML private Label TicketManagement;
+    @FXML private Label directCommunication;
+    @FXML private Label eventCalender;
+    @FXML private Label eventRegistering;
+    @FXML private Label ticketManagement;
     private String em="successful";
+
+    private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+
     @FXML
-    void DirectCommunicationClicked(MouseEvent event) {
+    void directCommunicationClicked(MouseEvent event) {
         String participantEmail = HelloController.getEmail();
         String subject = "YOUR EVENT Application";
         String messageText = "We are happy that you chose our store. Please let us know if you have any questions";
         if (participantEmail != null && !participantEmail.isEmpty()) {
             try {
                 EmailUtil.sendEmail(participantEmail, subject, messageText);
-                System.out.println("Email sent successfully to " + participantEmail);
+                logger.log(Level.SEVERE, "Email sent successfully to " + participantEmail);
                 JOptionPane.showMessageDialog(null, "Email sent successfully.", em, JOptionPane.INFORMATION_MESSAGE);
             } catch (MessagingException e) {
-                System.out.println("Could not send email to " + participantEmail);
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "Could not send email to " + participantEmail, e);
             }
         } else {
-            // Optionally handle the case where there is no email address to send to.
-            System.out.println("No email address available for the current participant.");
+            logger.log(Level.SEVERE, "No email address available for the current participant.");
+
         }
     }
     @FXML
-    void EventCalenderClicked(MouseEvent event) {
+    void eventCalenderClicked(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/calender.fxml"));
-            Stage stage = (Stage) EventCalender.getScene().getWindow();
+            Stage stage = (Stage) eventCalender.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
     @FXML
-    void EventRegisteringClicked(MouseEvent event) {
+    void eventRegisteringClicked(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsEventRegistering.fxml"));
-            Stage stage = (Stage) EventRegistering.getScene().getWindow();
+            Stage stage = (Stage) eventRegistering.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
     @FXML
-    void TicketManagementClicked(MouseEvent event)
+    void ticketManagementClicked(MouseEvent event)
     {
         String participantEmailForTicket = HelloController.getEmail();
         String messageText =Database.getParticipantMessageTicket(); ;
@@ -76,13 +78,14 @@ public class MenuParticipants {
             try
             {
                 EmailTicket.sendEmail(participantEmailForTicket, subject, messageText);
-                System.out.println("Email sent successfully to " + participantEmailForTicket);
+                logger.log(Level.SEVERE, "Email sent successfully to " + participantEmailForTicket);
+
                 JOptionPane.showMessageDialog(null, "Email sent successfully.", em, JOptionPane.INFORMATION_MESSAGE);
             }
             catch (MessagingException e)
             {
-                System.out.println("Could not send email to " + participantEmailForTicket);
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "Could not send email to " + participantEmailForTicket, e);
+
             }
 
 

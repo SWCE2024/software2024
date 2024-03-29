@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.MenuOrganizer">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.MenuOrganizer">
     <children>
         <AnchorPane layoutX="-10.0" layoutY="-5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/screen2.css">
             <children>
@@ -35,7 +35,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="VenueManagement" layoutX="396.0" layoutY="176.0" onMouseClicked="#VenueManagementClicked" prefHeight="51.0" prefWidth="238.0" text="Venue Management" textFill="#bc4e2a">
+                <Label fx:id="venueManagement" layoutX="396.0" layoutY="176.0" onMouseClicked="#venueManagementClicked" prefHeight="51.0" prefWidth="238.0" text="Venue Management" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="25.0" />
                     </font>
@@ -43,7 +43,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="VendorManagement" layoutX="47.0" layoutY="272.0" onMouseClicked="#VendorManagementClicked" prefHeight="46.0" prefWidth="253.0" text="Vendor Management" textFill="#bc4e2a">
+                <Label fx:id="vendorManagement" layoutX="47.0" layoutY="272.0" onMouseClicked="#vendorManagementClicked" prefHeight="46.0" prefWidth="253.0" text="Vendor Management" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="25.0" />
                     </font>
@@ -51,7 +51,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-            <Label fx:id="BudgetFinance" layoutX="388.0" layoutY="281.0" onMouseClicked="#BudgetFinanceClicked" prefHeight="46.0" prefWidth="253.0" text="Budget &amp; Finance" textFill="#bc4e2a">
+            <Label fx:id="budgetFinance" layoutX="388.0" layoutY="281.0" onMouseClicked="#budgetFinanceClicked" prefHeight="46.0" prefWidth="253.0" text="Budget &amp; Finance" textFill="#bc4e2a">
                <font>
                   <Font name="System Bold Italic" size="25.0" />
                </font>

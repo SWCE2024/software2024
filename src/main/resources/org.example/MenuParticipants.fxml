@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.MenuParticipants">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.MenuParticipants">
     <children>
         <AnchorPane layoutX="-10.0" layoutY="-5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/screen2.css">
             <children>
@@ -27,7 +27,7 @@
                         <Insets left="60.0" />
                     </opaqueInsets>
                 </Label>
-                <Label fx:id="EventRegistering" layoutX="61.0" layoutY="176.0" onMouseClicked="#EventRegisteringClicked" prefHeight="51.0" prefWidth="226.0" text="Event Registering" textFill="#bc4e2a">
+                <Label fx:id="eventRegistering" layoutX="61.0" layoutY="176.0" onMouseClicked="#eventRegisteringClicked" prefHeight="51.0" prefWidth="226.0" text="Event Registering" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="25.0" />
                     </font>
@@ -35,7 +35,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="TicketManagement" layoutX="396.0" layoutY="176.0" onMouseClicked="#TicketManagementClicked" prefHeight="51.0" prefWidth="238.0" text="Ticket Management" textFill="#bc4e2a">
+                <Label fx:id="ticketManagement" layoutX="396.0" layoutY="176.0" onMouseClicked="#ticketManagementClicked" prefHeight="51.0" prefWidth="238.0" text="Ticket Management" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="25.0" />
                     </font>
@@ -43,7 +43,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="EventCalender" layoutX="47.0" layoutY="272.0" onMouseClicked="#EventCalenderClicked" prefHeight="46.0" prefWidth="253.0" text="Event Calender" textFill="#bc4e2a">
+                <Label fx:id="eventCalender" layoutX="47.0" layoutY="272.0" onMouseClicked="#eventCalenderClicked" prefHeight="46.0" prefWidth="253.0" text="Event Calender" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="25.0" />
                     </font>
@@ -51,7 +51,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="DirectCommunication" layoutX="388.0" layoutY="281.0" onMouseClicked="#DirectCommunicationClicked" prefHeight="46.0" prefWidth="266.0" text="Direct communication" textFill="#bc4e2a">
+                <Label fx:id="directCommunication" layoutX="388.0" layoutY="281.0" onMouseClicked="#directCommunicationClicked" prefHeight="46.0" prefWidth="266.0" text="Direct communication" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="25.0" />
                     </font>
