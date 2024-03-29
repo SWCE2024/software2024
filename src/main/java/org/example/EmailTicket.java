@@ -3,19 +3,23 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.mail.MessagingException;
-
+import java.util.logging.Logger;
 public class EmailTicket
 {
-
+    private EmailTicket(){
+        throw new IllegalStateException(" EmailTicket class");
+    }
 
     public static void sendEmail(String recipientEmailcustumer, String subject, String messageText) throws MessagingException
     {
+        Logger logger = Logger.getLogger(EmailTicket.class.getName());
+
 
         String senderEmail = "shadthabit@gmail.com";
         String senderPassword = "pdhr gobn hszi hlbb";
 
         // Recipient's email address
-        String recipientEmail = "shahdthabityaseen@gmail.com";
+        String recipientEmail = recipientEmailcustumer;
 
         // Email properties
         Properties props = new Properties();
@@ -42,7 +46,7 @@ public class EmailTicket
 
             // Send message
             Transport.send(message);
-            System.out.println("Email sent successfully.");
+            logger.info("Email sent successfully.");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
