@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.example.SignUpController.logger;
 
@@ -175,11 +176,14 @@ public class Database {
             e.printStackTrace();
         }
         try {
+            Logger logger = Logger.getLogger(Database.class.getName());
+
             Connection conn = connect();
             Statement stmt = conn.createStatement();
             ResultSet rs ;
             if(cid==0)
-                System.out.println("error in the id ");
+                logger.info("error in the id");
+
             else {
                 sql = "SELECT * FROM software2024.\"Events\"  WHERE \"CID\" ='" + cid + "'";
                 rs = stmt.executeQuery(sql);
@@ -237,16 +241,16 @@ public class Database {
         }
     }
 
-    public static boolean AddVenue(String VenueID, String VenueName, String Location, String Capacity, String Pricing)
+    public static boolean addVenue(String venueID, String venueName, String location, String capacity, String pricing)
     {
         String sql = "INSERT INTO software2024.\"Venue\" (\"VenueID\", \"VenueName\", \"Location\", \"Capacity\", \"Pricing\") VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, VenueID);
-            pstmt.setString(2, VenueName);
-            pstmt.setString(3, Location);
-            pstmt.setString(4, Capacity);
-            pstmt.setString(5, Pricing);
+            pstmt.setString(1, venueID);
+            pstmt.setString(2, venueName);
+            pstmt.setString(3, location);
+            pstmt.setString(4, capacity);
+            pstmt.setString(5, pricing);
 
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
@@ -258,7 +262,7 @@ public class Database {
 
 
     }
-    public static boolean DeleteVenue(String VenueID)
+    public static boolean deleteVenue(String VenueID)
     {
         String sql = "DELETE FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ VenueID+"'" ;
         try (Connection conn = connect();
