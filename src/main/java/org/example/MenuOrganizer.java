@@ -9,16 +9,20 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
+
 public class MenuOrganizer {
 
     @FXML
-    private Label BudgetFinance;
+    private Label budgetFinance;
 
     @FXML
-    private Label VendorManagement;
+    private Label vendorManagement;
 
     @FXML
-    private Label VenueManagement;
+    private Label venueManagement;
 
     @FXML
     private Label calender;
@@ -26,50 +30,49 @@ public class MenuOrganizer {
     @FXML
     private Label eventManagement;
 
+    private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+
     @FXML
-    void BudgetFinanceClicked(MouseEvent event) {
+    void budgetFinanceClicked(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerBudgetFinance.fxml"));
-            Stage stage = (Stage) BudgetFinance.getScene().getWindow();
+            Stage stage = (Stage) budgetFinance.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
 
     @FXML
-    void VendorManagementClicked(MouseEvent event) {
+    void vendorManagementClicked(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerVendorManagement.fxml"));
-            Stage stage = (Stage) VendorManagement.getScene().getWindow();
+            Stage stage = (Stage) vendorManagement.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
 
     @FXML
-    void VenueManagementClicked(MouseEvent event) {
+    void venueManagementClicked(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerVenueManagement.fxml"));
-            Stage stage = (Stage) VenueManagement.getScene().getWindow();
+            Stage stage = (Stage) venueManagement.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
@@ -78,14 +81,13 @@ public class MenuOrganizer {
     void calender(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/calender.fxml"));
             Stage stage = (Stage) calender.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
@@ -94,14 +96,13 @@ public class MenuOrganizer {
     void eventManagementClicked(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerEventManagement.fxml"));
             Stage stage = (Stage) eventManagement.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
