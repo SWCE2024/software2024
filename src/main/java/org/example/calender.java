@@ -125,12 +125,12 @@ public class calender {
             ResultSet rs= pstmt.executeQuery();
             table.getItems().clear();
             while (rs.next()) {
-                String eventname = rs.getString("EventName");
-                String eventdate = rs.getString("EventDate");
-                String eventtype = rs.getString("EventType");
-                String eventtime = rs.getString("EventTime");
+                String TableEventName = rs.getString("EventName");
+                String TableEventDate = rs.getString("EventDate");
+                String TableEventType = rs.getString("EventType");
+                String TableEventTime = rs.getString("EventTime");
 
-                EventCalender eventCalender = new EventCalender(eventname, eventdate, eventtime, eventtype);
+                EventCalender eventCalender = new EventCalender(TableEventName, TableEventDate, TableEventTime, TableEventType);
                 table.getItems().add(eventCalender);
             }
         } catch (SQLException e) {
