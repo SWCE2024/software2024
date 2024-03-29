@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
@@ -88,7 +87,7 @@ public class HelloController {
                 stage.show();
                 new FadeIn(root).play();
             } else {
-                System.out.println("please signup");
+                logger.log(Level.SEVERE, "please signup");
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
