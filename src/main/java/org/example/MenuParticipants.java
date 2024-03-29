@@ -70,7 +70,7 @@ public class MenuParticipants {
     void TicketManagementClicked(MouseEvent event)
     {
         String participantEmailForTicket = HelloController.getEmail();
-        String messageText =Database.GetParticipantMessageTicket(); ;
+        String messageText =Database.getParticipantMessageTicket(); ;
         String subject = Database.getSubject();
 
             try

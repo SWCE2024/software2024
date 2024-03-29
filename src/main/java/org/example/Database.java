@@ -72,7 +72,7 @@ public class Database {
     {
         List<Date> date =new ArrayList<>();
        int count =0 ;
-        String sql = "SELECT * FROM software2024.\"Events\"  " ;
+        String sql = "SELECT \"EventID\" FROM software2024.\"Events\"  " ;
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
@@ -83,7 +83,7 @@ public class Database {
                 if (rs.next()) count++;
                 else c=false;
             }
-            System.out.println(count);
+
              rs = stmt.executeQuery(sql);
             for(int i =0;i<count;i++)
                 if (rs.next()) {
@@ -97,8 +97,8 @@ public class Database {
     }
     public static String getgmailReminder(String id )
     {
-        String gml=new String ();
-        String sql = "SELECT * FROM software2024.\"customer\" WHERE \"CID\" ='"+id+"'" ;
+        String gml="";
+        String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\" WHERE \"CID\" ='"+id+"'" ;
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
@@ -110,12 +110,12 @@ public class Database {
             e.printStackTrace();
         }return gml ;
     }
-    public static boolean AddOrg(String ID, String name, String address, String gmail, String phone , String pass)
+    public static boolean addOrg(String iD, String name, String address, String gmail, String phone , String pass)
     {
         String sql = "INSERT INTO software2024.\"organizer\" (\"OID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1,ID);
+            pstmt.setString(1,iD);
             pstmt.setString(2, phone);
             pstmt.setString(3, address);
             pstmt.setString(4, gmail);
@@ -130,9 +130,9 @@ public class Database {
             return false;
         }
     }
-    public static boolean DeleteOrg(String ID)
+    public static boolean deleteOrg(String iD)
     {
-        String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ ID+"'" ;
+        String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ iD+"'" ;
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.executeUpdate();
@@ -157,7 +157,7 @@ public class Database {
         }
         return emails;
     }
-    public static String GetParticipantMessageTicket()
+    public static String getParticipantMessageTicket()
     {
         String  message= "";
         int cid=0;
