@@ -46,7 +46,6 @@ public class calender {
 
 
 
-
     public void initialize() {
         eventDate.setCellValueFactory(cellData -> cellData.getValue().eventDateProperty());
         eventName.setCellValueFactory(cellData -> cellData.getValue().EventNameProperty());
@@ -55,11 +54,9 @@ public class calender {
         loadDate();
     }
 
-
-
     private void loadDate() {
         String sql =
-                "SELECT * FROM software2024.\"Events\"  " ;
+                "SELECT \"EventName\", \"EventDate\", \"EventType\" , \"EventTime\"  FROM software2024.\"Events\"  " ;
 
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql))
@@ -67,16 +64,16 @@ public class calender {
             ResultSet rs= pstmt.executeQuery();
             table.getItems().clear();
             while (rs.next()) {
-                String eventName = rs.getString("EventName");
-                String eventDate = rs.getString("EventDate");
-                String eventType = rs.getString("EventType");
-                String eventTime = rs.getString("EventTime");
+                String eventname = rs.getString("EventName");
+                String eventdate = rs.getString("EventDate");
+                String eventtype = rs.getString("EventType");
+                String eventtime = rs.getString("EventTime");
 
-                EventCalender eventCalender = new EventCalender(eventName, eventDate, eventTime, eventType);
+                EventCalender eventCalender = new EventCalender(eventname, eventdate, eventtime, eventtype);
                 table.getItems().add(eventCalender);
             }
         } catch (SQLException e) {
-         //   logger.log(null,"An error occurred while opening a new window:");
+
             e.printStackTrace();
         }
     }
@@ -128,22 +125,18 @@ public class calender {
             ResultSet rs= pstmt.executeQuery();
             table.getItems().clear();
             while (rs.next()) {
-                String eventName = rs.getString("EventName");
-                String eventDate = rs.getString("EventDate");
-                String eventType = rs.getString("EventType");
-                String eventTime = rs.getString("EventTime");
+                String TableEventName = rs.getString("EventName");
+                String TableEventDate = rs.getString("EventDate");
+                String TableEventType = rs.getString("EventType");
+                String TableEventTime = rs.getString("EventTime");
 
-                EventCalender eventCalender = new EventCalender(eventName, eventDate, eventTime, eventType);
+                EventCalender eventCalender = new EventCalender(TableEventName, TableEventDate, TableEventTime, TableEventType);
                 table.getItems().add(eventCalender);
             }
         } catch (SQLException e) {
-            //   logger.log(null,"An error occurred while opening a new window:");
+
             e.printStackTrace();
         }
-
-
-
-
 
 
     }
