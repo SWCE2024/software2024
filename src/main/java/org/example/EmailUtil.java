@@ -57,5 +57,6 @@ public class EmailUtil {
             logger.log(Level.SEVERE, "An error occurred", e);
             throw e;
         }
+
     }
 }
