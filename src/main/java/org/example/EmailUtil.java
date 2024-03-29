@@ -42,7 +42,6 @@ public class EmailUtil {
                 return new PasswordAuthentication(username, password);
             }
         });
-
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("fromemail@gmail.com"));
