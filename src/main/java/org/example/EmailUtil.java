@@ -18,9 +18,10 @@ public class EmailUtil {
             emailProperties.load(new FileInputStream("src/main/java/org/example/mail.properties"));
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Failed to load email properties from src/main/java/org/example/mail.properties", e);
-            throw new IllegalStateException("Could not load email configurations from src/main/java/org/example/mail.properties", e);
+            throw new IllegalStateException("Failed to load email configurations, check properties path: src/main/java/org/example/mail.properties", e);
         }
     }
+
 
     private EmailUtil() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
@@ -51,11 +52,10 @@ public class EmailUtil {
             message.setText(messageText);
 
             Transport.send(message);
-            logger.log(Level.INFO, "Email sent successfully to {0}", recipientEmail);
-
+            logger.log(Level.INFO, "Email sent successfully to {0}", new Object[]{recipientEmail});
         } catch (MessagingException e) {
-            logger.log(Level.SEVERE, "Failed to send email to {0} with subject: {1}", new Object[]{recipientEmail, subject, e});
-            throw new MessagingException("Email sending to " + recipientEmail + " failed due to an error.", e);
+            logger.log(Level.SEVERE, "Failed to send email to " + recipientEmail + " with subject: " + subject, e);
+            throw new MessagingException("Email sending to " + recipientEmail + " failed.", e);
         }
 
     }
