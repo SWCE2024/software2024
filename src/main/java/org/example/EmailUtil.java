@@ -17,8 +17,8 @@ public class EmailUtil {
         try {
             emailProperties.load(new FileInputStream("src/main/java/org/example/mail.properties"));
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Failed to load email properties", e);
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "Failed to load email properties from src/main/java/org/example/mail.properties", e);
+            throw new IllegalStateException("Could not load email configurations from src/main/java/org/example/mail.properties", e);
         }
     }
 
@@ -51,11 +51,12 @@ public class EmailUtil {
             message.setText(messageText);
 
             Transport.send(message);
-            logger.log(Level.INFO, "Email sent successfully to " + recipientEmail);
+            logger.log(Level.INFO, "Email sent successfully to {0}", recipientEmail);
 
         } catch (MessagingException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
-            throw e;
+            logger.log(Level.SEVERE, "Failed to send email to {0} with subject: {1}", new Object[]{recipientEmail, subject, e});
+            throw new MessagingException("Email sending to " + recipientEmail + " failed due to an error.", e);
         }
+
     }
 }
