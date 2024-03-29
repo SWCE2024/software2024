@@ -58,7 +58,7 @@ public class OrganizerVenueManagement {
         String Capacity=Capacitytxt.getText();
         String Pricing=Pricingtxt.getText();
 
-        boolean isRegistered = Database.AddVenue(VenueID, VenueName, Location, Capacity, Pricing );
+        boolean isRegistered = Database.addVenue(VenueID, VenueName, Location, Capacity, Pricing );
 
         if (isRegistered) {
             JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -77,7 +77,7 @@ public class OrganizerVenueManagement {
     void DeleteBottonClicked(ActionEvent event)
     {
         String VenueID=VenueIDtxt.getText();
-        boolean isRegistered = Database.DeleteVenue(VenueID );
+        boolean isRegistered = Database.deleteVenue(VenueID );
         if (isRegistered)
         {
             JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
