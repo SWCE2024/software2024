@@ -89,7 +89,7 @@ public class AdminOrganizerManagement {
         String passOrg=password.getText();
 
 
-        boolean isRegistered = Database.AddOrg(id, name, addressOrg, gmailOrg, phoneOrg,passOrg );
+        boolean isRegistered = Database.addOrg(id, name, addressOrg, gmailOrg, phoneOrg,passOrg );
 
         if (isRegistered) {
             JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -113,7 +113,7 @@ public class AdminOrganizerManagement {
     {
         {
             String ID=oid.getText();
-            boolean isRegistered = Database.DeleteOrg(ID );
+            boolean isRegistered = Database.deleteOrg(ID );
             if (isRegistered)
             {
                 JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
