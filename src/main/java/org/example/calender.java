@@ -59,7 +59,7 @@ public class calender {
 
     private void loadDate() {
         String sql =
-                "SELECT * FROM software2024.\"Events\"  " ;
+                "SELECT \"EventName\", \"EventDate\", \"EventType\" , \"EventTime\"  FROM software2024.\"Events\"  " ;
 
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql))
@@ -67,12 +67,12 @@ public class calender {
             ResultSet rs= pstmt.executeQuery();
             table.getItems().clear();
             while (rs.next()) {
-                String eventName = rs.getString("EventName");
-                String eventDate = rs.getString("EventDate");
-                String eventType = rs.getString("EventType");
-                String eventTime = rs.getString("EventTime");
+                String EventName = rs.getString("EventName");
+                String EventDate = rs.getString("EventDate");
+                String EventType = rs.getString("EventType");
+                String EventTime = rs.getString("EventTime");
 
-                EventCalender eventCalender = new EventCalender(eventName, eventDate, eventTime, eventType);
+                EventCalender eventCalender = new EventCalender(EventName, EventDate, EventTime, EventType);
                 table.getItems().add(eventCalender);
             }
         } catch (SQLException e) {
