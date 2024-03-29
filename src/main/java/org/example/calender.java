@@ -73,7 +73,7 @@ public class calender {
                 table.getItems().add(eventCalender);
             }
         } catch (SQLException e) {
-         //   logger.log(null,"An error occurred while opening a new window:");
+
             e.printStackTrace();
         }
     }
@@ -134,7 +134,7 @@ public class calender {
                 table.getItems().add(eventCalender);
             }
         } catch (SQLException e) {
-            //   logger.log(null,"An error occurred while opening a new window:");
+
             e.printStackTrace();
         }
 
