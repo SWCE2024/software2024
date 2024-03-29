@@ -17,6 +17,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
+import java.util.logging.Level;
+
 import static org.example.SignUpController.logger;
 
 public class AdminReport {
@@ -46,7 +48,7 @@ public class AdminReport {
                 double totalAmount = rs.getDouble("TotalAmount");
                 customerTotals.add(new CustomerTotal(cid, totalAmount));
             }
-        } catch (SQLException e) {e.printStackTrace();}
+        } catch (SQLException e) {logger.log(Level.SEVERE, "An error occurred", e);}
         return customerTotals;
     }
     @FXML
