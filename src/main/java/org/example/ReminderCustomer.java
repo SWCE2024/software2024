@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import static org.example.Password.getPassword;
 import static org.example.Password.getUser;
+import static org.example.SignUpController.logger;
 
 public class ReminderCustomer
 {
@@ -53,7 +54,7 @@ public class ReminderCustomer
             logger.info("Email sent successfully.");
 
         } catch (MessagingException e) {
-            e.printStackTrace();
+            logger.info(e.toString());
         }
 
     }

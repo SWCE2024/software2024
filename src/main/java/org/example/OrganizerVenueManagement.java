@@ -122,7 +122,7 @@ readValue();
 
         catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            logger.info(e.toString());
         }
     }
     @FXML
@@ -143,7 +143,7 @@ readValue();
 
         catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            logger.info(e.toString());
         }
 
 

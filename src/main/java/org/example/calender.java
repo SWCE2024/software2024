@@ -119,23 +119,25 @@ public class calender {
         String sql =
                 "SELECT * FROM software2024.\"Events\"  WHERE \"EventDate\" ="+"'"+ dateOfSearch+"'"  ;
 
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql))
-        {
-            ResultSet rs= pstmt.executeQuery();
-            table.getItems().clear();
-            while (rs.next()) {
-                String TableEventName = rs.getString("EventName");
-                String TableEventDate = rs.getString("EventDate");
-                String TableEventType = rs.getString("EventType");
-                String TableEventTime = rs.getString("EventTime");
+        try (Connection conn = Database.connect()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql))
+            {
+                ResultSet rs= pstmt.executeQuery();
+                table.getItems().clear();
+                while (rs.next()) {
+                    String TableEventName = rs.getString("EventName");
+                    String TableEventDate = rs.getString("EventDate");
+                    String TableEventType = rs.getString("EventType");
+                    String TableEventTime = rs.getString("EventTime");
 
-                EventCalender eventCalender = new EventCalender(TableEventName, TableEventDate, TableEventTime, TableEventType);
-                table.getItems().add(eventCalender);
+                    EventCalender eventCalender = new EventCalender(TableEventName, TableEventDate, TableEventTime, TableEventType);
+                    table.getItems().add(eventCalender);
+                }
             }
         } catch (SQLException e) {
 
-            e.printStackTrace();
+            logger.info(e.toString());
         }
 
 
