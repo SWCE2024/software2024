@@ -87,6 +87,13 @@ public class ParticipantsVendor {
         String selectedCategory =getSelectedComboBoxItem(comboBoxCategory);
         String selectedSearch = getSelectedComboBoxItem(comboBoxSearch);
         String searchTextValue = searchText.getText();
+        Connection conn = Database.connect();
+        String sql = null;
+        String priceName="Price";
+        ObservableList<Vendor> vendors = FXCollections.observableArrayList();
+        phoneNumber.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
+        price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        PreparedStatement stmt=null;
 
         if (selectedCategory.equals("Choose...") || selectedSearch.equals("Choose...") || searchTextValue.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -94,34 +101,29 @@ public class ParticipantsVendor {
             alert.setHeaderText(null);
             alert.setContentText("Please select category, search criteria, and enter search text.");
             alert.showAndWait();
-        }else {
-            Connection conn = Database.connect();
-            String sql = null;
-            String priceName="Price";
-
-            if(selectedSearch.equals(priceName)){
+        }
+        if(selectedSearch.equals(priceName)){
                 sql = "SELECT \"Number\", \"Price\" FROM software2024.\"ServiceProviders\" WHERE \"Category\" = ? AND \"Price\" = ?";
               //  SELECT "Number", "Price" FROM software2024."ServiceProviders" WHERE "Category" = ? AND "Price" = ?
             }
-            else if (selectedSearch.equals("Location")) {
+        if (selectedSearch.equals("Location")) {
                 sql = "SELECT \"Number\", \"Price\" FROM software2024.\"ServiceProviders\" WHERE \"Category\" = ? AND \"Location\" = ?";
-            }else {
+            }
+        if (selectedSearch.equals("Availability")){
                 sql = "SELECT \"Number\", \"Price\" FROM software2024.\"ServiceProviders\" WHERE \"Category\" = ? AND \"Availability\" = ?";
             }
-            ObservableList<Vendor> vendors = FXCollections.observableArrayList();
-            phoneNumber.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
-            price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-            PreparedStatement stmt=null;
-
-            try{
+        try{
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, selectedCategory);
-                if(selectedSearch.equals(priceName)){
-                stmt.setInt(2, Integer.parseInt(searchTextValue));}
-                else{
-                    stmt.setString(2, searchTextValue);}
+            switch (selectedSearch) {
+                case "Price":
+                    stmt.setInt(2, Integer.parseInt(searchTextValue));
+                    break;
+                default:
+                    stmt.setString(2, searchTextValue);
+                    break;
+            }
                  ResultSet rs = stmt.executeQuery();
-
                 while (rs.next()) {
                     String phoneNumberValue = rs.getString("Number");
                     int priceValue = rs.getInt(priceName);
@@ -137,17 +139,9 @@ public class ParticipantsVendor {
                 alert.setContentText("An error occurred while retrieving data from the database.");
                 alert.showAndWait();
             }finally {
-                if (stmt != null) {
-                    try {
                         stmt.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        // Handle exception if closing the statement fails
-                    }
-                }
-
             }
-        }
+
     }
     private String getSelectedComboBoxItem(ComboBox<String> comboBox) {
         // Assuming the ComboBox contains strings
