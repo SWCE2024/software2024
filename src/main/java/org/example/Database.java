@@ -45,7 +45,6 @@ public class Database {
     public static void addCustomerCID(String cid) {
         custumerCID.add(cid);
     }
-
     private static String userID;
     public static String getUserID() {
         return userID ;
@@ -197,45 +196,46 @@ public class Database {
         {
             Connection conn = connect();
             assert conn != null;
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            if (rs.next())
-                cid = rs.getInt("CID");
-            stmt.close();
+            try(Statement stmt = conn.createStatement()) {
+
+                ResultSet rs = stmt.executeQuery(sql);
+                if (rs.next())
+                    cid = rs.getInt("CID");
+                stmt.close();
+            }
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            logger.log(null,"An error ",e);
         }
         try {
             Logger logger = Logger.getLogger(Database.class.getName());
 
             Connection conn = connect();
             assert conn != null;
-            Statement stmt = conn.createStatement();
-            ResultSet rs ;
-            if(cid==0)
-                logger.info("error in the id");
+            try(Statement stmt = conn.createStatement()){
+                ResultSet rs ;
+                if(cid==0)
+                    logger.info("error in the id");
 
-            else {
-                sql = "SELECT * FROM software2024.\"Events\"  WHERE \"CID\" ='" + cid + "'";
-                rs = stmt.executeQuery(sql);
-                if (rs.next())
-                {
-                    setSubject(rs.getString("EventName"));
-                    message = "Hello\n" +
-                            "We invite you to attend my private party on " + rs.getDate("EventDate") + " at " + rs.getTime("EventTime") + "\n" +
-                            "the location is " + rs.getString("Location") + ".\n" +
-                            "Your presence is an honor for us, and may you be well";
+                else {
+                    sql = "SELECT * FROM software2024.\"Events\"  WHERE \"CID\" ='" + cid + "'";
+                    rs = stmt.executeQuery(sql);
+                    if (rs.next()) {
+                        setSubject(rs.getString("EventName"));
+                        message = "Hello\n" +
+                                "We invite you to attend my private party on " + rs.getDate("EventDate") + " at " + rs.getTime("EventTime") + "\n" +
+                                "the location is " + rs.getString("Location") + ".\n" +
+                                "Your presence is an honor for us, and may you be well";
+                    } else
+                        logger.log(Level.SEVERE, "error in massage!", e);
                 }
-                else
-                    logger.log(Level.SEVERE, "error in massage!", e);
+                stmt.close();
             }
-     stmt.close();
         }
         catch (SQLException e)
         {
-            e.printStackTrace();
+            logger.log(null,"An error ",e);
         }
         return message;
     }
@@ -254,7 +254,7 @@ public class Database {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(null,"An error ",e);
         }
         return false;
     }
@@ -278,7 +278,7 @@ public class Database {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(null,"An error ",e);
             return false;
         }
     }
@@ -301,7 +301,7 @@ public class Database {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(null,"An error ",e);
             return false;
         }
 
@@ -321,7 +321,7 @@ public class Database {
         }
 
         catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(null,"An error ",e);
             return false;
         }
 
