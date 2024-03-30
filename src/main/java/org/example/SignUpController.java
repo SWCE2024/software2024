@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import javafx.scene.control.TextField;
 
+
 public class SignUpController {
     public static final Logger logger = Logger.getLogger(SignUpController.class.getName());
     @FXML
