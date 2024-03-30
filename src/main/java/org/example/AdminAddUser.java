@@ -1,8 +1,11 @@
 package org.example;
 
+import animatefx.animation.FadeIn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -75,20 +78,19 @@ public class AdminAddUser {
                     logger.log(Level.SEVERE,errorMessege , e);
                 }
     }
-    AdminUserManagement admin = new AdminUserManagement();
 
     @FXML
     void backClicked(MouseEvent event) {
         try {
-
-            admin.root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManagement.fxml"));
-            admin.stage=(Stage) back.getScene().getWindow();
-            admin.callScreen();
-
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, errorMessege, e);
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManegement.fxml"));
+            Stage stage = (Stage) back.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            new FadeIn(root).play();
+        }catch (IOException e){
+            logger.log(Level.SEVERE,errorMessege , e);
         }
-
     }
 
 }

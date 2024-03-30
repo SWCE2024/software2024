@@ -28,8 +28,8 @@ public class AdminUserManagement {
     @FXML
     private Label update;
     private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
-    public static Parent root;
-    public static Stage stage;
+      Parent root;
+    Stage stage;
 
     @FXML
     void AddClicked(MouseEvent event) {
@@ -44,7 +44,7 @@ public class AdminUserManagement {
         }
 
     }
-   public static void callScreen(){
+    void callScreen(){
         stage.setScene(new Scene(root));
         stage.show();
         FadeIn fadeIn = new FadeIn(root);
