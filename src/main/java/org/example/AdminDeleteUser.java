@@ -28,13 +28,14 @@ public class AdminDeleteUser {
     @FXML
     private TextField userIdText;
     private String errorMessege="An error occurred";
+    AdminUserManagement admin = new AdminUserManagement();
 
     @FXML
     void backClicked(MouseEvent event) {
         try {
-            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManagement.fxml"));
-            AdminUserManagement.stage=(Stage) back.getScene().getWindow();
-            AdminUserManagement.callScreen();
+            admin.root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManagement.fxml"));
+            admin.stage=(Stage) back.getScene().getWindow();
+            admin.callScreen();
 
         } catch (IOException e) {
             logger.log(Level.SEVERE, errorMessege, e);
