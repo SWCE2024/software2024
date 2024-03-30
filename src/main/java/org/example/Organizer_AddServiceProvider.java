@@ -88,23 +88,33 @@ public class Organizer_AddServiceProvider {
 
         if (TESTINPUT.checkInputs(phoneNumber, price))
         {
+            Connection con = Database.connect();
+            PreparedStatement preparedStatement=null;
             try {
                 String sql = "INSERT INTO software2024.\"ServiceProviders\" (\"Number\",\"Category\",\"Location\",\"Price\",\"Availability\",\"userID\") VALUES (?,?,?,?,?,?)";
-                Connection con = Database.connect();
-                PreparedStatement preparedStatement = con.prepareStatement(sql);
+                preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setString(1, phoneNumber);  // Assuming CID is an integer
                 preparedStatement.setString(2, category);
                 preparedStatement.setString(3, comboBoxValue);
                 preparedStatement.setInt(4, Integer.parseInt(price));
                 preparedStatement.setString(5,availble);
                 preparedStatement.setInt(6, Integer.parseInt(Database.getUserID()));
-                preparedStatement.executeUpdate();
+                preparedStatement. executeUpdate();
                 JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException e) {
                 e.printStackTrace();
                 // Handle SQL exceptions or display an error message if needed
                 JOptionPane.showMessageDialog(null, "Error", "Failed to add Service Provider", JOptionPane.ERROR_MESSAGE);
+            }finally {
+                if (preparedStatement != null) {
+                    try {
+                        preparedStatement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        // Handle exception if closing the statement fails
+                    }
+                }
             }
 
         }

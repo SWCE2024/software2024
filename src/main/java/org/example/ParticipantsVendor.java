@@ -111,15 +111,16 @@ public class ParticipantsVendor {
             ObservableList<Vendor> vendors = FXCollections.observableArrayList();
             phoneNumber.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
             price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+            PreparedStatement stmt=null;
 
             try{
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt = conn.prepareStatement(sql);
                 stmt.setString(1, selectedCategory);
                 if(selectedSearch.equals(priceName)){
                 stmt.setInt(2, Integer.parseInt(searchTextValue));}
                 else{
                     stmt.setString(2, searchTextValue);}
-                ResultSet rs = stmt.executeQuery();
+                 ResultSet rs = stmt.executeQuery();
 
                 while (rs.next()) {
                     String phoneNumberValue = rs.getString("Number");
@@ -136,6 +137,15 @@ public class ParticipantsVendor {
                 alert.setContentText("An error occurred while retrieving data from the database.");
                 alert.showAndWait();
             }finally {
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        // Handle exception if closing the statement fails
+                    }
+                }
+
             }
         }
     }
