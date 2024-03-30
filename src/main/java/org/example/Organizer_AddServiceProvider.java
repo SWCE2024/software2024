@@ -99,7 +99,7 @@ public class Organizer_AddServiceProvider {
                 preparedStatement.setInt(4, Integer.parseInt(price));
                 preparedStatement.setString(5,availble);
                 preparedStatement.setInt(6, Integer.parseInt(Database.getUserID()));
-                preparedStatement.executeUpdate();
+                preparedStatement. executeUpdate();
                 JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException e) {

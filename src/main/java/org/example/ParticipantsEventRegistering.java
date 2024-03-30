@@ -149,7 +149,7 @@ public class ParticipantsEventRegistering {
               preparedStatement.setString(7, imagePath);
               preparedStatement.setTime(8, sqlTime);
 
-              preparedStatement.executeUpdate();
+               preparedStatement.executeUpdate();
               JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
           } catch (SQLException e) {

@@ -120,7 +120,7 @@ public class ParticipantsVendor {
                 stmt.setInt(2, Integer.parseInt(searchTextValue));}
                 else{
                     stmt.setString(2, searchTextValue);}
-                ResultSet rs = stmt.executeQuery();
+                 ResultSet rs = stmt.executeQuery();
 
                 while (rs.next()) {
                     String phoneNumberValue = rs.getString("Number");
