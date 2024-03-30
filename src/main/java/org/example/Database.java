@@ -118,32 +118,19 @@ public class Database {
     public static String getgmailReminder(String id ) throws SQLException {
         String gml="";
         String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\" WHERE \"CID\" ='"+id+"'" ;
-        Connection conn =null;
-        Statement stmt=null;
 
-
-        try
+        try(  Connection conn = connect();
+              Statement  stmt = conn.createStatement();
+              ResultSet rs = stmt.executeQuery(sql);
+              )
         {
-             conn = connect();
-            assert conn != null;
-            stmt = conn.createStatement();
-
-            ResultSet rs = stmt.executeQuery(sql);
             if (rs.next())
                 gml = rs.getString("GMAIL");
-
-            stmt.close();
         }
+
         catch (SQLException e)
         {
             e.printStackTrace();
-        }
-
-        finally {
-            assert conn != null;
-            conn.close();
-            assert stmt != null;
-            stmt.close();
         }
 
         return gml ;
