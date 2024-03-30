@@ -72,9 +72,9 @@ public class AdminAddUser {
 
                     // Checking if the insertion was successful
                     if (rowsAffected > 0) {
-                        System.out.println("User added successfully.");
+                        logger.log(Level.SEVERE,"User added successfully.");
                     } else {
-                        System.out.println("Failed to add user.");
+                        logger.log(Level.SEVERE, "Failed to add user.");
                     }
                 } catch (SQLException e) {
                     logger.log(Level.SEVERE, "An error occurred", e);
@@ -93,7 +93,7 @@ public class AdminAddUser {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }

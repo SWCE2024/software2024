@@ -63,9 +63,11 @@ public class Organizer_DeleteServiceProvider {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Service Provider deleted successfully.");
+                logger.log(Level.SEVERE, "Service Provider deleted successfully.");
+
             } else {
-                System.out.println("Failed to delete Service Provider. Service Provider with ID " + ID + " not found.");
+
+                logger.log(Level.SEVERE, "Failed to delete Service Provider. Service Provider with ID " + ID + " not found.");
             }
         }catch (SQLException e) {
             logger.log(Level.SEVERE, "An error occurred", e);

@@ -100,7 +100,7 @@ public class Organizer_UpdateServiceProvider {
                 availableText.setText(avaS);
                 userIDText.setText(String.valueOf(useridS));
             } else {
-                System.out.println("Service Provider not found.");
+                logger.log(Level.SEVERE, "Service Provider not found.");
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "An error occurred", e);
@@ -132,9 +132,10 @@ public class Organizer_UpdateServiceProvider {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Service Provider information updated successfully.");
+                logger.log(Level.SEVERE, "Service Provider information updated successfully.");
+
             } else {
-                System.out.println("Failed to update Service Provider information.");
+                logger.log(Level.SEVERE, "Failed to update Service Provider information.");
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "An error occurred", e);

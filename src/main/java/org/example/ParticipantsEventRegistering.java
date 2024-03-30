@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 
 public class ParticipantsEventRegistering {
@@ -84,7 +87,7 @@ public class ParticipantsEventRegistering {
           fadeIn.play();
           
       } catch (IOException e) {
-          throw new RuntimeException(e);
+          logger.log(Level.SEVERE, "An error occurred", e);
       }
 
     }
@@ -100,8 +103,7 @@ public class ParticipantsEventRegistering {
             FadeIn fadeIn = new FadeIn(root);
             fadeIn.play();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }
@@ -153,10 +155,8 @@ public class ParticipantsEventRegistering {
               JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
           } catch (SQLException e) {
-              e.printStackTrace();
-              // Handle SQL exceptions or display an error message if needed
-              JOptionPane.showMessageDialog(null, "Error", "Failed to add event", JOptionPane.ERROR_MESSAGE);
-          }finally {
+              logger.log(Level.SEVERE, "An error occurred", e);
+         }finally {
               if (preparedStatement != null) {
                       preparedStatement.close();
               }

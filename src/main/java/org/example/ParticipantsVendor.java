@@ -16,6 +16,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 public class ParticipantsVendor {
 
@@ -72,7 +75,7 @@ public class ParticipantsVendor {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }
@@ -129,13 +132,7 @@ public class ParticipantsVendor {
                 }
                 table.setItems(vendors);
             } catch (SQLException e) {
-                e.printStackTrace();
-                // Handle database errors
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Database Error");
-                alert.setHeaderText(null);
-                alert.setContentText("An error occurred while retrieving data from the database.");
-                alert.showAndWait();
+            logger.log(Level.SEVERE, "An error occurred", e);
             }finally {
                   if (stmt != null){
                         stmt.close();}
