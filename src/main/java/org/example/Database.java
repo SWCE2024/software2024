@@ -76,22 +76,29 @@ public class Database {
         String sql = "SELECT \"EventID\" FROM software2024.\"Events\"  " ;
         try {
             Connection conn = connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            boolean c =true;
-            while (c)
-            {
-                if (rs.next()) count++;
-                else c=false;
+            if (conn==null)
+                logger.info("error conn = null");
+            else {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+                boolean c = true;
+                while (c) {
+                    if (rs.next()) count++;
+                    else c = false;
+                }
+
+                rs = stmt.executeQuery(sql);
+                for (int i = 0; i < count; i++)
+                    if (rs.next()) {
+                        date.add(rs.getDate("EventDate"));
+                        custumerCID.add(rs.getString("CID"));
+                    }
+
+           stmt.close();
             }
 
-             rs = stmt.executeQuery(sql);
-            for(int i =0;i<count;i++)
-                if (rs.next()) {
-                    date.add(rs.getDate("EventDate"));
-                    custumerCID.add(rs.getString("CID"));
-                }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return date;
@@ -103,13 +110,18 @@ public class Database {
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
+
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next())
                 gml = rs.getString("GMAIL");
+
+            stmt.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
-        }return gml ;
+        }
+
+        return gml ;
     }
     public static boolean addOrg(String iD, String name, String address, String gmail, String phone , String pass)
     {
@@ -124,6 +136,7 @@ public class Database {
             pstmt.setString(6, pass);
 
             int affectedRows = pstmt.executeUpdate();
+            pstmt.close();
             return affectedRows > 0;
         }
         catch (SQLException e) {
@@ -137,6 +150,7 @@ public class Database {
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.executeUpdate();
+            pstmt.close();
             return true;
         }
         catch (SQLException e) {
@@ -153,6 +167,7 @@ public class Database {
             while (rs.next()) {
                 emails.add(rs.getString("GMAIL"));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -170,6 +185,7 @@ public class Database {
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next())
                 cid = rs.getInt("CID");
+            stmt.close();
         }
         catch (SQLException e)
         {
@@ -198,6 +214,7 @@ public class Database {
                 else
                     logger.log(Level.SEVERE, "error in massage!", e);
             }
+     stmt.close();
         }
         catch (SQLException e)
         {
@@ -213,8 +230,10 @@ public class Database {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             if (rs.next()) {
+                stmt.close();
                 return true;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -234,7 +253,9 @@ public class Database {
             pstmt.setString(6, password);
 
             int affectedRows = pstmt.executeUpdate();
+      pstmt.close();
             return affectedRows > 0;
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -253,6 +274,7 @@ public class Database {
             pstmt.setString(5, pricing);
 
             int affectedRows = pstmt.executeUpdate();
+            pstmt.close();
             return affectedRows > 0;
         }
         catch (SQLException e) {
@@ -268,6 +290,7 @@ public class Database {
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
              pstmt.executeUpdate();
+             pstmt.close();
              return true;
         }
 
