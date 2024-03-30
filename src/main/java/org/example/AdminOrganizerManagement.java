@@ -114,9 +114,9 @@ public class AdminOrganizerManagement {
     @FXML
     void DeleteBottonClicked(ActionEvent event)
     {
-        {
-            String ID=oid.getText();
-            boolean isRegistered = Database.deleteOrg(ID );
+
+            String iD=oid.getText();
+            boolean isRegistered = Database.deleteOrg(iD );
             if (isRegistered)
             {
                 JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -131,17 +131,17 @@ public class AdminOrganizerManagement {
             }
             else
                 JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
-        }
+
 
     }
 
     @FXML
-    void SearchBottonClicked(ActionEvent event)
+    void searchBottonClicked(ActionEvent event)
     {
 
 
-        String ID=oid.getText();
-        String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ ID+"'" ;
+        String iD=oid.getText();
+        String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ iD+"'" ;
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs= pstmt.executeQuery();
@@ -171,7 +171,7 @@ public class AdminOrganizerManagement {
 
 
     @FXML
-    void UpdateBottonClicked(ActionEvent event)
+    void updateBottonClicked(ActionEvent event)
     {
         String name=orgname.getText();
         String id=oid.getText();
@@ -215,7 +215,7 @@ public class AdminOrganizerManagement {
             stage.show();
             new FadeIn(root).play();
         }catch (IOException e){
-            logger.log(null,error+" while opening a new window:");
+            logger.info(error+" while opening a new window:");
         }
 
     }
