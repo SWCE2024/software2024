@@ -74,7 +74,7 @@ public class calender {
             }
         } catch (SQLException e) {
 
-            e.printStackTrace();
+            logger.info(e.toString());
         }
     }
 
