@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 
 
 public class SignUpController {
-    public static Logger logger = Logger.getLogger(SignUpController.class.getName());
+    public static final Logger logger = Logger.getLogger(SignUpController.class.getName());
     @FXML
     private TextField address;
     @FXML
@@ -79,7 +79,7 @@ public class SignUpController {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(null,"An error occurred while opening a new window:",e);
         }
     }
 }
