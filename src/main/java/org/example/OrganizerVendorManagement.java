@@ -27,7 +27,7 @@ public class OrganizerVendorManagement {
 
     @FXML
     private Label update;
-    private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+    private static final String errorMessage = "An error occurred while opening a new window:";
      Parent root;
      Stage stage;
      void callWindow(){
@@ -45,7 +45,7 @@ public class OrganizerVendorManagement {
             stage=(Stage) Add.getScene().getWindow();
             callWindow();
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
+            logger.log(Level.SEVERE, errorMessage, e);
         }
 
 
@@ -59,7 +59,7 @@ public class OrganizerVendorManagement {
             callWindow();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
+            logger.log(Level.SEVERE, errorMessage, e);
         }
 
     }
@@ -72,7 +72,7 @@ public class OrganizerVendorManagement {
             callWindow();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
+            logger.log(Level.SEVERE, errorMessage, e);
         }
 
     }
@@ -85,7 +85,7 @@ public class OrganizerVendorManagement {
             stage=(Stage) back.getScene().getWindow();
             callWindow();
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
+            logger.log(Level.SEVERE, errorMessage, e);
         }
 
     }

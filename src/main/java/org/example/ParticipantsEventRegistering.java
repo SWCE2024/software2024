@@ -104,16 +104,17 @@ public class ParticipantsEventRegistering {
         }
 
     }
-
+    String err="ERROR";
 
     @FXML
     void addNewEvent(ActionEvent event) throws SQLException {
+
       if (!TESTINPUT.dateTest(eventDate.getText()))
-          JOptionPane.showMessageDialog(null,"Unvalid Date","ERROR",JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(null,"Unvalid Date",err,JOptionPane.ERROR_MESSAGE);
       else if (!TESTINPUT.timeTest(eventTime.getText()))
-          JOptionPane.showMessageDialog(null,"Unvalid Time","ERROR",JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(null,"Unvalid Time",err,JOptionPane.ERROR_MESSAGE);
       else if (!TESTINPUT.countTest(attendeCount.getText()))
-          JOptionPane.showMessageDialog(null,"Unvalid Attende Count","ERROR",JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(null,"Unvalid Attende Count",err,JOptionPane.ERROR_MESSAGE);
       else {
           Connection con = Database.connect();
           PreparedStatement preparedStatement=null;
@@ -166,9 +167,9 @@ public class ParticipantsEventRegistering {
     private String getImagePathFromImageView(ImageView imageView) {
         // Assuming you set the image using setImage(new Image("file:/path/to/image.jpg"))
         // If you have a different method for setting the image, adjust accordingly
-        Image image = imageView.getImage();
+        Image imagee = imageView.getImage();
         String imagePath;
-        imagePath = image.getUrl().substring("file:".length());
+        imagePath = imagee.getUrl().substring("file:".length());
         return imagePath;
     }
     private String getSelectedComboBoxItem(ComboBox<String> comboBox) {
@@ -193,7 +194,7 @@ public class ParticipantsEventRegistering {
 
         }
         else if (!TESTINPUT.pictureTest(temp))
-            JOptionPane.showMessageDialog(null,"Unvalid Picture","ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Unvalid Picture",err,JOptionPane.ERROR_MESSAGE);
 
 
     }
