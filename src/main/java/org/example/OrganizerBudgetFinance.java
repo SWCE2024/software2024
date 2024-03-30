@@ -64,17 +64,23 @@ public class OrganizerBudgetFinance {
     private void executeQuery(String eventID) {
         String sql = buildSQLQuery(eventID);
         try (Connection conn = Database.connect();
-             PreparedStatement pstmt = prepareStatement(conn, sql, eventID);
-             ResultSet rs = pstmt.executeQuery()) {
-            table.getItems().clear();
-            while (rs.next()) {
-                EventFinance eventFinance = extractEventFinance(rs);
-                table.getItems().add(eventFinance);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            if (eventID != null) {
+                pstmt.setInt(1, Integer.parseInt(eventID));
+            }
+            try (ResultSet rs = pstmt.executeQuery()) {
+                table.getItems().clear();
+                while (rs.next()) {
+                    EventFinance eventFinance = extractEventFinance(rs);
+                    table.getItems().add(eventFinance);
+                }
             }
         } catch (SQLException e) {
-            logger.log(null,"An error occurred:",e);
+            logger.log(null, "An error occurred:", e);
         }
     }
+
+
 
 
     private String buildSQLQuery(String eventID) {
@@ -88,17 +94,6 @@ public class OrganizerBudgetFinance {
             sql += "WHERE e.\"EventID\" = ?";
         }
         return sql;
-    }
-
-    private PreparedStatement prepareStatement(Connection conn, String sql, String eventID) throws SQLException {
-            assert conn != null;
-            PreparedStatement pstmt = conn.prepareStatement(sql) ;
-                if (eventID != null) {
-                    pstmt.setInt(1, Integer.parseInt(eventID));
-                }
-
-                return pstmt;
-
     }
 
 
