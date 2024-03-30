@@ -132,7 +132,7 @@ public class ParticipantsVendor {
                 }
                 table.setItems(vendors);
             } catch (SQLException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, "An error ", e);
             }finally {
                   if (stmt != null){
                         stmt.close();}

@@ -103,7 +103,7 @@ public class ParticipantsEventRegistering {
             FadeIn fadeIn = new FadeIn(root);
             fadeIn.play();
 
-        } catch (IOException e) {logger.log(Level.SEVERE, "An error occurred", e);
+        } catch (IOException e) {logger.log(Level.SEVERE, "An error happened", e);
         }
 
     }
@@ -155,7 +155,7 @@ public class ParticipantsEventRegistering {
               JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
           } catch (SQLException e) {
-              logger.log(Level.SEVERE, "An error occurred", e);
+              logger.log(Level.SEVERE, "Ther is an error", e);
          }finally {
               if (preparedStatement != null) {
                       preparedStatement.close();
@@ -190,7 +190,7 @@ public class ParticipantsEventRegistering {
         File file=fileChooser.showOpenDialog(stage);
         if (file != null){
             String iconimage= file.getAbsolutePath();
-            System.out.println(iconimage);
+            logger.log(Level.SEVERE, iconimage);
             image.setImage(new Image(iconimage));
             temp=iconimage;
 
