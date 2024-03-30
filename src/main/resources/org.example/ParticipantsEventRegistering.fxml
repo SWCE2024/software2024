@@ -127,6 +127,23 @@
                         <Insets bottom="2.0" top="2.0" />
                     </padding>
                 </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="535.0">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="165.0" text="Event Type" textFill="#bc4e2a">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="eventtype" prefHeight="40.0" prefWidth="310.0" promptText="Event Type" style="-fx-background-radius: 50;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+            </HBox>
             </children>
         </VBox>
         <Button fx:id="addEvent" layoutX="308.0" layoutY="432.0" mnemonicParsing="false" onAction="#addNewEvent" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Add your event" textFill="WHITE">

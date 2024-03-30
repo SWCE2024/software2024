@@ -32,7 +32,9 @@ public class ParticipantsVendor {
     private TableColumn<Vendor, String> phoneNumber;
 
     @FXML
-    private TableColumn<Vendor, Integer> price;
+    private TableColumn<Vendor, Double> price;
+    @FXML
+    private Button reserve;
 
     @FXML
     private TextField reserveText;
@@ -73,9 +75,15 @@ public class ParticipantsVendor {
 
     }
     @FXML
-    void searchClicked(MouseEvent event) {
-        String selectedCategory =comboBoxCategory.getValue();
-        String selectedSearch = comboBoxSearch.getValue();
+    void reserveClicked(MouseEvent event) {
+
+
+
+    }
+    @FXML
+    void searchClicked(MouseEvent event) throws SQLException {
+        String selectedCategory =getSelectedComboBoxItem(comboBoxCategory);
+        String selectedSearch = getSelectedComboBoxItem(comboBoxSearch);
         String searchTextValue = searchText.getText();
 
         if (selectedCategory.equals("Choose...") || selectedSearch.equals("Choose...") || searchTextValue.isEmpty()) {
@@ -85,31 +93,47 @@ public class ParticipantsVendor {
             alert.setContentText("Please select category, search criteria, and enter search text.");
             alert.showAndWait();
             return;
-        }
-        String sql = "SELECT Number, Price FROM ServiceProviders WHERE Category = ? AND " + selectedSearch + " = ?";
-        ObservableList<Vendor> vendors = FXCollections.observableArrayList();
-        try (Connection conn = Database.connect();
-             PreparedStatement stmt = conn.prepareStatement(sql);) {
-            stmt.setString(1, selectedCategory);
-            stmt.setString(2, searchTextValue);
-            ResultSet rs = stmt.executeQuery();
-            System.out.println("Hello");
-            while (rs.next()) {
-                System.out.println("Hello");
-                String phoneNumberValue = rs.getString("Number");
-                int priceValue = rs.getInt("Price");
-                System.out.println(phoneNumberValue);
-                //vendors.add(new Vendor(phoneNumberValue, priceValue));
+        }else {
+            Connection conn = Database.connect();
+            String sql = null;
+
+            if(selectedSearch=="Price"){
+                sql = "SELECT \"Number\", \"Price\" FROM software2024.\"ServiceProviders\" WHERE \"Category\" = ? AND \"Price\" = ?";
+              //  SELECT "Number", "Price" FROM software2024."ServiceProviders" WHERE "Category" = ? AND "Price" = ?
             }
-            table.setItems(vendors);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle database errors
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Database Error");
-            alert.setHeaderText(null);
-            alert.setContentText("An error occurred while retrieving data from the database.");
-            alert.showAndWait();
+            else if (selectedSearch=="Location") {
+                sql = "SELECT \"Number\", \"Price\" FROM software2024.\"ServiceProviders\" WHERE \"Category\" = ? AND \"Location\" = ?";
+            }else {
+                sql = "SELECT \"Number\", \"Price\" FROM software2024.\"ServiceProviders\" WHERE \"Category\" = ? AND \"Availability\" = ?";
+            }
+            ObservableList<Vendor> vendors = FXCollections.observableArrayList();
+            phoneNumber.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
+            price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+
+            try{
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, selectedCategory);
+                if(selectedSearch=="Price")
+                stmt.setInt(2, Integer.parseInt(searchTextValue));
+                else
+                    stmt.setString(2, searchTextValue);
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    String phoneNumberValue = rs.getString("Number");
+                    int priceValue = rs.getInt("Price");
+                    vendors.add(new Vendor(phoneNumberValue, priceValue));
+                }
+                table.setItems(vendors);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Handle database errors
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Database Error");
+                alert.setHeaderText(null);
+                alert.setContentText("An error occurred while retrieving data from the database.");
+                alert.showAndWait();
+            }
         }
     }
     private String getSelectedComboBoxItem(ComboBox<String> comboBox) {

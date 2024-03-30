@@ -38,6 +38,8 @@ public class ParticipantsEventRegistering {
 
     @FXML
     private Label back;
+    @FXML
+    private TextField eventtype;
 
     @FXML
     private TextField attendeCount;
@@ -120,6 +122,7 @@ public class ParticipantsEventRegistering {
               String date = eventDate.getText();
               String time = eventTime.getText()+":00";
               String count = attendeCount.getText();
+              String type = eventtype.getText();
               String comboBoxValue = (String) getSelectedComboBoxItem(ComboBox);
               String imagePath = getImagePathFromImageView(image);
 
@@ -136,7 +139,7 @@ public class ParticipantsEventRegistering {
 
 
               preparedStatement.setString(1, Database.getUserID());  // Assuming CID is an integer
-              preparedStatement.setString(2, "Decoration");
+              preparedStatement.setString(2, type);
               preparedStatement.setString(3, name);
               preparedStatement.setDate(4, sqlDate);
               preparedStatement.setString(5, comboBoxValue);
