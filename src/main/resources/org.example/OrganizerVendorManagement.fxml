@@ -18,7 +18,7 @@
                         <Insets left="60.0" />
                     </opaqueInsets>
                 </Label>
-                <Label fx:id="Add" layoutX="225.0" layoutY="172.0" onMouseClicked="#AddClicked" prefHeight="51.0" prefWidth="330.0" text=". Add a new Service Provider" textFill="#bc4e2a">
+                <Label fx:id="Add" layoutX="225.0" layoutY="172.0" onMouseClicked="#addClicked" prefHeight="51.0" prefWidth="330.0" text=". Add a new Service Provider" textFill="#bc4e2a">
                     <font>
                         <Font name="Berlin Sans FB Demi Bold" size="25.0" />
                     </font>
@@ -26,7 +26,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="update" layoutX="225.0" layoutY="231.0" onMouseClicked="#UpdateClicked" prefHeight="51.0" prefWidth="313.0" text=". Update a Service Provider" textFill="#bc4e2a">
+                <Label fx:id="update" layoutX="225.0" layoutY="231.0" onMouseClicked="#updateClicked" prefHeight="51.0" prefWidth="313.0" text=". Update a Service Provider" textFill="#bc4e2a">
                     <font>
                         <Font name="Berlin Sans FB Demi Bold" size="25.0" />
                     </font>
@@ -34,7 +34,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="delete" layoutX="228.0" layoutY="289.0" onMouseClicked="#DeleteClicked" prefHeight="51.0" prefWidth="306.0" text=". Delete a Service Provider" textFill="#bc4e2a">
+                <Label fx:id="delete" layoutX="228.0" layoutY="289.0" onMouseClicked="#deleteClicked" prefHeight="51.0" prefWidth="306.0" text=". Delete a Service Provider" textFill="#bc4e2a">
                     <font>
                         <Font name="Berlin Sans FB Demi Bold" size="25.0" />
                     </font>

@@ -21,7 +21,7 @@ import java.util.logging.Level;
 
 import static org.example.SignUpController.logger;
 
-public class Organizer_UpdateServiceProvider {
+public class OrganizerUpdateServiceProvider {
     @FXML
     private TextField availableText;
 
@@ -52,8 +52,6 @@ public class Organizer_UpdateServiceProvider {
     @FXML
     private TextField userIDText;
 
-    AdminUserManagement admin = new AdminUserManagement();
-
     @FXML
     void backClicked(MouseEvent event) {
         try {
@@ -71,16 +69,16 @@ public class Organizer_UpdateServiceProvider {
     Connection connection = Database.connect();
 
     @FXML
-    void get_information(ActionEvent event) {
+    void getInformation(ActionEvent event) {
         String sql = "SELECT \"Number\", \"Category\", \"Location\", \"Price\", \"Availability\", \"userID\" FROM software2024.\"ServiceProviders\" WHERE \"ServiceProviderID\" = ?";
 
-        String ID = serviceProviderIdText.getText();
+        String id = serviceProviderIdText.getText();
 
         try (
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
-            preparedStatement.setInt(1, Integer.parseInt(ID));
+            preparedStatement.setInt(1, Integer.parseInt(id));
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -116,7 +114,7 @@ public class Organizer_UpdateServiceProvider {
         String price = priceText.getText();
         String available = availableText.getText();
         String userid = userIDText.getText();
-        String ServiceProviderID = serviceProviderIdText.getText();
+        String serviceProviderID = serviceProviderIdText.getText();
         try (
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
@@ -126,7 +124,7 @@ public class Organizer_UpdateServiceProvider {
             preparedStatement.setInt(4, Integer.parseInt(price));
             preparedStatement.setString(5, available);
             preparedStatement.setInt(6, Integer.parseInt(userid));
-            preparedStatement.setInt(7, Integer.parseInt(ServiceProviderID));
+            preparedStatement.setInt(7, Integer.parseInt(serviceProviderID));
             // Executing the update query
             int rowsAffected = preparedStatement.executeUpdate();
 
