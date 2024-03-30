@@ -28,8 +28,8 @@ public class AdminUserManagement {
     @FXML
     private Label update;
     private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
-    static Parent root;
-    static Stage stage;
+    public static Parent root;
+    public static Stage stage;
 
     @FXML
     void AddClicked(MouseEvent event) {
