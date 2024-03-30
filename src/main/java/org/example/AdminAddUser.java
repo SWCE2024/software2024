@@ -12,11 +12,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import java.io.IOException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 public class AdminAddUser {
 
@@ -70,12 +72,12 @@ public class AdminAddUser {
 
                     // Checking if the insertion was successful
                     if (rowsAffected > 0) {
-                        System.out.println("User added successfully.");
+                        logger.log(Level.SEVERE,"User added successfully.");
                     } else {
-                        System.out.println("Failed to add user.");
+                        logger.log(Level.SEVERE, "Failed to add user.");
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    logger.log(Level.SEVERE, "An error occurred", e);
                 }
     }
 
@@ -91,7 +93,7 @@ public class AdminAddUser {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }
