@@ -17,12 +17,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+
 import static org.example.SignUpController.logger;
 
 public class OrganizerEventManagement implements Initializable {
 
     @FXML
-    private Button UpdateProduct1;
+    private Button updateProduct1;
 
     @FXML
     private Button addEvent;
@@ -87,8 +89,11 @@ public class OrganizerEventManagement implements Initializable {
     @FXML
     private VBox updateProductBox;
 
+    private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+
+
     @FXML
-    void UpdateProduct1Clicked(MouseEvent event) {
+    void updateProduct1Clicked(MouseEvent event) {
         String oldEventName = eventNameUpdate1.getText();
         String newEventName = eventNameUpdate1After.getText();
         String eventDate = dateUpdate1.getText();
@@ -112,8 +117,7 @@ public class OrganizerEventManagement implements Initializable {
                 JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            logger.log(null," An error occurred while opening a new window:");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
     @FXML
@@ -147,8 +151,7 @@ public class OrganizerEventManagement implements Initializable {
                 JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            logger.log(null," An error occurred while opening a new window:");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
     @FXML
@@ -161,7 +164,7 @@ public class OrganizerEventManagement implements Initializable {
             stage.show();
             new FadeIn(root).play();
         }catch (IOException e){
-            logger.log(null," An error occurred while opening a new window:");
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
     @FXML
@@ -176,7 +179,7 @@ public class OrganizerEventManagement implements Initializable {
         getEventInformation(eventName);
     }
     private void getEventInformation(String name) {
-        String sql = "SELECT * FROM software2024.\"EVENT\" WHERE \"EventName\" = ?";
+        String sql = "SELECT \"EventName\", \"EventDate\", \"EventLocation\", \"EventTime\", \"EventDiscription\" FROM software2024.\"EVENT\" WHERE \"EventName\" = ?";
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, name);
@@ -186,15 +189,14 @@ public class OrganizerEventManagement implements Initializable {
                 dateUpdate1.setText(rs.getDate("EventDate").toString());
                 locationUpdate1.setText(rs.getString("EventLocation"));
                 timeUpdate1.setText(rs.getString("EventTime"));
-                // descriptionUpdate1.setText(rs.getString("EventDescription"));
             } else {
-                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Event not found.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            logger.log(null," An error occurred while opening a new window:");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
+
     @FXML
     void updateClicked(MouseEvent event) {
         addProductBox.setVisible(false);
@@ -224,8 +226,7 @@ public class OrganizerEventManagement implements Initializable {
                 JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            logger.log(null," An error occurred while opening a new window:");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
 
