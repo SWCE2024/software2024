@@ -95,6 +95,7 @@ public class OrganizerBudgetFinance {
         if (eventID != null) {
             pstmt.setInt(1, Integer.parseInt(eventID));
         }
+        pstmt.close();
         return pstmt;
     }
 
