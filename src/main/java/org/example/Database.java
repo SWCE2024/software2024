@@ -3,7 +3,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.example.SignUpController.logger;
 
@@ -261,33 +260,23 @@ public class Database {
 
     public static boolean validateLogin(String email, String password, String table) {
         String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            conn = connect();
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             if (conn == null) {
                 logger.log(Level.SEVERE, "Database connection failed. Unable to validate login.");
                 return false;
             }
-            pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email);
             pstmt.setString(2, password);
-            rs = pstmt.executeQuery();
-            return rs.next();
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "An error occurred while validating login:", e);
             return false;
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                logger.log(Level.SEVERE, "Failed to close resources:", e);
-            }
         }
     }
+
 
 
     public static boolean registerCustomer(String id, String phoneNumber, String address, String gmail, String userName, String password) {
