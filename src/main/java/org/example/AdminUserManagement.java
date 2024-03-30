@@ -32,7 +32,7 @@ public class AdminUserManagement {
     Stage stage;
 
     @FXML
-    void AddClicked(MouseEvent event) {
+    void addClicked(MouseEvent event) {
         try {
 
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminAddUser.fxml"));
@@ -53,7 +53,7 @@ public class AdminUserManagement {
     }
 
     @FXML
-    void DeleteClicked(MouseEvent event) {
+    void deleteClicked(MouseEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminDeleteUser.fxml"));
             stage=(Stage) delete.getScene().getWindow();
@@ -66,7 +66,7 @@ public class AdminUserManagement {
     }
 
     @FXML
-    void UpdateClicked(MouseEvent event) {
+    void updateClicked(MouseEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminUpdateUser.fxml"));
             stage=(Stage) update.getScene().getWindow();

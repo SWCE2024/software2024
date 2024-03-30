@@ -39,7 +39,7 @@ public class OrganizerVendorManagement {
      }
 
     @FXML
-    void AddClicked(MouseEvent event) {
+    void addClicked(MouseEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_AddServiceProvider.fxml"));
             stage=(Stage) Add.getScene().getWindow();
@@ -52,7 +52,7 @@ public class OrganizerVendorManagement {
     }
 
     @FXML
-    void DeleteClicked(MouseEvent event) {
+    void deleteClicked(MouseEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_DeleteServiceProvider.fxml"));
             stage=(Stage) delete.getScene().getWindow();
@@ -65,7 +65,7 @@ public class OrganizerVendorManagement {
     }
 
     @FXML
-    void UpdateClicked(MouseEvent event) {
+    void updateClicked(MouseEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_UpdateServiceProvider.fxml"));
             stage=(Stage) update.getScene().getWindow();

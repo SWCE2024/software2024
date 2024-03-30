@@ -31,7 +31,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Label>
-        <Button fx:id="deleteUser" layoutX="282.0" layoutY="263.0" mnemonicParsing="false" onAction="#delete_User" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Delete user" textFill="WHITE">
+        <Button fx:id="deleteUser" layoutX="282.0" layoutY="263.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Delete user" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="14.0" />
             </font>

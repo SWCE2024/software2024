@@ -20,7 +20,7 @@ import java.util.logging.Level;
 
 import static org.example.SignUpController.logger;
 
-public class Organizer_DeleteServiceProvider {
+public class OrganizerDeleteServiceProvider {
 
     @FXML
     private Label back;
@@ -49,13 +49,13 @@ public class Organizer_DeleteServiceProvider {
     @FXML
     void deleteClicked(ActionEvent event) {
         String sql = "DELETE FROM software2024.\"ServiceProviders\" WHERE \"ServiceProviderID\" = ?";
-        String ID = idText.getText();
+        String id = idText.getText();
 
         try (
                 Connection connection = Database.connect();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
-            preparedStatement.setInt(1, Integer.parseInt(ID));
+            preparedStatement.setInt(1, Integer.parseInt(id));
 
             // Execute the delete query
             int rowsAffected = preparedStatement.executeUpdate();
@@ -65,7 +65,7 @@ public class Organizer_DeleteServiceProvider {
 
             } else {
 
-                logger.log(Level.SEVERE, "Failed to delete Service Provider. Service Provider with ID {0} not found.",ID);
+                logger.log(Level.SEVERE, "Failed to delete Service Provider. Service Provider with ID {0} not found.",id);
             }
         }catch (SQLException e) {
             logger.log(Level.SEVERE, "There is an error", e);

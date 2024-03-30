@@ -30,13 +30,13 @@ public class AdminDeleteUser {
 
     @FXML
     private TextField userIdText;
-    private String errorMessege="An error occurred";
+    private String errorMessege="Faild to open Window";
 
     @FXML
     void backClicked(MouseEvent event) {
         try {
             Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManegement.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManagement.fxml"));
             Stage stage = (Stage) back.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -47,15 +47,15 @@ public class AdminDeleteUser {
     }
 
     @FXML
-    void delete_User(ActionEvent event) {
+    void deleteUser(ActionEvent event) {
         String sql = "DELETE FROM software2024.\"customer\" WHERE \"CID\" = ?";
-        String CID = userIdText.getText();
+        String customerID = userIdText.getText();
 
         try (
                 Connection connection = Database.connect();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
-            preparedStatement.setInt(1, Integer.parseInt(CID));
+            preparedStatement.setInt(1, Integer.parseInt(customerID));
 
             // Execute the delete query
             int rowsAffected = preparedStatement.executeUpdate();
@@ -63,7 +63,7 @@ public class AdminDeleteUser {
             if (rowsAffected > 0) {
                 logger.log(Level.SEVERE,"User deleted successfully.");
             } else {
-                logger.log(Level.SEVERE, "Failed to delete user. User with ID {0} not found.", CID);
+                logger.log(Level.SEVERE, "Failed to delete user. User with ID {0} not found.", customerID);
 
             }
         }catch (SQLException e) {

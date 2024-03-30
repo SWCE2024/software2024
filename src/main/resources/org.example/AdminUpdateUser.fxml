@@ -113,7 +113,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Label>
-        <Button fx:id="updateUser" layoutX="313.0" layoutY="420.0" mnemonicParsing="false" onAction="#update_User" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Update Now" textFill="WHITE">
+        <Button fx:id="updateUser" layoutX="313.0" layoutY="420.0" mnemonicParsing="false" onAction="#updateUser" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Update Now" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="14.0" />
             </font>
@@ -148,7 +148,7 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="get" layoutX="630.0" layoutY="394.0" mnemonicParsing="false" onAction="#get_information" prefHeight="30.0" prefWidth="60.0" style="-fx-background-radius: 20; -fx-background-color: #ffccc5;" text="Get " textFill="#a64646">
+      <Button fx:id="get" layoutX="630.0" layoutY="394.0" mnemonicParsing="false" onAction="#getInformation" prefHeight="30.0" prefWidth="60.0" style="-fx-background-radius: 20; -fx-background-color: #ffccc5;" text="Get " textFill="#a64646">
          <font>
             <Font name="Arial Bold Italic" size="14.0" />
          </font>

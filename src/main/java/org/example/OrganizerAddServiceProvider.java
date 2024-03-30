@@ -21,7 +21,7 @@ import java.util.logging.Level;
 
 import static org.example.SignUpController.logger;
 
-public class Organizer_AddServiceProvider {
+public class OrganizerAddServiceProvider {
 
     @FXML
     private Button addService;
@@ -60,18 +60,17 @@ public class Organizer_AddServiceProvider {
         // Set an initial selection if needed
         comboBox.getSelectionModel().select(0);
     }
-    private static String availability;
-
+    String availability;
     @FXML
-    private String handleRadioButtonAction() {
+     private String handleRadioButtonAction() {
         RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-            if (selectedRadioButton == off) {
-                availability="OFF";
+        if (selectedRadioButton == off) {
+            availability="OFF";
 
-            } else if (selectedRadioButton == on) {
-                availability="ON";
+        } else if (selectedRadioButton == on) {
+            availability="ON";
 
-            }
+        }
 
         return availability;
     }
@@ -108,7 +107,7 @@ public class Organizer_AddServiceProvider {
                 logger.log(Level.SEVERE, "An error happened", e);
             }finally {
                 if (preparedStatement != null) {
-                        preparedStatement.close();
+                    preparedStatement.close();
 
                 }
             }
@@ -130,5 +129,5 @@ public class Organizer_AddServiceProvider {
         }
     }
 
-    }
+}
 

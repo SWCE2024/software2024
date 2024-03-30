@@ -54,13 +54,13 @@ public class AdminUpdateUser {
     void backClicked(MouseEvent event) {
         try {
             Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManegement.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManagement.fxml"));
             Stage stage = (Stage) back.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (IOException e){
-            logger.log(Level.SEVERE, "An error", e);
+            logger.log(Level.SEVERE,"Error", e);
         }
     }
 
@@ -71,17 +71,19 @@ public class AdminUpdateUser {
     private String gmail;
     private String username;
     private String password;
-    private String ID = userIdText.getText();
+    private String id;
 
     @FXML
-    void get_information(ActionEvent event){
+    void getInformation(ActionEvent event){
+
 
         String sql = "SELECT \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\" FROM software2024.\"customer\" WHERE \"CID\" = ?";
+        id = userIdText.getText();
         try (
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
-            preparedStatement.setInt(1, Integer.parseInt(ID));
+            preparedStatement.setInt(1, Integer.parseInt(id));
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -111,13 +113,14 @@ public class AdminUpdateUser {
     }
 
     @FXML
-    void update_User(ActionEvent event) {
+    void updateUser(ActionEvent event) {
         String sql = "UPDATE software2024.\"customer\" SET \"PHONENUMBER\" = ?, \"ADDRESS\" = ?, \"GMAIL\" = ?, \"USERNAME\" = ?, \"PASSWORD\" = ? WHERE \"CID\" = ?";
         phoneNumber = phoneNumberText.getText();
         address = addressText.getText();
         gmail = gmailText.getText();
         username = usernameText.getText();
         password = passwordText.getText();
+        id = userIdText.getText();
         try (
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
@@ -126,7 +129,7 @@ public class AdminUpdateUser {
             preparedStatement.setString(3,gmail);
             preparedStatement.setString(4,username);
             preparedStatement.setString(5,password);
-            preparedStatement.setInt(6, Integer.parseInt(ID));
+            preparedStatement.setInt(6, Integer.parseInt(id));
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected >0) {
                 logger.log(Level.SEVERE,"User information updated successfully.");
