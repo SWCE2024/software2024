@@ -17,10 +17,12 @@ public class EmailUtil {
         try {
             emailProperties.load(new FileInputStream("src/main/java/org/example/mail.properties"));
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Failed to load email properties from src/main/java/org/example/mail.properties", e);
-            throw new IllegalStateException("Failed to load email configurations, check properties path: src/main/java/org/example/mail.properties", e);
+            String errorMsg = "Failed to load email properties from src/main/java/org/example/mail.properties";
+            logger.log(Level.SEVERE, errorMsg, e);
+            throw new IllegalStateException("Failed to load email configurations, check properties path: " + "src/main/java/org/example/mail.properties", e);
         }
     }
+
 
 
     private EmailUtil() {
@@ -52,11 +54,10 @@ public class EmailUtil {
             message.setText(messageText);
 
             Transport.send(message);
-            logger.log(Level.INFO, "Email sent successfully to {0}", new Object[]{recipientEmail});
+            logger.log(Level.INFO, "Email sent successfully to {0}", recipientEmail);
         } catch (MessagingException e) {
             logger.log(Level.SEVERE, "Failed to send email to " + recipientEmail + " with subject: " + subject, e);
             throw new MessagingException("Email sending to " + recipientEmail + " failed.", e);
         }
-
     }
 }
