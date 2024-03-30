@@ -78,8 +78,11 @@ public class AdminOrganizerManagement {
     @FXML
     private TextField phone;
 
+
+    String error="An error occurred .";
+    String typeError="ERROR";
     @FXML
-    void AddBottonClicked(ActionEvent event)
+    void addBottonClicked(ActionEvent event)
     {
         String name=orgname.getText();
         String id=oid.getText();
@@ -103,7 +106,7 @@ public class AdminOrganizerManagement {
 
         }
         else
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
     }
 
 
@@ -127,7 +130,7 @@ public class AdminOrganizerManagement {
 
             }
             else
-                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -156,7 +159,7 @@ public class AdminOrganizerManagement {
         }
 
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
 
@@ -193,7 +196,7 @@ public class AdminOrganizerManagement {
         }
 
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
 
@@ -212,7 +215,7 @@ public class AdminOrganizerManagement {
             stage.show();
             new FadeIn(root).play();
         }catch (IOException e){
-            logger.log(null," An error occurred while opening a new window:");
+            logger.log(null,error+" while opening a new window:");
         }
 
     }
