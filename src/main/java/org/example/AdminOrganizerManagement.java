@@ -11,7 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
@@ -160,7 +161,7 @@ public class AdminOrganizerManagement {
 
         catch (SQLException e) {
             JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            logger.info(e.toString());
         }
 
 
@@ -197,7 +198,7 @@ public class AdminOrganizerManagement {
 
         catch (SQLException e) {
             JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+            logger.info(e.toString());
         }
 
 
