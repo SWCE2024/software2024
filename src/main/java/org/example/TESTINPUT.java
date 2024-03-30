@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.logging.Level;
 
 import static java.lang.Integer.parseInt;
+import static org.example.SignUpController.logger;
 
 
 public class TESTINPUT {
@@ -107,7 +109,7 @@ public class TESTINPUT {
            // System.out.println("The entered date is in the future.");
             return true;
         } else {
-            System.out.println("Invalid date, the date should be in the future.");
+            logger.log(Level.SEVERE,"Invalid date, the date should be in the future.");
             return false;
         }
 
@@ -132,7 +134,7 @@ public class TESTINPUT {
                 return false;
             }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a valid integer.");
+            logger.log(Level.SEVERE,"Invalid input. Please enter a valid integer.");
             return false;
         }
 
@@ -147,11 +149,11 @@ public class TESTINPUT {
         boolean flag=false;
 
         if (!(phoneNumber.length()==10)) {
-            System.out.println("Invalid phone number. Phone number should consist of 10 digits.");
+            logger.log(Level.SEVERE,"Invalid phone number. Phone number should consist of 10 digits.");
             return false;
         }
         if (Integer.parseInt(price)<0) {
-            System.out.println("Invalid price. Price should be greater than zero.");
+            logger.log(Level.SEVERE,"Invalid price. Price should be greater than zero.");
             return false;
         }
         return true;
@@ -205,8 +207,7 @@ public class TESTINPUT {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             return LocalDate.parse(userInput, formatter);
         } catch (Exception e) {
-            // Handle parsing exceptions (e.g., invalid format)
-            System.out.println("Invalid date format. Please use the format yyyy-MM-dd.");
+            logger.log(Level.SEVERE,"Invalid date format. Please use the format yyyy-MM-dd.");
             return null;
         }
     }

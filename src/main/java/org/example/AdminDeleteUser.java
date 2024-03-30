@@ -43,7 +43,8 @@ public class AdminDeleteUser {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "An error occurred", e);
+
         }
 
     }
@@ -63,9 +64,9 @@ public class AdminDeleteUser {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("User deleted successfully.");
+                logger.log(Level.SEVERE,"User deleted successfully.");
             } else {
-                System.out.println("Failed to delete user. User with ID " + CID + " not found.");
+                logger.log(Level.SEVERE, "Failed to delete user. User with ID " + CID + " not found.");
             }
         }catch (SQLException e) {
             logger.log(Level.SEVERE, "An error occurred", e);

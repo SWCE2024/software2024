@@ -10,6 +10,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 public class AdminUserManagement {
 
@@ -24,6 +27,7 @@ public class AdminUserManagement {
 
     @FXML
     private Label update;
+    private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
 
     @FXML
     void AddClicked(MouseEvent event) {
@@ -37,7 +41,8 @@ public class AdminUserManagement {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
@@ -54,7 +59,8 @@ public class AdminUserManagement {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
@@ -71,7 +77,8 @@ public class AdminUserManagement {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
@@ -88,7 +95,8 @@ public class AdminUserManagement {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
