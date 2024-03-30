@@ -1,10 +1,7 @@
 package org.example;
 
-import animatefx.animation.FadeIn;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -32,14 +29,9 @@ public class OrganizerVendorManagement {
     @FXML
     void AddClicked(MouseEvent event) {
         try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_AddServiceProvider.fxml"));
-            Stage stage=(Stage) Add.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            FadeIn fadeIn = new FadeIn(root);
-            fadeIn.play();
-
+            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_AddServiceProvider.fxml"));
+            AdminUserManagement.stage=(Stage) Add.getScene().getWindow();
+            AdminUserManagement.callScreen();
         } catch (IOException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
@@ -50,13 +42,9 @@ public class OrganizerVendorManagement {
     @FXML
     void DeleteClicked(MouseEvent event) {
         try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_DeleteServiceProvider.fxml"));
-            Stage stage=(Stage) delete.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            FadeIn fadeIn = new FadeIn(root);
-            fadeIn.play();
+            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_DeleteServiceProvider.fxml"));
+            AdminUserManagement.stage=(Stage) delete.getScene().getWindow();
+            AdminUserManagement.callScreen();
 
         } catch (IOException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
@@ -67,13 +55,9 @@ public class OrganizerVendorManagement {
     @FXML
     void UpdateClicked(MouseEvent event) {
         try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_UpdateServiceProvider.fxml"));
-            Stage stage=(Stage) update.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            FadeIn fadeIn = new FadeIn(root);
-            fadeIn.play();
+            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_UpdateServiceProvider.fxml"));
+            AdminUserManagement.stage=(Stage) update.getScene().getWindow();
+            AdminUserManagement.callScreen();
 
         } catch (IOException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
@@ -84,18 +68,15 @@ public class OrganizerVendorManagement {
     @FXML
     void backClicked(MouseEvent event) {
         try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
-            Stage stage=(Stage) back.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            FadeIn fadeIn = new FadeIn(root);
-            fadeIn.play();
 
+            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
+            AdminUserManagement.stage=(Stage) back.getScene().getWindow();
+            AdminUserManagement.callScreen();
         } catch (IOException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
     }
+
 
 }

@@ -1,13 +1,10 @@
 package org.example;
 
-import animatefx.animation.FadeIn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -78,13 +75,9 @@ public class ParticipantsEventRegistering {
     @FXML
     void backClicked(MouseEvent event) {
       try {
-          Parent root;
-          root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
-          Stage stage=(Stage) back.getScene().getWindow();
-          stage.setScene(new Scene(root));
-          stage.show();
-          FadeIn fadeIn = new FadeIn(root);
-          fadeIn.play();
+          AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
+          AdminUserManagement.stage=(Stage) back.getScene().getWindow();
+          AdminUserManagement.callScreen();
           
       } catch (IOException e) {
           logger.log(Level.SEVERE, "An error occurred", e);
@@ -95,13 +88,10 @@ public class ParticipantsEventRegistering {
     @FXML
     void nextClicked(MouseEvent event) {
         try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsVendor.fxml"));
-            Stage stage=(Stage) next.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            FadeIn fadeIn = new FadeIn(root);
-            fadeIn.play();
+
+            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsVendor.fxml"));
+            AdminUserManagement.stage=(Stage) next.getScene().getWindow();
+            AdminUserManagement.callScreen();
 
         } catch (IOException e) {logger.log(Level.SEVERE, "An error happened", e);
         }
