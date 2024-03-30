@@ -1,13 +1,13 @@
 package org.example;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReminderForUser
 {
-    public static void check()
-    {
+    public static void check() throws SQLException {
 
         LocalDate currentdate =LocalDate.now();
 

@@ -69,17 +69,18 @@ public class Database {
             e.printStackTrace();
         }return conn;
     }
-    public static List<Date> getDateEvents()
-    {
+    public static List<Date> getDateEvents() throws SQLException {
         List<Date> date =new ArrayList<>();
        int count =0 ;
         String sql = "SELECT \"EventID\" FROM software2024.\"Events\"  " ;
+        Connection conn =null;
+        Statement stmt =null;
+
         try {
-            Connection conn = connect();
-            if (conn==null)
-                logger.info("error conn = null");
-            else {
-                Statement stmt = conn.createStatement();
+            conn = connect();
+
+
+                 stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 boolean c = true;
                 while (c) {
@@ -89,27 +90,37 @@ public class Database {
 
                 rs = stmt.executeQuery(sql);
                 for (int i = 0; i < count; i++)
-                    if (rs.next()) {
+                    if (rs.next())
+                    {
                         date.add(rs.getDate("EventDate"));
                         custumerCID.add(rs.getString("CID"));
                     }
 
-           stmt.close();
-            }
-
         }
-        catch (SQLException e) {
+        catch (SQLException e)
+        {
             e.printStackTrace();
+        }
+        finally {
+            assert conn != null;
+            conn.close();
+            assert stmt != null;
+            stmt.close();
+
         }
         return date;
     }
-    public static String getgmailReminder(String id )
-    {
+    public static String getgmailReminder(String id ) throws SQLException {
         String gml="";
         String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\" WHERE \"CID\" ='"+id+"'" ;
-        try {
-            Connection conn = connect();
-            Statement stmt = conn.createStatement();
+        Connection conn =null;
+        Statement stmt=null;
+
+
+        try
+        {
+             conn = connect();
+            stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next())
@@ -117,8 +128,14 @@ public class Database {
 
             stmt.close();
         }
-        catch (SQLException e) {
+        catch (SQLException e)
+        {
             e.printStackTrace();
+        }
+
+        finally {
+            conn.close();
+            stmt.close();
         }
 
         return gml ;
