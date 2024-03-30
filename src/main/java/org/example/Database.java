@@ -84,7 +84,8 @@ public class Database {
             conn = connect();
 
 
-                 stmt = conn.createStatement();
+            assert conn != null;
+            stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 boolean c = true;
                 while (c) {
@@ -124,6 +125,7 @@ public class Database {
         try
         {
              conn = connect();
+            assert conn != null;
             stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -138,7 +140,9 @@ public class Database {
         }
 
         finally {
+            assert conn != null;
             conn.close();
+            assert stmt != null;
             stmt.close();
         }
 
