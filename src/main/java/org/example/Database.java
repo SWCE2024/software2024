@@ -36,23 +36,16 @@ public class Database {
     public static String[] getSearch() {
         return search;
     }
-
-
     public static void setSearch(String[] search) {
         Database.search = search;
     }
-
-
     public static List<String> getCustomerCID() {
         return custumerCID;
     }
-
     public static void addCustomerCID(String cid) {
         custumerCID.add(cid);
     }
-    private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "123456";
+
     private static String userID;
     public static String getUserID() {
         return userID ;
@@ -63,12 +56,21 @@ public class Database {
     public static Connection connect() {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
+            String url = System.getenv("DB_URL");
+            String user = System.getenv("DB_USER");
+            String password = System.getenv("DB_PASSWORD");
+            if (url == null || user == null || password == null) {
+                logger.log(Level.SEVERE, "Database connection details are missing in environment variables.");
+                return null;
+            }
+            conn = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "An error occurred while trying to connect to the database:", e.getMessage());
             e.printStackTrace();
-        }return conn;
+        }
+        return conn;
     }
+
     public static List<Date> getDateEvents()
     {
         List<Date> date =new ArrayList<>();
