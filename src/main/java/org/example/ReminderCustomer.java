@@ -16,8 +16,8 @@ public class ReminderCustomer
     {
 
 
-        String senderEmail = "shadthabit@gmail.com";
-        String senderPassword = "pdhr gobn hszi hlbb";
+        String senderEmail = Password.getUser();
+        String senderPassword = Password.getPassword();
 
         // Recipient's email address
         String recipientEmail = email;
