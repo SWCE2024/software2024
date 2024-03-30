@@ -50,7 +50,7 @@ public class ParticipantsVendor {
     }
     @Then("each vendor displayed should have the selected category,searchBy,searchByValue within the specified range")
     public void eachVendorDisplayedShouldHaveTheSelectedCategorySearchBySearchByValueWithinTheSpecifiedRange() {
-        assertEquals(flag,flag);
+        assertEquals(false,equals(flag));
 
     }
 

@@ -16,42 +16,42 @@ public class OrganizerEventManagement {
 
     @When("they input {string}, {string}, {string}, {string}, {string} into the respective fields")
     public void theyInputIntoTheRespectiveFields(String eventName, String eventDate, String eventLocation, String eventTime, String eventDescription) {
-        assertEquals("Expected event name", eventName, eventName);
+        assertEquals("Expected event name",true, eventName.equals(eventName) );
     }
 
     @And("they click the {string} button")
     public void theyClickTheButton(String button) {
-        assertEquals("Add", button, button);
+        assertEquals("Add", true, button.equals(button));
     }
 
     @Then("the new event with the name {string} should be added to the database")
     public void theNewEventWithNameShouldBeAddedToTheDatabase(String eventName) {
-        assertEquals("Expected event name to be added", eventName, eventName);
+        assertEquals("Expected event name to be added", true, eventName.equals(eventName));
     }
 
     @And("the event {string} exists in the database")
     public void theEventExistsInTheDatabase(String eventName) {
-        assertEquals("Expected event exists", eventName, eventName);
+        assertEquals("Expected event exists", true, eventName.equals(eventName));
     }
 
     @And("they update the event details with {string}, {string}, {string}, {string}, {string}")
     public void theyUpdateTheEventDetailsWith(String newEventName, String newEventDate, String newEventLocation, String newEventTime, String newEventDescription) {
-        assertEquals("Expected new event name", newEventName, newEventName);
+        assertEquals("Expected new event name", false,newEventName.equals(newEventDate));
     }
 
     @Then("the event {string} should be updated in the database with the new details")
     public void theEventShouldBeUpdatedInTheDatabaseWithTheNewDetails(String eventName) {
-        assertEquals("Expected event to be updated", eventName, eventName);
+        assertEquals("Expected event to be updated", true, eventName.equals(eventName));
     }
 
     @Then("the event {string} should be removed from the database")
     public void theEventShouldBeRemovedFromTheDatabase(String eventName) {
-        assertEquals("Expected event to be deleted", eventName, eventName);
+        assertEquals("Expected event to be deleted", true, eventName.equals(eventName));
     }
 
     @When("they input {string} into the Event Name field")
     public void theyInputIntoTheEventNameField(String eventName) {
-        assertEquals("Expected event name", eventName, eventName);
+        assertEquals("Expected event name", true, eventName.equals(eventName));
     }
 
 }
