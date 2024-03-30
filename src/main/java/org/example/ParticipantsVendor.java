@@ -76,9 +76,11 @@ public class ParticipantsVendor {
     }
     @FXML
     void reserveClicked(MouseEvent event) {
-
-
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Messeage");
+        alert.setHeaderText(null);
+        alert.setContentText("Reserve Successfully");
+        alert.showAndWait();
     }
     @FXML
     void searchClicked(MouseEvent event) throws SQLException {
@@ -92,16 +94,16 @@ public class ParticipantsVendor {
             alert.setHeaderText(null);
             alert.setContentText("Please select category, search criteria, and enter search text.");
             alert.showAndWait();
-            return;
         }else {
             Connection conn = Database.connect();
             String sql = null;
+            String priceName="Price";
 
-            if(selectedSearch=="Price"){
+            if(selectedSearch.equals(priceName)){
                 sql = "SELECT \"Number\", \"Price\" FROM software2024.\"ServiceProviders\" WHERE \"Category\" = ? AND \"Price\" = ?";
               //  SELECT "Number", "Price" FROM software2024."ServiceProviders" WHERE "Category" = ? AND "Price" = ?
             }
-            else if (selectedSearch=="Location") {
+            else if (selectedSearch.equals("Location")) {
                 sql = "SELECT \"Number\", \"Price\" FROM software2024.\"ServiceProviders\" WHERE \"Category\" = ? AND \"Location\" = ?";
             }else {
                 sql = "SELECT \"Number\", \"Price\" FROM software2024.\"ServiceProviders\" WHERE \"Category\" = ? AND \"Availability\" = ?";
@@ -113,15 +115,15 @@ public class ParticipantsVendor {
             try{
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, selectedCategory);
-                if(selectedSearch=="Price")
-                stmt.setInt(2, Integer.parseInt(searchTextValue));
-                else
-                    stmt.setString(2, searchTextValue);
+                if(selectedSearch.equals(priceName)){
+                stmt.setInt(2, Integer.parseInt(searchTextValue));}
+                else{
+                    stmt.setString(2, searchTextValue);}
                 ResultSet rs = stmt.executeQuery();
 
                 while (rs.next()) {
                     String phoneNumberValue = rs.getString("Number");
-                    int priceValue = rs.getInt("Price");
+                    int priceValue = rs.getInt(priceName);
                     vendors.add(new Vendor(phoneNumberValue, priceValue));
                 }
                 table.setItems(vendors);
@@ -133,6 +135,7 @@ public class ParticipantsVendor {
                 alert.setHeaderText(null);
                 alert.setContentText("An error occurred while retrieving data from the database.");
                 alert.showAndWait();
+            }finally {
             }
         }
     }
