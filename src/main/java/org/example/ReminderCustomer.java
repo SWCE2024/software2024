@@ -4,9 +4,14 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public class ReminderCustomer
 {
+
+    private ReminderCustomer(){
+
+    }
     public static void sendReminder(String email)
     {
 
@@ -33,16 +38,17 @@ public class ReminderCustomer
         });
 
         try {
-            // Create message
+
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
             message.setSubject("REMINDER OF TODAY IS CEREMONY");
             message.setText("We would like to remind you that today is your party. We thank you for using our application and we wish you a happy party!");
 
-            // Send message
             Transport.send(message);
-            System.out.println("Email sent successfully.");
+            Logger logger = Logger.getLogger(ReminderCustomer.class.getName());
+            logger.info("Email sent successfully.");
+
         } catch (MessagingException e) {
             e.printStackTrace();
         }
