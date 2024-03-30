@@ -28,38 +28,38 @@ public class AdminUserManagement {
     @FXML
     private Label update;
     private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+    static Parent root;
+    static Stage stage;
 
     @FXML
     void AddClicked(MouseEvent event) {
         try {
-            Parent root;
+
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminAddUser.fxml"));
-            Stage stage=(Stage) back.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            FadeIn fadeIn = new FadeIn(root);
-            fadeIn.play();
+            stage=(Stage) Add.getScene().getWindow();
+            callScreen();
 
         } catch (IOException e) {
-
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
+
+    }
+   public static void callScreen(){
+        stage.setScene(new Scene(root));
+        stage.show();
+        FadeIn fadeIn = new FadeIn(root);
+        fadeIn.play();
 
     }
 
     @FXML
     void DeleteClicked(MouseEvent event) {
         try {
-            Parent root;
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminDeleteUser.fxml"));
-            Stage stage=(Stage) back.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            FadeIn fadeIn = new FadeIn(root);
-            fadeIn.play();
+            stage=(Stage) delete.getScene().getWindow();
+            callScreen();
 
         } catch (IOException e) {
-
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
@@ -68,13 +68,9 @@ public class AdminUserManagement {
     @FXML
     void UpdateClicked(MouseEvent event) {
         try {
-            Parent root;
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminUpdateUser.fxml"));
-            Stage stage=(Stage) back.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            FadeIn fadeIn = new FadeIn(root);
-            fadeIn.play();
+            stage=(Stage) update.getScene().getWindow();
+            callScreen();
 
         } catch (IOException e) {
 
@@ -86,16 +82,11 @@ public class AdminUserManagement {
     @FXML
     void backClicked(MouseEvent event) {
         try {
-            Parent root;
             root = FXMLLoader.load(getClass().getResource("/org.example/MenuAdmin.fxml"));
-            Stage stage=(Stage) back.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            FadeIn fadeIn = new FadeIn(root);
-            fadeIn.play();
+            stage=(Stage) back.getScene().getWindow();
+            callScreen();
 
         } catch (IOException e) {
-
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
 
