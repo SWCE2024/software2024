@@ -91,6 +91,8 @@ public class OrganizerEventManagement implements Initializable {
 
     private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
 
+    private static final String ERROR_MESSAGE = "An error occurred .";
+    private static final String ERROR_TITLE = "ERROR";
 
     @FXML
     void updateProduct1Clicked(MouseEvent event) {
@@ -114,7 +116,7 @@ public class OrganizerEventManagement implements Initializable {
             if (affectedRows > 0) {
                 JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, ERROR_MESSAGE, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
@@ -148,7 +150,7 @@ public class OrganizerEventManagement implements Initializable {
             if (affectedRows > 0) {
                 JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, ERROR_MESSAGE, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
@@ -190,7 +192,7 @@ public class OrganizerEventManagement implements Initializable {
                 locationUpdate1.setText(rs.getString("EventLocation"));
                 timeUpdate1.setText(rs.getString("EventTime"));
             } else {
-                JOptionPane.showMessageDialog(null, "Event not found.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Event not found.", ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
@@ -223,7 +225,7 @@ public class OrganizerEventManagement implements Initializable {
             if (affectedRows > 0) {
                 JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, ERROR_MESSAGE, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
