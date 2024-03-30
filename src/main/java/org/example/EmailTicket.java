@@ -4,6 +4,10 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.mail.MessagingException;
 import java.util.logging.Logger;
+
+import static org.example.Password.getPassword;
+import static org.example.Password.getUser;
+
 public class EmailTicket
 {
     private EmailTicket(){
@@ -15,8 +19,8 @@ public class EmailTicket
         Logger logger = Logger.getLogger(EmailTicket.class.getName());
 
 
-        String senderEmail = Password.getUser();
-        String senderPassword = Password.getPassword();
+        String senderEmail = getUser();
+        String senderPassword = getPassword();
 
         // Recipient's email address
         String recipientEmail = recipientEmailcustumer;
