@@ -18,19 +18,19 @@ public class TESTINPUT {
         return !(name == null || name.isEmpty());
     }
 
-    public static boolean VenueNameTest(String name) {
+    public static boolean venueNameTest(String name) {
         return !(name == null || name.isEmpty());
     }
-    public static boolean VenueLocationTest(String Location) {
-        return !(Location==null||Location.isEmpty());
+    public static boolean venueLocationTest(String location) {
+        return !(location==null||location.isEmpty());
     }
 
-    public static boolean VenueCapacityTest(String Capacity) {
-        int i = parseInt(Capacity);
+    public static boolean venueCapacityTest(String capacity) {
+        int i = parseInt(capacity);
         return !(i<=0);
     }
 
-    public static boolean VenuePricingTest(String pricing) {
+    public static boolean venuePricingTest(String pricing) {
         int i = parseInt(pricing);
         return !(i<=0);
     }
@@ -89,8 +89,8 @@ public class TESTINPUT {
         }
     }
 
-    public static boolean dateTest(String Date){
-        LocalDate enteredDate = parseUserInput(Date);
+    public static boolean dateTest(String date){
+        LocalDate enteredDate = parseUserInput(date);
 
         if (enteredDate != null && isFutureDate(enteredDate)) {
             return true;
@@ -118,8 +118,8 @@ public class TESTINPUT {
         }
 
     }
-    public static boolean pictureTest(String Picture){
-        return (Picture.indexOf(".png")!= -1 || Picture.indexOf(".jpg")!= -1) ;
+    public static boolean pictureTest(String picture){
+        return (picture.indexOf(".png")!= -1 || picture.indexOf(".jpg")!= -1) ;
     }
 
     public static boolean checkInputs(String phoneNumber, String price){
@@ -164,9 +164,4 @@ public class TESTINPUT {
         LocalDate currentDate = LocalDate.now();
         return date.isAfter(currentDate);
     }
-
-
-
-
-
 }
