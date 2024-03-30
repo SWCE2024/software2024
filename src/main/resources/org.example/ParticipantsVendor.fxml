@@ -110,6 +110,17 @@
                   <Insets left="60.0" />
                </opaqueInsets>
             </Label>
+            <Button fx:id="reserve" layoutX="491.0" layoutY="400.0" mnemonicParsing="false" onMouseClicked="#reserveClicked" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #ead5d5;" text="Reserve Now  ✅" textFill="#030000">
+               <opaqueInsets>
+                  <Insets left="30.0" />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Arial Narrow" size="13.0" />
+               </font>
+            </Button>
             </children>
         </AnchorPane>
     </children>

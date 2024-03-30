@@ -97,7 +97,7 @@ public class Organizer_AddServiceProvider {
                 preparedStatement.setString(3, comboBoxValue);
                 preparedStatement.setInt(4, Integer.parseInt(price));
                 preparedStatement.setString(5,availble);
-                preparedStatement.setInt(6,1);
+                preparedStatement.setInt(6, Integer.parseInt(Database.getUserID()));
                 preparedStatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
