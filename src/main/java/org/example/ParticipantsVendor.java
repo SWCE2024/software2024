@@ -47,13 +47,15 @@ public class ParticipantsVendor {
 
     @FXML
     private TableView<Vendor> table;
+    private String choose="Choose...";
+    private String priceName="Price";
 
     public void initialize() {
         // Initialize the ComboBox with items
-        ObservableList<String> items = FXCollections.observableArrayList("Choose...","DJ", "Dessert", "Decoration", "Catering");
+        ObservableList<String> items = FXCollections.observableArrayList(choose,"DJ", "Dessert", "Decoration", "Catering");
         comboBoxCategory.setItems(items);
         comboBoxCategory.getSelectionModel().select(0);
-        ObservableList<String> item = FXCollections.observableArrayList("Choose...","Location", "Price", "Availability");
+        ObservableList<String> item = FXCollections.observableArrayList(choose,"Location", priceName, "Availability");
         comboBoxSearch.setItems(item);
         comboBoxSearch.getSelectionModel().select(0);
     }
@@ -89,13 +91,12 @@ public class ParticipantsVendor {
         String searchTextValue = searchText.getText();
         Connection conn = Database.connect();
         String sql = null;
-        String priceName="Price";
         ObservableList<Vendor> vendors = FXCollections.observableArrayList();
         phoneNumber.setCellValueFactory(cellData -> cellData.getValue().numberProperty());
         price.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         PreparedStatement stmt=null;
 
-        if (selectedCategory.equals("Choose...") || selectedSearch.equals("Choose...") || searchTextValue.isEmpty()) {
+        if (selectedCategory.equals(choose) || selectedSearch.equals(choose) || searchTextValue.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -115,13 +116,10 @@ public class ParticipantsVendor {
         try{
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, selectedCategory);
-            switch (selectedSearch) {
-                case "Price":
-                    stmt.setInt(2, Integer.parseInt(searchTextValue));
-                    break;
-                default:
-                    stmt.setString(2, searchTextValue);
-                    break;
+            if (selectedSearch.equals(priceName)) {
+                stmt.setInt(2, Integer.parseInt(searchTextValue));
+            } else {
+                stmt.setString(2, searchTextValue);
             }
                  ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
@@ -139,7 +137,8 @@ public class ParticipantsVendor {
                 alert.setContentText("An error occurred while retrieving data from the database.");
                 alert.showAndWait();
             }finally {
-                        stmt.close();
+                  if (stmt != null){
+                        stmt.close();}
             }
 
     }
