@@ -262,9 +262,9 @@ public class Database {
 
 
     }
-    public static boolean deleteVenue(String VenueID)
+    public static boolean deleteVenue(String venueID)
     {
-        String sql = "DELETE FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ VenueID+"'" ;
+        String sql = "DELETE FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ venueID+"'" ;
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
              pstmt.executeUpdate();
