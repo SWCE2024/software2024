@@ -32,11 +32,12 @@ public class MenuParticipants {
         if (participantEmail != null && !participantEmail.isEmpty()) {
             try {
                 EmailUtil.sendEmail(participantEmail, subject, messageText);
-                logger.log(Level.SEVERE, "Email sent successfully to " + participantEmail);
-                JOptionPane.showMessageDialog(null, "Email sent successfully.", em, JOptionPane.INFORMATION_MESSAGE);
+                logger.log(Level.SEVERE, "Email sent successfully to {0}", new Object[]{participantEmail});
+                JOptionPane.showMessageDialog(null, "Email sent successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (MessagingException e) {
-                logger.log(Level.SEVERE, "Could not send email to " + participantEmail, e);
+                logger.log(Level.SEVERE, e, () -> "Could not send email to " + participantEmail);
             }
+
         } else {
             logger.log(Level.SEVERE, "No email address available for the current participant.");
 
@@ -75,18 +76,17 @@ public class MenuParticipants {
         String messageText =Database.getParticipantMessageTicket();
         String subject = Database.getSubject();
 
-            try
-            {
-                EmailTicket.sendEmail(participantEmailForTicket, subject, messageText);
-                logger.log(Level.SEVERE, "Email sent successfully to " + participantEmailForTicket);
+        try
+        {
+            EmailTicket.sendEmail(participantEmailForTicket, subject, messageText);
+            logger.log(Level.SEVERE, "Email sent successfully to {0}", participantEmailForTicket);
+            JOptionPane.showMessageDialog(null, "Email sent successfully.", "Email Sent", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (MessagingException e)
+        {
+            logger.log(Level.SEVERE, () -> "Could not send email to " + participantEmailForTicket);
+        }
 
-                JOptionPane.showMessageDialog(null, "Email sent successfully.", em, JOptionPane.INFORMATION_MESSAGE);
-            }
-            catch (MessagingException e)
-            {
-                logger.log(Level.SEVERE, "Could not send email to " + participantEmailForTicket, e);
-
-            }
 
 
 
