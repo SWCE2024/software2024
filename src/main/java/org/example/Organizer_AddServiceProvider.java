@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 public class Organizer_AddServiceProvider {
 
@@ -62,7 +65,6 @@ public class Organizer_AddServiceProvider {
     @FXML
     private String handleRadioButtonAction() {
         RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-        if (selectedRadioButton != null) {
             if (selectedRadioButton == off) {
                 availability="OFF";
 
@@ -70,7 +72,7 @@ public class Organizer_AddServiceProvider {
                 availability="ON";
 
             }
-        }
+
         return availability;
     }
     private String getSelectedComboBoxItem(ComboBox<String> comboBox) {
@@ -78,33 +80,37 @@ public class Organizer_AddServiceProvider {
         return comboBox.getSelectionModel().getSelectedItem();
     }
     @FXML
-    void addClicked(ActionEvent event) {
+    void addClicked(ActionEvent event) throws SQLException {
         String category = categoryText.getText();
         String phoneNumber = phoneNumberText.getText();
         String price = priceText.getText();
-        String comboBoxValue = (String) getSelectedComboBoxItem(comboBox);
+        String comboBoxValue = getSelectedComboBoxItem(comboBox);
         String availble = handleRadioButtonAction();
 
 
         if (TESTINPUT.checkInputs(phoneNumber, price))
         {
+            Connection con = Database.connect();
+            PreparedStatement preparedStatement=null;
             try {
                 String sql = "INSERT INTO software2024.\"ServiceProviders\" (\"Number\",\"Category\",\"Location\",\"Price\",\"Availability\",\"userID\") VALUES (?,?,?,?,?,?)";
-                Connection con = Database.connect();
-                PreparedStatement preparedStatement = con.prepareStatement(sql);
+                preparedStatement = con.prepareStatement(sql);
                 preparedStatement.setString(1, phoneNumber);  // Assuming CID is an integer
                 preparedStatement.setString(2, category);
                 preparedStatement.setString(3, comboBoxValue);
                 preparedStatement.setInt(4, Integer.parseInt(price));
                 preparedStatement.setString(5,availble);
                 preparedStatement.setInt(6, Integer.parseInt(Database.getUserID()));
-                preparedStatement.executeUpdate();
+                preparedStatement. executeUpdate();
                 JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException e) {
-                e.printStackTrace();
-                // Handle SQL exceptions or display an error message if needed
-                JOptionPane.showMessageDialog(null, "Error", "Failed to add Service Provider", JOptionPane.ERROR_MESSAGE);
+                logger.log(Level.SEVERE, "An error occurred", e);
+            }finally {
+                if (preparedStatement != null) {
+                        preparedStatement.close();
+
+                }
             }
 
         }
@@ -123,7 +129,7 @@ public class Organizer_AddServiceProvider {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }

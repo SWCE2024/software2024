@@ -16,6 +16,9 @@ import javafx.stage.Stage;
 import java.sql.*;
 
 import java.io.IOException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 public class AdminUpdateUser {
 
@@ -58,7 +61,8 @@ public class AdminUpdateUser {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "An error occurred", e);
+
         }
 
     }
@@ -93,11 +97,12 @@ public class AdminUpdateUser {
                 usernameText.setText(username);
                 passwordText.setText(password);
             }else {
-                System.out.println("User not found.");
+                logger.log(Level.SEVERE, "User not found.");
+
             }
         }catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Get Faild.");
+            logger.log(Level.SEVERE, "An error occurred", e);
+
         }
 
 
@@ -128,13 +133,12 @@ public class AdminUpdateUser {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("User information updated successfully.");
+                logger.log(Level.SEVERE,"User information updated successfully.");
             } else {
-                System.out.println("Failed to update user information.");
+                logger.log(Level.SEVERE,"Failed to update user information." );
             }
         } catch (SQLException e) {
-            System.out.println("Update Faild");
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }

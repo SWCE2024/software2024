@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 public class Organizer_DeleteServiceProvider {
 
@@ -40,7 +43,7 @@ public class Organizer_DeleteServiceProvider {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }
@@ -60,13 +63,14 @@ public class Organizer_DeleteServiceProvider {
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Service Provider deleted successfully.");
+                logger.log(Level.SEVERE, "Service Provider deleted successfully.");
+
             } else {
-                System.out.println("Failed to delete Service Provider. Service Provider with ID " + ID + " not found.");
+
+                logger.log(Level.SEVERE, "Failed to delete Service Provider. Service Provider with ID " + ID + " not found.");
             }
         }catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Delete Faild.");
+            logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }

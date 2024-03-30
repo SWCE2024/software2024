@@ -89,9 +89,15 @@ public class TESTINPUT {
         }
     }
 
-    public static boolean dateTest(String date){
-        LocalDate enteredDate = parseUserInput(date);
-        return (enteredDate != null && isFutureDate(enteredDate)) ;
+    public static boolean dateTest(String Date){
+        LocalDate enteredDate = parseUserInput(Date);
+
+        if (enteredDate != null && isFutureDate(enteredDate)) {
+            return true;
+        } else {
+            logger.log(Level.SEVERE,"Invalid date, the date should be in the future.");
+            return false;
+        }
 
     }
 
@@ -106,7 +112,8 @@ public class TESTINPUT {
 
             return (isValidCount(count));
         } catch (NumberFormatException e) {
-            logger.log(Level.SEVERE, "Invalid input. Please enter a valid integer.");
+
+            logger.log(Level.SEVERE,"Invalid input. Please enter a valid integer.");
             return false;
         }
 
@@ -117,12 +124,14 @@ public class TESTINPUT {
 
     public static boolean checkInputs(String phoneNumber, String price){
 
-        if ((phoneNumber.length()!=10)) {
-            logger.log(Level.SEVERE, "Invalid phone number. Phone number should consist of 10 digits.");
+
+
+        if (!(phoneNumber.length()==10)) {
+            logger.log(Level.SEVERE,"Invalid phone number. Phone number should consist of 10 digits.");
             return false;
         }
         if (Integer.parseInt(price)<0) {
-            logger.log(Level.SEVERE, "Invalid price. Price should be greater than zero.");
+            logger.log(Level.SEVERE,"Invalid price. Price should be greater than zero.");
             return false;
         }
         return true;
@@ -145,7 +154,8 @@ public class TESTINPUT {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             return LocalDate.parse(userInput, formatter);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Invalid date format. Please use the format yyyy-MM-dd.");
+
+            logger.log(Level.SEVERE,"Invalid date format. Please use the format yyyy-MM-dd.");
             return null;
         }
     }

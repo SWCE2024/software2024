@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 
 public class ParticipantsEventRegistering {
@@ -84,7 +87,7 @@ public class ParticipantsEventRegistering {
           fadeIn.play();
           
       } catch (IOException e) {
-          throw new RuntimeException(e);
+          logger.log(Level.SEVERE, "An error occurred", e);
       }
 
     }
@@ -100,8 +103,7 @@ public class ParticipantsEventRegistering {
             FadeIn fadeIn = new FadeIn(root);
             fadeIn.play();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }
@@ -116,6 +118,9 @@ public class ParticipantsEventRegistering {
       else if (!TESTINPUT.countTest(attendeCount.getText()))
           JOptionPane.showMessageDialog(null,"Unvalid Attende Count","ERROR",JOptionPane.ERROR_MESSAGE);
       else {
+          Connection con = Database.connect();
+          PreparedStatement preparedStatement=null;
+
           try {
 
               String name = eventName.getText();
@@ -123,7 +128,7 @@ public class ParticipantsEventRegistering {
               String time = eventTime.getText()+":00";
               String count = attendeCount.getText();
               String type = eventtype.getText();
-              String comboBoxValue = (String) getSelectedComboBoxItem(ComboBox);
+              String comboBoxValue =getSelectedComboBoxItem(ComboBox);
               String imagePath = getImagePathFromImageView(image);
 
               String dateString = date; // Replace this with your actual date string
@@ -134,8 +139,7 @@ public class ParticipantsEventRegistering {
 
               String sql = "INSERT INTO software2024.\"Events\" (\"CID\",\"EventType\",\"EventName\",\"EventDate\",\"Location\",\"AttendeeCount\",\"MediaURL\",\"EventTime\") VALUES (?,?,?,?,?,?,?,?)";
 
-              Connection con = Database.connect();
-              PreparedStatement preparedStatement = con.prepareStatement(sql);
+              preparedStatement = con.prepareStatement(sql);
 
 
               preparedStatement.setString(1, Database.getUserID());  // Assuming CID is an integer
@@ -147,13 +151,15 @@ public class ParticipantsEventRegistering {
               preparedStatement.setString(7, imagePath);
               preparedStatement.setTime(8, sqlTime);
 
-              preparedStatement.executeUpdate();
+               preparedStatement.executeUpdate();
               JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
           } catch (SQLException e) {
-              e.printStackTrace();
-              // Handle SQL exceptions or display an error message if needed
-              JOptionPane.showMessageDialog(null, "Error", "Failed to add event", JOptionPane.ERROR_MESSAGE);
+              logger.log(Level.SEVERE, "An error occurred", e);
+         }finally {
+              if (preparedStatement != null) {
+                      preparedStatement.close();
+              }
           }
 
       }
