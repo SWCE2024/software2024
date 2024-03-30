@@ -12,7 +12,8 @@ public class OrganizerVenueManagement {
     public void allFieldShouldBeWith(String string) {
         assertEquals(true,string.equals("error"));
     }
-//////////////////////////////////////////////////////////////////
+
+
     @When("he fill in {string} with {string}")
     public void heFillInWith(String string, String string2) {
         if(string.equals("Name")){
@@ -33,26 +34,9 @@ public class OrganizerVenueManagement {
         assertEquals(true,string.equals("information has been entered successfully"));
     }
 
-/////////////////////////////////////////////////////////////////////////
+
     @When("he fill in a {string} with {string}")
     public void heFillInAWith(String string, String string2) {
-/*
-        if(string.equals("Name")){
-            test=test&& TESTINPUT.VenueNameTest(string2)&&TESTINPUT.emptyTest(string2);
-        }
-        else if (string.equals("Location")) {
-            test=test&&TESTINPUT.VenueLocationTest(string2)&&TESTINPUT.emptyTest(string2);
-        }
-        else if (string.equals("Capacity")) {
-            test=test&&TESTINPUT.VenueCapacityTest(string2)&&TESTINPUT.emptyTest(string2);
-        }
-        else if (string.equals("Pricing")) {
-            test=test&&TESTINPUT.VenuePricingTest(string2)&&TESTINPUT.emptyTest(string2);
-            assertEquals(false,test);
-        }
-        test=true;*/
-
-
 
         assertEquals(true,true);
 
@@ -62,4 +46,5 @@ public class OrganizerVenueManagement {
     public void theOrganizerShouldSee(String string) {
         assertEquals(true,true);
     }
+
 }

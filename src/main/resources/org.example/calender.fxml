@@ -1,14 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.calender"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="488.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.calender">
+   <children>
+      <AnchorPane layoutX="-3.0" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/screen2.css">
+         <children>
+            <ImageView fitHeight="91.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@accessories/eventt.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="91.0" layoutY="20.0" prefHeight="51.0" prefWidth="166.0" text="YOUR EVENT" textFill="#bc4e2a">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets left="60.0" />
+               </opaqueInsets>
+            </Label>
+            <Label layoutX="362.0" layoutY="38.0" prefHeight="54.0" prefWidth="159.0" text="Calendar" textFill="#bc4e2a">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets left="60.0" />
+               </opaqueInsets>
+            </Label>
+            <Label fx:id="back" layoutX="678.0" layoutY="20.0" onMouseClicked="#backClicked" prefHeight="35.0" prefWidth="68.0" text="Back " textFill="#bc4e2a">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets left="60.0" />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+            <HBox layoutX="211.0" layoutY="118.0" prefHeight="35.0" prefWidth="389.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="105.0" text="Event Date " textFill="#bc4e2a">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets left="60.0" />
+                     </opaqueInsets>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="0.0" textFill="#bc4e2a">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets left="60.0" />
+                     </opaqueInsets>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="14.0" textFill="#bc4e2a">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets left="60.0" />
+                     </opaqueInsets>
+                  </Label>
+                  <DatePicker fx:id="dateinter" prefHeight="26.0" prefWidth="214.0" />
+                  <Button fx:id="findsearch" mnemonicParsing="false" onMouseClicked="#searchClicked" prefHeight="26.0" prefWidth="47.0" style="-fx-background-color: #ead5d5;" text="✅" textFill="#030000">
+                     <opaqueInsets>
+                        <Insets left="30.0" />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+            <TableView fx:id="table" layoutX="158.0" layoutY="174.0" prefHeight="302.0" prefWidth="494.0">
+               <columns>
+                  <TableColumn fx:id="eventName" prefWidth="114.4000244140625" text="Event Name" />
+                  <TableColumn fx:id="eventDate" prefWidth="136.7999725341797" text="Event Date" />
+                  <TableColumn fx:id="eventTime" prefWidth="119.20001220703125" text="Event Time" />
+                  <TableColumn fx:id="eventType" prefWidth="119.20001220703125" text="Event Type" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

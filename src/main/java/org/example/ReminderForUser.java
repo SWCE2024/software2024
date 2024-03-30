@@ -1,0 +1,39 @@
+package org.example;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReminderForUser
+{
+    public static void check()
+    {
+
+        LocalDate currentdate =LocalDate.now();
+
+        List<Date> date;
+        List<String> cid =Database.custumerCID;
+        String gmail ;
+
+        date =Database.getDateEvents();
+
+             for (int i =0 ;i<date.size();i++)
+             {
+
+                 if (currentdate.toString().equals(date.get(i).toString()))
+                 {
+                     gmail =Database.getgmailReminder(cid.get(i));
+                     ReminderCustomer.sendReminder(gmail);
+
+                 }
+
+             }
+
+
+
+             System.out.println(currentdate);
+        System.out.println(currentdate);
+        System.out.println(date);
+    }
+
+}
