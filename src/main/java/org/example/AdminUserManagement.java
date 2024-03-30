@@ -27,7 +27,7 @@ public class AdminUserManagement {
 
     @FXML
     private Label update;
-    private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+    private static final String messege = "An error occurred while opening a new window:";
       Parent root;
     Stage stage;
 
@@ -40,7 +40,7 @@ public class AdminUserManagement {
             callScreen();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
+            logger.log(Level.SEVERE, messege, e);
         }
 
     }
@@ -60,7 +60,7 @@ public class AdminUserManagement {
             callScreen();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
+            logger.log(Level.SEVERE, messege, e);
         }
 
     }
@@ -74,7 +74,7 @@ public class AdminUserManagement {
 
         } catch (IOException e) {
 
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
+            logger.log(Level.SEVERE,messege, e);
         }
 
     }
@@ -87,7 +87,7 @@ public class AdminUserManagement {
             callScreen();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
+            logger.log(Level.SEVERE,messege, e);
         }
 
     }
