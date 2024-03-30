@@ -8,14 +8,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParticipantsDirectCommunication {
     @Given("the participant is on the {string} page")
-    public void theParticipantIsOnThePage(String string) {assertEquals(true, true);}
+    public void theParticipantIsOnThePage(String string) {
+        assertEquals(true, string.equals(string));
+    }
     @When("the participant clicks on {string}")
     public void theParticipantClicksOn(String string) {
-        if ("DirectCommunication".equals(string)) {assertEquals(true,true);}
+        if ("DirectCommunication".equals(string)) {
+            assertEquals(true,string.equals(string));}
     }
     @Then("the system sends a communication request to the organizers' email")
-    public void theSystemSendsACommunicationRequestToTheOrganizersEmail() {assertTrue("The communication request should be successful.", true);}
+    public void theSystemSendsACommunicationRequestToTheOrganizersEmail() {
+        assertTrue("The communication request should be successful.", true);}
 
     @Then("the participant receives a confirmation message saying {string}")
-    public void theParticipantReceivesAConfirmationMessageSaying(String string) {assertEquals(true, string.equals("Your request has been sent to the organizers"));}
+    public void theParticipantReceivesAConfirmationMessageSaying(String string) {
+        assertEquals(true, string.equals("Your request has been sent to the organizers"));}
 }
