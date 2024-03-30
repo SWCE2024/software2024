@@ -6,6 +6,9 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import static org.example.Password.getPassword;
+import static org.example.Password.getUser;
+
 public class ReminderCustomer
 {
 
@@ -16,8 +19,8 @@ public class ReminderCustomer
     {
 
 
-        String senderEmail = Password.getUser();
-        String senderPassword = Password.getPassword();
+        String senderEmail = getUser();
+        String senderPassword = getPassword();
 
         // Recipient's email address
         String recipientEmail = email;
