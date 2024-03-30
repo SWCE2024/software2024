@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.example.SignUpController.logger;
 
@@ -69,11 +70,11 @@ public class Database {
         return conn;
     }
 
-  
-    public static List<Date> getDateEvents() throws SQLException 
+
+    public static List<Date> getDateEvents() throws SQLException
     {
         List<Date> date =new ArrayList<>();
-       int count =0 ;
+        int count =0 ;
         String sql = "SELECT \"EventID\" FROM software2024.\"Events\"  " ;
 
 
@@ -83,19 +84,19 @@ public class Database {
             try(Statement  stmt = conn.createStatement())
             {
                 ResultSet rs = stmt.executeQuery(sql);
-                    boolean c = true;
-                    while (c) {
-                        if (rs.next()) count++;
-                        else c = false;
-                    }
+                boolean c = true;
+                while (c) {
+                    if (rs.next()) count++;
+                    else c = false;
+                }
 
-                    rs = stmt.executeQuery(sql);
-                    for (int i = 0; i < count; i++)
-                        if (rs.next())
-                        {
-                            date.add(rs.getDate("EventDate"));
-                            custumerCID.add(rs.getString("CID"));
-                        }
+                rs = stmt.executeQuery(sql);
+                for (int i = 0; i < count; i++)
+                    if (rs.next())
+                    {
+                        date.add(rs.getDate("EventDate"));
+                        custumerCID.add(rs.getString("CID"));
+                    }
 
             }
         }
@@ -110,35 +111,20 @@ public class Database {
     public static String getgmailReminder(String id) throws SQLException {
         String gml = "";
         String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\" WHERE \"CID\" = ?";
-        Connection conn = null;
-        try {
-            conn = connect();
-            if (conn == null) {
-                logger.log(Level.SEVERE, "Failed to create database connection.");
-                return gml;
-            }
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, id);
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    if (rs.next()) {
-                        gml = rs.getString("GMAIL");
-                    }
+
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    gml = rs.getString("GMAIL");
                 }
             }
         } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
         return gml;
     }
-
 
     public static boolean addOrg(String iD, String name, String address, String gmail, String phone , String pass)
     {
@@ -164,40 +150,21 @@ public class Database {
         }
     }
     public static boolean deleteOrg(String iD) {
+        // Use parameterized SQL query to safely incorporate the iD
         String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" = ?";
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        try {
-            conn = connect();
-            if (conn == null) {
-                logger.log(Level.SEVERE, "Database connection failed. Unable to delete organizer.");
-                return false;
-            }
-            pstmt = conn.prepareStatement(sql);
+        try (Connection conn = connect();
+             // Prepare the SQL statement with a parameter placeholder
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Bind the iD to the placeholder
             pstmt.setString(1, iD);
+            // Execute the update
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "An error occurred while trying to delete an organizer:", e);
             return false;
-        } finally {
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, "Failed to close PreparedStatement:", e);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, "Failed to close Connection:", e);
-                }
-            }
         }
     }
-
 
     public static List<String> fetchParticipantEmails() {
         List<String> emails = new ArrayList<>();
@@ -259,24 +226,17 @@ public class Database {
 
     public static boolean validateLogin(String email, String password, String table) {
         String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            if (conn == null) {
-                logger.log(Level.SEVERE, "Database connection failed. Unable to validate login.");
-                return false;
-            }
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, email);
             pstmt.setString(2, password);
             try (ResultSet rs = pstmt.executeQuery()) {
                 return rs.next();
             }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "An error occurred while validating login:", e);
-            return false;
+        } catch (Exception e) {
+            logger.log(null, "An error ", e);
         }
+        return false;
     }
-
-
 
     public static boolean registerCustomer(String id, String phoneNumber, String address, String gmail, String userName, String password) {
         String sql = "INSERT INTO software2024.\"customer\" (\"CID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
@@ -291,7 +251,7 @@ public class Database {
                 pstmt.setString(6, password);
 
                 int affectedRows = pstmt.executeUpdate();
-          pstmt.close();
+                pstmt.close();
                 return affectedRows > 0;
 
             }
