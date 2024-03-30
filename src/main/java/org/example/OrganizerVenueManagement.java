@@ -73,7 +73,7 @@ public class OrganizerVenueManagement {
         Pricingtxt.setText("");
     }
     @FXML
-    void AddBottonClicked(ActionEvent event) {
+    void addBottonClicked(ActionEvent event) {
         readValue();
 
         boolean isRegistered = Database.addVenue(getVenueId, getVenueName, getLocation, getCapacity, getPricing );
@@ -88,7 +88,7 @@ public class OrganizerVenueManagement {
     }
 
     @FXML
-    void DeleteBottonClicked(ActionEvent event)
+    void deleteBottonClicked(ActionEvent event)
     {
         readValue();
 
@@ -102,7 +102,7 @@ public class OrganizerVenueManagement {
             JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
     @FXML
-    void SearchBottonClicked(ActionEvent event)
+    void searchBottonClicked(ActionEvent event)
     {
 readValue();
 
@@ -126,7 +126,7 @@ readValue();
         }
     }
     @FXML
-    void UpdateBottonClicked(ActionEvent event)
+    void updateBottonClicked(ActionEvent event)
     {
         readValue();
 
