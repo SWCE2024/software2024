@@ -27,12 +27,12 @@ public class TESTINPUT {
 
     public static boolean venueCapacityTest(String capacity) {
         int i = parseInt(capacity);
-        return !(i<=0);
+        return(i>0);
     }
 
     public static boolean venuePricingTest(String pricing) {
         int i = parseInt(pricing);
-        return !(i<=0);
+        return (i>0);
     }
 
     public static boolean idTest(String id) {
@@ -75,19 +75,30 @@ public class TESTINPUT {
     }
 
     public static boolean passwordTest(String password) {
-        boolean flags=false;
-        boolean flagc=false;
-        boolean flagn=false;
-        if( password.length()<8) return false;
-        else {
-            for (int i = 0; i < password.length(); i++){
-                if(Character.isLowerCase(password.charAt(i))) flags=true;
-                else if(Character.isUpperCase(password.charAt(i))) flagc=true;
-                else if (Character.isDigit(password.charAt(i))) flagn=true;
-            }
-            return flags&&flagc&&flagn;
+        // Check for minimum length requirement
+        if (password.length() < 8) {
+            return false;
         }
+
+        boolean hasLowerCase = false;
+        boolean hasUpperCase = false;
+        boolean hasDigit = false;
+        for (int i = 0; i < password.length(); i++) {
+            char ch = password.charAt(i);
+            if (Character.isLowerCase(ch)) {
+                hasLowerCase = true;
+            } else if (Character.isUpperCase(ch)) {
+                hasUpperCase = true;
+            } else if (Character.isDigit(ch)) {
+                hasDigit = true;
+            }
+            if (hasLowerCase && hasUpperCase && hasDigit) {
+                return true;
+            }
+        }
+        return false;
     }
+
 
     public static boolean dateTest(String date){
         LocalDate enteredDate = parseUserInput(date);
@@ -126,7 +137,7 @@ public class TESTINPUT {
 
 
 
-        if (!(phoneNumber.length()==10)) {
+        if ((phoneNumber.length()!=10)) {
             logger.log(Level.SEVERE,"Invalid phone number. Phone number should consist of 10 digits.");
             return false;
         }
