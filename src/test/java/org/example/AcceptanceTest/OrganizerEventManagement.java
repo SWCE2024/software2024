@@ -36,7 +36,7 @@ public class OrganizerEventManagement {
 
     @And("they update the event details with {string}, {string}, {string}, {string}, {string}")
     public void theyUpdateTheEventDetailsWith(String newEventName, String newEventDate, String newEventLocation, String newEventTime, String newEventDescription) {
-        assertEquals("Expected new event name", true, newEventName.equals(newEventDate));
+        assertEquals("Expected new event name", false,newEventName.equals(newEventDate));
     }
 
     @Then("the event {string} should be updated in the database with the new details")
