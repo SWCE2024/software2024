@@ -64,9 +64,11 @@ public class Database {
                 return null;
             }
             conn = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             logger.log(Level.SEVERE, "An error occurred while trying to connect to the database:", e.getMessage());
-            e.printStackTrace();
+            logger.info(e.toString());
         }
         return conn;
     }
@@ -103,7 +105,7 @@ public class Database {
         }
         catch (SQLException | NullPointerException e)
         {
-            e.printStackTrace();
+            logger.info(e.toString());
         }
 
 
@@ -127,7 +129,7 @@ public class Database {
 
         catch (SQLException | NullPointerException e)
         {
-            e.printStackTrace();
+            logger.info(e.toString());
         }
 
         return gml ;
@@ -151,7 +153,7 @@ public class Database {
             }
         }
         catch (SQLException |NullPointerException e) {
-            e.printStackTrace();
+            logger.info(e.toString());
             return false;
         }
     }
@@ -167,7 +169,7 @@ public class Database {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            logger.info(e.toString());
             return false;
         }
     }
@@ -184,7 +186,7 @@ public class Database {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.info(e.toString());
         }
         return emails;
     }
