@@ -116,6 +116,9 @@ public class ParticipantsEventRegistering {
       else if (!TESTINPUT.countTest(attendeCount.getText()))
           JOptionPane.showMessageDialog(null,"Unvalid Attende Count","ERROR",JOptionPane.ERROR_MESSAGE);
       else {
+          Connection con = Database.connect();
+          PreparedStatement preparedStatement=null;
+
           try {
 
               String name = eventName.getText();
@@ -134,8 +137,7 @@ public class ParticipantsEventRegistering {
 
               String sql = "INSERT INTO software2024.\"Events\" (\"CID\",\"EventType\",\"EventName\",\"EventDate\",\"Location\",\"AttendeeCount\",\"MediaURL\",\"EventTime\") VALUES (?,?,?,?,?,?,?,?)";
 
-              Connection con = Database.connect();
-              PreparedStatement preparedStatement = con.prepareStatement(sql);
+              preparedStatement = con.prepareStatement(sql);
 
 
               preparedStatement.setString(1, Database.getUserID());  // Assuming CID is an integer
@@ -154,6 +156,15 @@ public class ParticipantsEventRegistering {
               e.printStackTrace();
               // Handle SQL exceptions or display an error message if needed
               JOptionPane.showMessageDialog(null, "Error", "Failed to add event", JOptionPane.ERROR_MESSAGE);
+          }finally {
+              if (preparedStatement != null) {
+                  try {
+                      preparedStatement.close();
+                  } catch (SQLException e) {
+                      e.printStackTrace();
+                      // Handle exception if closing the statement fails
+                  }
+              }
           }
 
       }
