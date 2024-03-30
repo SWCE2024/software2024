@@ -17,7 +17,17 @@ import static org.example.SignUpController.logger;
 
 public class OrganizerBudgetFinance {
     @FXML
-    private TableColumn<EventFinance, String> bookingStatus, eventId, vendorPayments, venueFees;
+    private TableColumn<EventFinance, String> bookingStatus;
+
+    @FXML
+    private TableColumn<EventFinance, String> eventId;
+
+    @FXML
+    private TableColumn<EventFinance, String> vendorPayments;
+
+    @FXML
+    private TableColumn<EventFinance, String> venueFees;
+
     @FXML
     private Label back;
     @FXML
@@ -42,10 +52,10 @@ public class OrganizerBudgetFinance {
 
     @FXML
     void searchClicked(MouseEvent event) {
-        String eventId = id2.getText().trim();
-        if (!eventId.isEmpty()) {
+        String searchEventId = id2.getText().trim();
+        if (!searchEventId.isEmpty()) {
             table.getItems().clear();
-            executeQuery(eventId);
+            executeQuery(searchEventId);
         } else {
             loadEventData();
         }
@@ -65,6 +75,7 @@ public class OrganizerBudgetFinance {
             logger.log(null,"An error occurred:",e);
         }
     }
+
 
     private String buildSQLQuery(String eventID) {
         String sql = "SELECT e.\"EventName\", " +
@@ -86,6 +97,7 @@ public class OrganizerBudgetFinance {
         }
         return pstmt;
     }
+
 
     private EventFinance extractEventFinance(ResultSet rs) throws SQLException {
         String eventName = rs.getString("EventName");
