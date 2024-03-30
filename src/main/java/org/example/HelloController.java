@@ -86,6 +86,22 @@ public class HelloController {
                 stage.setScene(new Scene(root));
                 stage.show();
                 new FadeIn(root).play();
+                String sql = "SELECT \"OID\" FROM software2024.\"organizer\" WHERE \"GMAIL\" = ?";
+                int id = 0;
+
+                try (
+                        Connection connection=Database.connect();
+                        PreparedStatement preparedStatement = connection.prepareStatement(sql)
+                ) {
+                    preparedStatement.setString(1,email);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    if (resultSet.next()) {
+                        id = resultSet.getInt("OID");
+                    }
+                } catch (SQLException e) {
+                    logger.log(Level.SEVERE, "An error occurred", e);
+                }
+                Database.setUserID(String.valueOf(id));
             } else {
                 logger.log(Level.SEVERE, "please signup");
             }
