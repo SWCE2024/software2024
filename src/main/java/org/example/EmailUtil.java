@@ -2,44 +2,61 @@ package org.example;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EmailUtil {
 
+    private static final Logger logger = Logger.getLogger(EmailUtil.class.getName());
+    private static final Properties emailProperties = new Properties();
+
+    static {
+        try {
+            emailProperties.load(new FileInputStream("src/main/java/org/example/mail.properties"));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Failed to load email properties from src/main/java/org/example/mail.properties", e);
+            throw new IllegalStateException("Failed to load email configurations, check properties path: src/main/java/org/example/mail.properties", e);
+        }
+    }
+
+
+    private EmailUtil() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
+
     public static void sendEmail(String recipientEmail, String subject, String messageText) throws MessagingException {
-        final String username = "nooratta17@gmail.com"; // Use your Gmail username
-        final String password = "dgjg xrzo lqgp iqrw"; // Use your Gmail password
+        final String username = emailProperties.getProperty("email.username");
+        final String password = emailProperties.getProperty("email.password");
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "587");
         prop.put("mail.smtp.auth", "true");
-        prop.put("mail.smtp.starttls.enable", "true"); //TLS
+        prop.put("mail.smtp.starttls.enable", "true");
 
-        Session session = Session.getInstance(prop,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+        Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
 
         try {
-
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("fromemail@gmail.com")); // Use your email address
-            message.setRecipients(
-                    Message.RecipientType.TO,
-                    InternetAddress.parse(recipientEmail)
-            );
+            message.setFrom(new InternetAddress("fromemail@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
             message.setSubject(subject);
             message.setText(messageText);
 
             Transport.send(message);
-
-            System.out.println("Done");
-
+            logger.log(Level.INFO, "Email sent successfully to {0}", new Object[]{recipientEmail});
         } catch (MessagingException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Failed to send email to " + recipientEmail + " with subject: " + subject, e);
+            throw new MessagingException("Email sending to " + recipientEmail + " failed.", e);
         }
+
     }
 }

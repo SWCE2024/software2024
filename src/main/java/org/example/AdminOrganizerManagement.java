@@ -78,8 +78,11 @@ public class AdminOrganizerManagement {
     @FXML
     private TextField phone;
 
+
+    String error="An error occurred .";
+    String typeError="ERROR";
     @FXML
-    void AddBottonClicked(ActionEvent event)
+    void addBottonClicked(ActionEvent event)
     {
         String name=orgname.getText();
         String id=oid.getText();
@@ -89,7 +92,7 @@ public class AdminOrganizerManagement {
         String passOrg=password.getText();
 
 
-        boolean isRegistered = Database.AddOrg(id, name, addressOrg, gmailOrg, phoneOrg,passOrg );
+        boolean isRegistered = Database.addOrg(id, name, addressOrg, gmailOrg, phoneOrg,passOrg );
 
         if (isRegistered) {
             JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -103,7 +106,7 @@ public class AdminOrganizerManagement {
 
         }
         else
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
     }
 
 
@@ -111,9 +114,9 @@ public class AdminOrganizerManagement {
     @FXML
     void DeleteBottonClicked(ActionEvent event)
     {
-        {
-            String ID=oid.getText();
-            boolean isRegistered = Database.DeleteOrg(ID );
+
+            String iD=oid.getText();
+            boolean isRegistered = Database.deleteOrg(iD );
             if (isRegistered)
             {
                 JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -127,18 +130,18 @@ public class AdminOrganizerManagement {
 
             }
             else
-                JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+                JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
+
 
     }
 
     @FXML
-    void SearchBottonClicked(ActionEvent event)
+    void searchBottonClicked(ActionEvent event)
     {
 
 
-        String ID=oid.getText();
-        String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ ID+"'" ;
+        String iD=oid.getText();
+        String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ iD+"'" ;
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs= pstmt.executeQuery();
@@ -156,7 +159,7 @@ public class AdminOrganizerManagement {
         }
 
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
 
@@ -168,7 +171,7 @@ public class AdminOrganizerManagement {
 
 
     @FXML
-    void UpdateBottonClicked(ActionEvent event)
+    void updateBottonClicked(ActionEvent event)
     {
         String name=orgname.getText();
         String id=oid.getText();
@@ -193,7 +196,7 @@ public class AdminOrganizerManagement {
         }
 
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
 
@@ -212,7 +215,7 @@ public class AdminOrganizerManagement {
             stage.show();
             new FadeIn(root).play();
         }catch (IOException e){
-            logger.log(null," An error occurred while opening a new window:");
+            logger.info(error+" while opening a new window:");
         }
 
     }

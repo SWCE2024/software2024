@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.MenuAdmin">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.MenuAdmin">
     <children>
         <AnchorPane layoutX="-10.0" layoutY="-5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@accessories/screen2.css">
             <children>
@@ -27,7 +27,7 @@
                         <Insets left="60.0" />
                     </opaqueInsets>
                 </Label>
-                <Label fx:id="Report" layoutX="323.0" layoutY="165.0" onMouseClicked="#ReportClicked" prefHeight="51.0" prefWidth="103.0" text="Report" textFill="#bc4e2a">
+                <Label fx:id="report" layoutX="323.0" layoutY="165.0" onMouseClicked="#reportClicked" prefHeight="51.0" prefWidth="103.0" text="Report" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="25.0" />
                     </font>
@@ -35,7 +35,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="UserManagement" layoutX="268.0" layoutY="250.0" onMouseClicked="#UserManagementClicked" prefHeight="46.0" prefWidth="213.0" text="UserManagement" textFill="#bc4e2a">
+                <Label fx:id="userManagement" layoutX="268.0" layoutY="250.0" onMouseClicked="#userManagementClicked" prefHeight="46.0" prefWidth="213.0" text="UserManagement" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="25.0" />
                     </font>
@@ -43,7 +43,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Label>
-                <Label fx:id="OrganizerOperation" layoutX="233.0" layoutY="342.0" onMouseClicked="#OrganizerManagementClicked" prefHeight="46.0" prefWidth="282.0" text="Organizer Management" textFill="#bc4e2a">
+                <Label fx:id="organizerOperation" layoutX="233.0" layoutY="342.0" onMouseClicked="#organizerManagementClicked" prefHeight="46.0" prefWidth="282.0" text="Organizer Management" textFill="#bc4e2a">
                     <font>
                         <Font name="System Bold Italic" size="25.0" />
                     </font>

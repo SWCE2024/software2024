@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
@@ -31,6 +30,9 @@ public class HelloController {
 
     private static String emailreturn;
 
+    private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+
+
     public  static String getEmail()
     {
         return emailreturn;
@@ -43,25 +45,22 @@ public class HelloController {
         try {
 
             if (Database.validateLogin(email, password, "ADMIN")) {
-                System.out.println("login admin successfully.");
+                logger.log(Level.SEVERE, "login admin successfully");
                 Parent root;
-                FXMLLoader fxmlLoader;
                 root = FXMLLoader.load(getClass().getResource("/org.example/MenuAdmin.fxml"));
                 Stage stage = (Stage) login1.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
                 new FadeIn(root).play();
             } else if (Database.validateLogin(email, password, "customer")) {
-                System.out.println("login customer successfully.");
+                logger.log(Level.SEVERE, "login customer successfully.");
                 Parent root;
                 emailreturn=email;
-                FXMLLoader fxmlLoader;
                 root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
                 Stage stage = (Stage) login1.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
                 new FadeIn(root).play();
-                ////////////
                 String sql = "SELECT \"CID\" FROM software2024.\"customer\" WHERE \"GMAIL\" = ?";
                 int id = 0;
 
@@ -75,53 +74,48 @@ public class HelloController {
                          id = resultSet.getInt("CID");
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    logger.log(Level.SEVERE, "An error occurred", e);
                 }
-                ////////////
                 Database.setUserID(String.valueOf(id));
             }
             else if (Database.validateLogin(email, password, "organizer")) {
-                System.out.println("login organizer successfully.");
+                logger.log(Level.SEVERE, "login organizer successfully.");
                 Parent root;
-                FXMLLoader fxmlLoader;
                 root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
                 Stage stage = (Stage) login1.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
                 new FadeIn(root).play();
             } else {
-                System.out.println("please signup");
-                return;
+                logger.log(Level.SEVERE, "please signup");
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
     @FXML
     void signUp1Clicked(ActionEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/SignUp.fxml"));
             Stage stage = (Stage) signUp.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
-    public void startClicked(MouseEvent mouseEvent) {
+    public void startClicked( ) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/login.fxml"));
             Stage stage = (Stage) start.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
 }

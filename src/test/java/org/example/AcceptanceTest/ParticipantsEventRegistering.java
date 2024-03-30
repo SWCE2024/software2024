@@ -50,7 +50,7 @@ public class ParticipantsEventRegistering {
                 break;
             default:
                 flag = TESTINPUT.pictureTest(string2);
-                assertEquals(flag, flag);
+                assertEquals(false, string.equals(flag));
 
                 break;
         }

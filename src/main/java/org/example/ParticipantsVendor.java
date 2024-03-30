@@ -62,7 +62,7 @@ public class ParticipantsVendor {
     void backClicked(MouseEvent event) {
         try {
             Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsEventRegistration.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsEventRegistering.fxml"));
             Stage stage=(Stage) back.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

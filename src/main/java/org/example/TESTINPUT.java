@@ -13,18 +13,18 @@ public class TESTINPUT {
 
     }
     public static boolean emptyTest(String name) {
-        if (name.equals(null)||name.isEmpty())
+        if (name==null||name.isEmpty())
             return false;
         else return true;
     }
 
     public static boolean VenueNameTest(String name) {
-      if (name.equals(null)||name.isEmpty())
+      if (name==null||name.isEmpty())
           return false;
       else return true;
     }
     public static boolean VenueLocationTest(String Location) {
-        if (Location.equals(null)||Location.isEmpty())
+        if (Location==null||Location.isEmpty())
             return false;
         else return true;
     }

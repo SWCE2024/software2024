@@ -50,23 +50,37 @@ public class OrganizerVenueManagement {
     private TextField VenueNametxt;
     @FXML
     private Label VenueView;
-    @FXML
-    void AddBottonClicked(ActionEvent event) {
-        String VenueID=VenueIDtxt.getText();
-        String VenueName=VenueNametxt.getText();
-        String Location=Locationtxt.getText();
-        String Capacity=Capacitytxt.getText();
-        String Pricing=Pricingtxt.getText();
+    String getVenueId="";
+    String getVenueName="";
+    String getLocation="";
+    String getCapacity="";
+     String getPricing="";
 
-        boolean isRegistered = Database.AddVenue(VenueID, VenueName, Location, Capacity, Pricing );
+    public void readValue(){
+        getVenueId=VenueIDtxt.getText();
+        getVenueName=VenueNametxt.getText();
+        getLocation=Locationtxt.getText();
+        getCapacity=Capacitytxt.getText();
+        getPricing=Pricingtxt.getText();
+    }
+
+    public void clear()
+    {
+        VenueIDtxt.setText("");
+        VenueNametxt.setText("");
+        Locationtxt.setText("");
+        Capacitytxt.setText("");
+        Pricingtxt.setText("");
+    }
+    @FXML
+    void addBottonClicked(ActionEvent event) {
+        readValue();
+
+        boolean isRegistered = Database.addVenue(getVenueId, getVenueName, getLocation, getCapacity, getPricing );
 
         if (isRegistered) {
             JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            VenueIDtxt.setText("");
-            VenueNametxt.setText("");
-            Locationtxt.setText("");
-            Capacitytxt.setText("");
-            Pricingtxt.setText("");
+           clear();
 
         }
         else
@@ -74,28 +88,25 @@ public class OrganizerVenueManagement {
     }
 
     @FXML
-    void DeleteBottonClicked(ActionEvent event)
+    void deleteBottonClicked(ActionEvent event)
     {
-        String VenueID=VenueIDtxt.getText();
-        boolean isRegistered = Database.DeleteVenue(VenueID );
+        readValue();
+
+        boolean isRegistered = Database.deleteVenue(getVenueId );
         if (isRegistered)
         {
             JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            VenueIDtxt.setText("");
-            VenueNametxt.setText("");
-            Locationtxt.setText("");
-            Capacitytxt.setText("");
-            Pricingtxt.setText("");
+           clear();
         }
         else
             JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
     @FXML
-    void SearchBottonClicked(ActionEvent event)
+    void searchBottonClicked(ActionEvent event)
     {
+readValue();
 
-        String VenueID=VenueIDtxt.getText();
-        String sql = " SELECT * FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ VenueID+"'" ;
+        String sql = " SELECT * FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ getVenueId+"'" ;
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs= pstmt.executeQuery();
@@ -115,24 +126,17 @@ public class OrganizerVenueManagement {
         }
     }
     @FXML
-    void UpdateBottonClicked(ActionEvent event)
+    void updateBottonClicked(ActionEvent event)
     {
+        readValue();
 
-        String VenueID=VenueIDtxt.getText();
-        String VenueName=VenueNametxt.getText();
-        String Location=Locationtxt.getText();
-        String Capacity=Capacitytxt.getText();
-        String Pricing=Pricingtxt.getText();
 
-        String sql = " UPDATE   software2024.\"Venue\" SET  \"VenueName\" = '"+VenueName +"' ,\"Location\"= '"+Location+"'  ,   \"Capacity\" ='"+Capacity+"'  , \"Pricing\" ='"+Pricing+"'  WHERE \"VenueID\" ='"+VenueID+"'" ;
+        String sql = " UPDATE   software2024.\"Venue\" SET  \"VenueName\" = '"+getVenueName +"' ,\"Location\"= '"+Location+"'  ,   \"Capacity\" ='"+Capacity+"'  , \"Pricing\" ='"+Pricing+"'  WHERE \"VenueID\" ='"+getVenueId+"'" ;
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
              pstmt.executeUpdate();
-            VenueIDtxt.setText("");
-            VenueNametxt.setText("");
-            Locationtxt.setText("");
-            Capacitytxt.setText("");
-            Pricingtxt.setText("");
+
+             clear();
             JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
 
         }

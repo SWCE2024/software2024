@@ -9,54 +9,58 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
+
 public class MenuAdmin {
 
-    @FXML private Label OrganizerOperation;
+    @FXML private Label organizerOperation;
 
-    @FXML private Label Report;
+    @FXML private Label report;
 
-    @FXML private Label UserManagement;
+    @FXML private Label userManagement;
+
+    private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+
 
     @FXML
-    void OrganizerManagementClicked(MouseEvent event) {
+    void organizerManagementClicked(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminOrganizerManagement.fxml"));
-            Stage stage = (Stage) OrganizerOperation.getScene().getWindow();
+            Stage stage = (Stage) organizerOperation.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
     @FXML
-    void ReportClicked(MouseEvent event) {
+    void reportClicked(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminReport.fxml"));
-            Stage stage = (Stage) Report.getScene().getWindow();
+            Stage stage = (Stage) report.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
     @FXML
-    void UserManagementClicked(MouseEvent event) {
+    void userManagementClicked(MouseEvent event) {
         try{
             Parent root;
-            FXMLLoader fxmlLoader;
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManagement.fxml"));
-            Stage stage = (Stage) UserManagement.getScene().getWindow();
+            Stage stage = (Stage) userManagement.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
 

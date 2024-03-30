@@ -95,7 +95,7 @@
                         <TableColumn fx:id="eventId" prefWidth="114.4000244140625" text="Event Name" />
                         <TableColumn fx:id="vendorPayments" prefWidth="136.7999725341797" text="Vendor Payments" />
                         <TableColumn fx:id="venueFees" prefWidth="119.20001220703125" text="Venue rental fees" />
-                  <TableColumn fx:id="BookingStatus" prefWidth="119.20001220703125" text="Booking status" />
+                  <TableColumn fx:id="bookingStatus" prefWidth="119.20001220703125" text="Booking status" />
                     </columns>
                 </TableView>
             </children>
