@@ -71,13 +71,13 @@ public class ParticipantsEventRegistering {
       ComboBox.getSelectionModel().select(0);
   }
 
-
+    AdminUserManagement admin = new AdminUserManagement();
     @FXML
     void backClicked(MouseEvent event) {
       try {
-          AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
-          AdminUserManagement.stage=(Stage) back.getScene().getWindow();
-          AdminUserManagement.callScreen();
+          admin.root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
+          admin.stage=(Stage) back.getScene().getWindow();
+          admin.callScreen();
           
       } catch (IOException e) {
           logger.log(Level.SEVERE, "An error occurred", e);
@@ -89,9 +89,9 @@ public class ParticipantsEventRegistering {
     void nextClicked(MouseEvent event) {
         try {
 
-            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsVendor.fxml"));
-            AdminUserManagement.stage=(Stage) next.getScene().getWindow();
-            AdminUserManagement.callScreen();
+            admin.root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsVendor.fxml"));
+            admin.stage=(Stage) next.getScene().getWindow();
+            admin.callScreen();
 
         } catch (IOException e) {logger.log(Level.SEVERE, "An error happened", e);
         }

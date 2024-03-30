@@ -25,13 +25,14 @@ public class OrganizerVendorManagement {
     @FXML
     private Label update;
     private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+     AdminUserManagement admin = new AdminUserManagement();
 
     @FXML
     void AddClicked(MouseEvent event) {
         try {
-            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_AddServiceProvider.fxml"));
-            AdminUserManagement.stage=(Stage) Add.getScene().getWindow();
-            AdminUserManagement.callScreen();
+            admin.root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_AddServiceProvider.fxml"));
+            admin.stage=(Stage) Add.getScene().getWindow();
+            admin.callScreen();
         } catch (IOException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
@@ -42,9 +43,9 @@ public class OrganizerVendorManagement {
     @FXML
     void DeleteClicked(MouseEvent event) {
         try {
-            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_DeleteServiceProvider.fxml"));
-            AdminUserManagement.stage=(Stage) delete.getScene().getWindow();
-            AdminUserManagement.callScreen();
+            admin.root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_DeleteServiceProvider.fxml"));
+            admin.stage=(Stage) delete.getScene().getWindow();
+            admin.callScreen();
 
         } catch (IOException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
@@ -55,9 +56,9 @@ public class OrganizerVendorManagement {
     @FXML
     void UpdateClicked(MouseEvent event) {
         try {
-            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_UpdateServiceProvider.fxml"));
-            AdminUserManagement.stage=(Stage) update.getScene().getWindow();
-            AdminUserManagement.callScreen();
+            admin.root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_UpdateServiceProvider.fxml"));
+            admin.stage=(Stage) update.getScene().getWindow();
+            admin.callScreen();
 
         } catch (IOException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
@@ -69,9 +70,9 @@ public class OrganizerVendorManagement {
     void backClicked(MouseEvent event) {
         try {
 
-            AdminUserManagement.root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
-            AdminUserManagement.stage=(Stage) back.getScene().getWindow();
-            AdminUserManagement.callScreen();
+            admin.root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
+            admin.stage=(Stage) back.getScene().getWindow();
+            admin.callScreen();
         } catch (IOException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
