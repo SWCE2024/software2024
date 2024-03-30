@@ -20,7 +20,7 @@ public class MenuParticipants {
     @FXML private Label eventCalender;
     @FXML private Label eventRegistering;
     @FXML private Label ticketManagement;
-    private String em="successful";
+
 
     private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
 

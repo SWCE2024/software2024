@@ -17,16 +17,16 @@ public class OrganizerVenueManagement {
     @When("he fill in {string} with {string}")
     public void heFillInWith(String string, String string2) {
         if(string.equals("Name")){
-            assertEquals(true,TESTINPUT.VenueNameTest(string2));
+            assertEquals(true,TESTINPUT.venueNameTest(string2));
         }
         else if (string.equals("Location")) {
-            assertEquals(true,TESTINPUT.VenueLocationTest(string2));
+            assertEquals(true,TESTINPUT.venueLocationTest(string2));
         }
         else if (string.equals("Capacity")) {
-            assertEquals(true,TESTINPUT.VenueCapacityTest(string2));
+            assertEquals(true,TESTINPUT.venueCapacityTest(string2));
         }
         else if (string.equals("Pricing")) {
-            assertEquals(true,TESTINPUT.VenuePricingTest(string2));
+            assertEquals(true,TESTINPUT.venuePricingTest(string2));
         }
     }
     @Then("show massage {string}")
