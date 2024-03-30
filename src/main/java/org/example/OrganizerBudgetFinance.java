@@ -91,13 +91,13 @@ public class OrganizerBudgetFinance {
     }
 
     private PreparedStatement prepareStatement(Connection conn, String sql, String eventID) throws SQLException {
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        if (eventID != null) {
-            pstmt.setInt(1, Integer.parseInt(eventID));
-        }
-        pstmt.executeUpdate();
-        pstmt.close();
-        return pstmt;
+            assert conn != null;
+            PreparedStatement pstmt = conn.prepareStatement(sql) ;
+                if (eventID != null) {
+                    pstmt.setInt(1, Integer.parseInt(eventID));
+                }
+                return pstmt;
+
     }
 
 
