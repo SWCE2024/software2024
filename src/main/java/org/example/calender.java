@@ -86,7 +86,7 @@ public class calender {
     void backClicked(MouseEvent event) {
         try {
             Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
             Stage stage = (Stage) back.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

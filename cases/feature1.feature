@@ -1,7 +1,7 @@
 Feature: Login
   I want to login on YOUR EVENT
   Background:
-    Given I go to loginchoise
+    Given I go to 'loginchoise'
     And the field 'email' is empty
     And the field 'password' is empty
 
@@ -20,4 +20,4 @@ Feature: Login
     When he fills in 'gmail' with 'noor@gmail.com'
     And he fills in 'password' with '123456'
     And I click on login and flag is 'true'
-    Then I shouldn't see 'Access your account'
+    Then I shouldnt see 'Access your account'
