@@ -77,42 +77,36 @@ public class Database {
         List<Date> date =new ArrayList<>();
        int count =0 ;
         String sql = "SELECT \"EventID\" FROM software2024.\"Events\"  " ;
-        Connection conn =null;
-        Statement stmt =null;
-
-        try {
-            conn = connect();
 
 
+
+        try(  Connection conn = connect()) {
             assert conn != null;
-            stmt = conn.createStatement();
+            try(Statement  stmt = conn.createStatement())
+            {
                 ResultSet rs = stmt.executeQuery(sql);
-                boolean c = true;
-                while (c) {
-                    if (rs.next()) count++;
-                    else c = false;
-                }
-
-                rs = stmt.executeQuery(sql);
-                for (int i = 0; i < count; i++)
-                    if (rs.next())
-                    {
-                        date.add(rs.getDate("EventDate"));
-                        custumerCID.add(rs.getString("CID"));
+                    boolean c = true;
+                    while (c) {
+                        if (rs.next()) count++;
+                        else c = false;
                     }
 
+                    rs = stmt.executeQuery(sql);
+                    for (int i = 0; i < count; i++)
+                        if (rs.next())
+                        {
+                            date.add(rs.getDate("EventDate"));
+                            custumerCID.add(rs.getString("CID"));
+                        }
+
+            }
         }
-        catch (SQLException e)
+        catch (SQLException | NullPointerException e)
         {
             e.printStackTrace();
         }
-        finally {
-            assert conn != null;
-            conn.close();
-            assert stmt != null;
-            stmt.close();
 
-        }
+
         return date;
     }
     public static String getgmailReminder(String id ) throws SQLException {
@@ -131,12 +125,7 @@ public class Database {
 
         }
 
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-
-        catch (NullPointerException e)
+        catch (SQLException | NullPointerException e)
         {
             e.printStackTrace();
         }
@@ -146,20 +135,22 @@ public class Database {
     public static boolean addOrg(String iD, String name, String address, String gmail, String phone , String pass)
     {
         String sql = "INSERT INTO software2024.\"organizer\" (\"OID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1,iD);
-            pstmt.setString(2, phone);
-            pstmt.setString(3, address);
-            pstmt.setString(4, gmail);
-            pstmt.setString(5, name);
-            pstmt.setString(6, pass);
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1,iD);
+                pstmt.setString(2, phone);
+                pstmt.setString(3, address);
+                pstmt.setString(4, gmail);
+                pstmt.setString(5, name);
+                pstmt.setString(6, pass);
 
-            int affectedRows = pstmt.executeUpdate();
-            pstmt.close();
-            return affectedRows > 0;
+                int affectedRows = pstmt.executeUpdate();
+                pstmt.close();
+                return affectedRows > 0;
+            }
         }
-        catch (SQLException e) {
+        catch (SQLException |NullPointerException e) {
             e.printStackTrace();
             return false;
         }
@@ -167,11 +158,13 @@ public class Database {
     public static boolean deleteOrg(String iD)
     {
         String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ iD+"'" ;
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.executeUpdate();
-            pstmt.close();
-            return true;
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.executeUpdate();
+                pstmt.close();
+                return true;
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -181,13 +174,15 @@ public class Database {
     public static List<String> fetchParticipantEmails() {
         List<String> emails = new ArrayList<>();
         String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\"";
-        try (Connection conn = connect();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                emails.add(rs.getString("GMAIL"));
-            }
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    emails.add(rs.getString("GMAIL"));
+                }
 
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -201,6 +196,7 @@ public class Database {
         try
         {
             Connection conn = connect();
+            assert conn != null;
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next())
@@ -215,6 +211,7 @@ public class Database {
             Logger logger = Logger.getLogger(Database.class.getName());
 
             Connection conn = connect();
+            assert conn != null;
             Statement stmt = conn.createStatement();
             ResultSet rs ;
             if(cid==0)
@@ -245,15 +242,17 @@ public class Database {
 
     public static boolean validateLogin(String email, String password, String table) {
         String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = '" + email + "' AND \"PASSWORD\" = '" + password + "'";
-        try (Connection conn = connect();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
 
-            if (rs.next()) {
-                stmt.close();
-                return true;
+                if (rs.next()) {
+                    stmt.close();
+                    return true;
+                }
+
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -263,19 +262,21 @@ public class Database {
 
     public static boolean registerCustomer(String id, String phoneNumber, String address, String gmail, String userName, String password) {
         String sql = "INSERT INTO software2024.\"customer\" (\"CID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, id);
-            pstmt.setString(2, phoneNumber);
-            pstmt.setString(3, address);
-            pstmt.setString(4, gmail);
-            pstmt.setString(5, userName);
-            pstmt.setString(6, password);
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, id);
+                pstmt.setString(2, phoneNumber);
+                pstmt.setString(3, address);
+                pstmt.setString(4, gmail);
+                pstmt.setString(5, userName);
+                pstmt.setString(6, password);
 
-            int affectedRows = pstmt.executeUpdate();
-      pstmt.close();
-            return affectedRows > 0;
+                int affectedRows = pstmt.executeUpdate();
+          pstmt.close();
+                return affectedRows > 0;
 
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -285,17 +286,19 @@ public class Database {
     public static boolean addVenue(String venueID, String venueName, String location, String capacity, String pricing)
     {
         String sql = "INSERT INTO software2024.\"Venue\" (\"VenueID\", \"VenueName\", \"Location\", \"Capacity\", \"Pricing\") VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, venueID);
-            pstmt.setString(2, venueName);
-            pstmt.setString(3, location);
-            pstmt.setString(4, capacity);
-            pstmt.setString(5, pricing);
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, venueID);
+                pstmt.setString(2, venueName);
+                pstmt.setString(3, location);
+                pstmt.setString(4, capacity);
+                pstmt.setString(5, pricing);
 
-            int affectedRows = pstmt.executeUpdate();
-            pstmt.close();
-            return affectedRows > 0;
+                int affectedRows = pstmt.executeUpdate();
+                pstmt.close();
+                return affectedRows > 0;
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -307,11 +310,14 @@ public class Database {
     public static boolean deleteVenue(String venueID)
     {
         String sql = "DELETE FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ venueID+"'" ;
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-             pstmt.executeUpdate();
-             pstmt.close();
-             return true;
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                 pstmt.executeUpdate();
+                 pstmt.close();
+                 return true;
+            }
+
         }
 
         catch (SQLException e) {
