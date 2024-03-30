@@ -119,16 +119,24 @@ public class Database {
         String gml="";
         String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\" WHERE \"CID\" ='"+id+"'" ;
 
-        try(  Connection conn = connect();
-              Statement  stmt = conn.createStatement();
-              ResultSet rs = stmt.executeQuery(sql);
-              )
+        try(  Connection conn = connect() )
         {
-            if (rs.next())
-                gml = rs.getString("GMAIL");
+            assert conn != null;
+            try(Statement  stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)  )
+            {
+                if (rs.next())
+                    gml = rs.getString("GMAIL");
+            }
+
         }
 
         catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        catch (NullPointerException e)
         {
             e.printStackTrace();
         }
