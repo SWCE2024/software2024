@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 public class Organizer_AddServiceProvider {
 
@@ -62,7 +65,6 @@ public class Organizer_AddServiceProvider {
     @FXML
     private String handleRadioButtonAction() {
         RadioButton selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-        if (selectedRadioButton != null) {
             if (selectedRadioButton == off) {
                 availability="OFF";
 
@@ -70,7 +72,7 @@ public class Organizer_AddServiceProvider {
                 availability="ON";
 
             }
-        }
+
         return availability;
     }
     private String getSelectedComboBoxItem(ComboBox<String> comboBox) {
@@ -78,7 +80,7 @@ public class Organizer_AddServiceProvider {
         return comboBox.getSelectionModel().getSelectedItem();
     }
     @FXML
-    void addClicked(ActionEvent event) {
+    void addClicked(ActionEvent event) throws SQLException {
         String category = categoryText.getText();
         String phoneNumber = phoneNumberText.getText();
         String price = priceText.getText();
@@ -103,17 +105,11 @@ public class Organizer_AddServiceProvider {
                 JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException e) {
-                e.printStackTrace();
-                // Handle SQL exceptions or display an error message if needed
-                JOptionPane.showMessageDialog(null, "Error", "Failed to add Service Provider", JOptionPane.ERROR_MESSAGE);
+                logger.log(Level.SEVERE, "An error occurred", e);
             }finally {
                 if (preparedStatement != null) {
-                    try {
                         preparedStatement.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        // Handle exception if closing the statement fails
-                    }
+
                 }
             }
 
@@ -133,7 +129,7 @@ public class Organizer_AddServiceProvider {
             fadeIn.play();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "An error occurred", e);
         }
 
     }

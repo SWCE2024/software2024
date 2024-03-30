@@ -16,6 +16,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import java.io.IOException;
+import java.util.logging.Level;
+
+import static org.example.SignUpController.logger;
 
 public class AdminAddUser {
 
@@ -74,7 +77,7 @@ public class AdminAddUser {
                         System.out.println("Failed to add user.");
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    logger.log(Level.SEVERE, "An error occurred", e);
                 }
     }
 

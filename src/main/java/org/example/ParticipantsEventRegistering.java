@@ -158,12 +158,7 @@ public class ParticipantsEventRegistering {
               JOptionPane.showMessageDialog(null, "Error", "Failed to add event", JOptionPane.ERROR_MESSAGE);
           }finally {
               if (preparedStatement != null) {
-                  try {
                       preparedStatement.close();
-                  } catch (SQLException e) {
-                      e.printStackTrace();
-                      // Handle exception if closing the statement fails
-                  }
               }
           }
 
