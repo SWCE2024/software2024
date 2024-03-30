@@ -1,10 +1,13 @@
 package org.example;
 
+import animatefx.animation.FadeIn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -74,26 +77,30 @@ public class ParticipantsEventRegistering {
     AdminUserManagement admin = new AdminUserManagement();
     @FXML
     void backClicked(MouseEvent event) {
-      try {
-          admin.root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
-          admin.stage=(Stage) back.getScene().getWindow();
-          admin.callScreen();
-          
-      } catch (IOException e) {
-          logger.log(Level.SEVERE, "An error occurred", e);
-      }
-
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
+            Stage stage = (Stage) back.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            new FadeIn(root).play();
+        }catch (IOException e){
+            logger.log(Level.SEVERE, "An error", e);
+        }
     }
+
 
     @FXML
     void nextClicked(MouseEvent event) {
         try {
-
-            admin.root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsVendor.fxml"));
-            admin.stage=(Stage) next.getScene().getWindow();
-            admin.callScreen();
-
-        } catch (IOException e) {logger.log(Level.SEVERE, "An error happened", e);
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/org.example/ParticipantsVendor.fxml"));
+            Stage stage = (Stage) back.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            new FadeIn(root).play();
+        }catch (IOException e){
+            logger.log(Level.SEVERE, "An error occured", e);
         }
 
     }
