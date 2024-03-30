@@ -105,7 +105,7 @@ public class Organizer_AddServiceProvider {
                 JOptionPane.showMessageDialog(null, "Done", "Added Successfully", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (SQLException e) {
-                logger.log(Level.SEVERE, "An error occurred", e);
+                logger.log(Level.SEVERE, "An error happened", e);
             }finally {
                 if (preparedStatement != null) {
                         preparedStatement.close();

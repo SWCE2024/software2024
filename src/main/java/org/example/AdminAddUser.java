@@ -42,6 +42,7 @@ public class AdminAddUser {
 
     @FXML
     private TextField usernameText;
+    private String errorMessege="An error occurred";
 
     @FXML
     void addNewUser(ActionEvent event) {
@@ -77,7 +78,7 @@ public class AdminAddUser {
                         logger.log(Level.SEVERE, "Failed to add user.");
                     }
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE, "An error occurred", e);
+                    logger.log(Level.SEVERE,errorMessege , e);
                 }
     }
 
@@ -93,7 +94,7 @@ public class AdminAddUser {
             fadeIn.play();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, errorMessege, e);
         }
 
     }

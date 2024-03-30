@@ -64,7 +64,7 @@ public class Organizer_UpdateServiceProvider {
             fadeIn.play();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, "An error", e);
         }
 
     }
@@ -103,7 +103,7 @@ public class Organizer_UpdateServiceProvider {
                 logger.log(Level.SEVERE, "Service Provider not found.");
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, "An error happened", e);
         }
 
     }

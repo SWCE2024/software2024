@@ -67,10 +67,10 @@ public class Organizer_DeleteServiceProvider {
 
             } else {
 
-                logger.log(Level.SEVERE, "Failed to delete Service Provider. Service Provider with ID " + ID + " not found.");
+                logger.log(Level.SEVERE, "Failed to delete Service Provider. Service Provider with ID {0} not found.",ID);
             }
         }catch (SQLException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, "There is an error", e);
         }
 
     }

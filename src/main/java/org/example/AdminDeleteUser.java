@@ -30,6 +30,7 @@ public class AdminDeleteUser {
 
     @FXML
     private TextField userIdText;
+    private String errorMessege="An error occurred";
 
     @FXML
     void backClicked(MouseEvent event) {
@@ -43,7 +44,7 @@ public class AdminDeleteUser {
             fadeIn.play();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, errorMessege, e);
 
         }
 
@@ -66,10 +67,11 @@ public class AdminDeleteUser {
             if (rowsAffected > 0) {
                 logger.log(Level.SEVERE,"User deleted successfully.");
             } else {
-                logger.log(Level.SEVERE, "Failed to delete user. User with ID " + CID + " not found.");
+                logger.log(Level.SEVERE, "Failed to delete user. User with ID {0} not found.", CID);
+
             }
         }catch (SQLException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, errorMessege, e);
         }
 
     }

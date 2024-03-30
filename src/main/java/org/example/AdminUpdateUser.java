@@ -61,7 +61,7 @@ public class AdminUpdateUser {
             fadeIn.play();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, "An error happened", e);
 
         }
 
@@ -138,7 +138,7 @@ public class AdminUpdateUser {
                 logger.log(Level.SEVERE,"Failed to update user information." );
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "An error occurred", e);
+            logger.log(Level.SEVERE, "There is an error", e);
         }
 
     }
