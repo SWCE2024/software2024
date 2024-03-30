@@ -126,7 +126,7 @@ public class ParticipantsEventRegistering {
               String time = eventTime.getText()+":00";
               String count = attendeCount.getText();
               String type = eventtype.getText();
-              String comboBoxValue = (String) getSelectedComboBoxItem(ComboBox);
+              String comboBoxValue =getSelectedComboBoxItem(ComboBox);
               String imagePath = getImagePathFromImageView(image);
 
               String dateString = date; // Replace this with your actual date string

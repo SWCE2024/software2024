@@ -82,7 +82,7 @@ public class Organizer_AddServiceProvider {
         String category = categoryText.getText();
         String phoneNumber = phoneNumberText.getText();
         String price = priceText.getText();
-        String comboBoxValue = (String) getSelectedComboBoxItem(comboBox);
+        String comboBoxValue = getSelectedComboBoxItem(comboBox);
         String availble = handleRadioButtonAction();
 
 
