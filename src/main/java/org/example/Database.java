@@ -1,7 +1,7 @@
 package org.example;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -219,9 +219,7 @@ public class Database {
     }
     public static String getParticipantMessageTicket() {
         String message = "";
-        // Initialize cid as null to handle cases where the email does not correspond to a customer
         Integer cid = null;
-        // Use parameterized queries to prevent SQL Injection
         String getEmailSql = "SELECT \"CID\" FROM software2024.\"customer\" WHERE \"GMAIL\" = ?";
         String getEventSql = "SELECT * FROM software2024.\"Events\" WHERE \"CID\" = ?";
 
@@ -261,6 +259,13 @@ public class Database {
 
 
     public static boolean validateLogin(String email, String password, String table) {
+        Set<String> validTables = new HashSet<>(Arrays.asList("organizer", "customer", "ADMIN"));
+
+        if (!validTables.contains(table)) {
+            logger.log(Level.SEVERE, "Invalid table name provided for login validation");
+            return false;
+        }
+
         String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
         try (Connection conn = connect()) {
             assert conn != null;
@@ -276,6 +281,7 @@ public class Database {
         }
         return false;
     }
+
 
 
 
