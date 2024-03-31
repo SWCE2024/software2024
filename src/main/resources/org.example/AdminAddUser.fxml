@@ -22,7 +22,7 @@
                                 <Font name="System Bold Italic" size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="usernameText" prefHeight="34.0" prefWidth="310.0" promptText="username" style="-fx-background-radius: 50;">
+                        <TextField fx:id="username" prefHeight="34.0" prefWidth="310.0" promptText="username" style="-fx-background-radius: 50;">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
@@ -39,7 +39,7 @@
                                 <Font name="System Bold Italic" size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="phoneNumberText" prefHeight="35.0" prefWidth="308.0" promptText="Phone Number" style="-fx-background-radius: 50;" />
+                        <TextField fx:id="phoneNumber" prefHeight="35.0" prefWidth="308.0" promptText="Phone Number" style="-fx-background-radius: 50;" />
                     </children>
                     <padding>
                         <Insets top="2.0" />
@@ -55,7 +55,7 @@
                                 <Font name="System Bold Italic" size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="gmailText" prefHeight="35.0" prefWidth="308.0" promptText="Gmail" style="-fx-background-radius: 50;" />
+                        <TextField fx:id="email" prefHeight="35.0" prefWidth="308.0" promptText="Gmail" style="-fx-background-radius: 50;" />
                     </children>
                 </HBox>
                 <HBox layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="490.0">
@@ -73,7 +73,7 @@
                                         <Font name="System Bold Italic" size="18.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="addressText" prefHeight="35.0" prefWidth="308.0" promptText="Address" style="-fx-background-radius: 50;" />
+                                <TextField fx:id="address" prefHeight="35.0" prefWidth="308.0" promptText="Address" style="-fx-background-radius: 50;" />
                             </children>
                         </HBox>
                     </children>
@@ -88,7 +88,7 @@
                                 <Font name="System Bold Italic" size="18.0" />
                             </font>
                         </Label>
-                        <PasswordField fx:id="passwordText" prefHeight="35.0" prefWidth="299.0" promptText="*******" />
+                        <PasswordField fx:id="password" prefHeight="35.0" prefWidth="299.0" promptText="*******" />
                     </children>
                 </HBox>
             </children>
@@ -102,7 +102,7 @@
                 <Insets left="60.0" />
             </opaqueInsets>
         </Label>
-        <Label fx:id="back" layoutX="695.0" layoutY="14.0" onMouseClicked="#backClicked" prefHeight="24.0" prefWidth="47.0" text="Back " textFill="#bc4e2a">
+        <Label fx:id="back" layoutX="695.0" layoutY="14.0" onMouseClicked="#backPress" prefHeight="24.0" prefWidth="47.0" text="Back " textFill="#bc4e2a">
             <font>
                 <Font name="System Bold Italic" size="18.0" />
             </font>
