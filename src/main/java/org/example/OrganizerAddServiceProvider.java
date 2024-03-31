@@ -116,7 +116,7 @@ public class OrganizerAddServiceProvider {
 
     }
     @FXML
-    void backClicked(MouseEvent event) {
+    void returnBack(MouseEvent event) {
         try {
             Parent root;
             root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerVendorManagement.fxml"));

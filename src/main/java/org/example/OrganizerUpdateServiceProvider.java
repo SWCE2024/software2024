@@ -53,7 +53,7 @@ public class OrganizerUpdateServiceProvider {
     private TextField userIDText;
 
     @FXML
-    void backClicked(MouseEvent event) {
+    void goBack(MouseEvent event) {
         try {
             Parent root;
             root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerVendorManagement.fxml"));
