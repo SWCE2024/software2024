@@ -153,6 +153,7 @@ public class Database {
         try (Connection conn = connect()) {
             assert conn != null;
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
                 pstmt.setString(1,iD);
                 pstmt.setString(2, phone);
                 pstmt.setString(3, address);
@@ -173,7 +174,8 @@ public class Database {
     public static boolean deleteOrg(String iD) {
         String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" = ?";
         Connection conn = null;
-        try {
+        try
+        {
             conn = connect();
             // Check if connection is null
             if (conn == null) {
