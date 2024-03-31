@@ -113,28 +113,39 @@ public class Database {
     }
     public static String getgmailReminder(String id) throws SQLException {
         String gml = "";
-        // Using a parameterized query to prevent SQL Injection
         String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\" WHERE \"CID\" = ?";
 
-        try (Connection conn = connect();
-             // Create a PreparedStatement from the connection
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            // Ensure the connection is not null
-            assert conn != null;
-            // Set the parameter (id) in the query
-            pstmt.setString(1, id);
-            // Execute the query
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    gml = rs.getString("GMAIL");
+        Connection conn = null;
+        try {
+            conn = connect();
+            if (conn == null) {
+                logger.log(Level.SEVERE, "Failed to establish database connection.");
+                return gml;
+            }
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, id);
+                // Execute the query.
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        gml = rs.getString("GMAIL");
+                    }
                 }
             }
         } catch (SQLException | NullPointerException e) {
             logger.info(e.toString());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    logger.log(Level.SEVERE, "An error occurred while closing the database connection", e);
+                }
+            }
         }
 
         return gml;
     }
+
 
     public static boolean addOrg(String iD, String name, String address, String gmail, String phone , String pass)
     {
@@ -161,17 +172,33 @@ public class Database {
     }
     public static boolean deleteOrg(String iD) {
         String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" = ?";
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            assert conn != null;
-            pstmt.setString(1, iD);
-            int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0;
+        Connection conn = null;
+        try {
+            conn = connect();
+            // Check if connection is null
+            if (conn == null) {
+                logger.log(Level.SEVERE, "Cannot establish a database connection.");
+                return false;
+            }
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, iD);
+                int affectedRows = pstmt.executeUpdate();
+                return affectedRows > 0;
+            }
         } catch (SQLException e) {
             logger.info(e.toString());
             return false;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    logger.log(Level.SEVERE, "An error occurred while closing the database connection", e);
+                }
+            }
         }
     }
+
 
     public static List<String> fetchParticipantEmails() {
         List<String> emails = new ArrayList<>();
