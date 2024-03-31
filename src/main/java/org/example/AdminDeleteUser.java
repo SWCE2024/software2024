@@ -33,7 +33,7 @@ public class AdminDeleteUser {
     private String errorMessege="Faild to open Window";
 
     @FXML
-    void backClicked(MouseEvent event) {
+    void backWindow(MouseEvent event) {
         try {
             Parent root;
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManagement.fxml"));

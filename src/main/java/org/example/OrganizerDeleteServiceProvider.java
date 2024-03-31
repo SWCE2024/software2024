@@ -30,10 +30,8 @@ public class OrganizerDeleteServiceProvider {
 
     @FXML
     private TextField idText;
-    AdminUserManagement admin = new AdminUserManagement();
-
     @FXML
-    void backClicked(MouseEvent event) {
+    void backUp(MouseEvent event) {
         try {
             Parent root;
             root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerVendorManagement.fxml"));
