@@ -63,20 +63,18 @@ public class ParticipantsEventRegistering {
     private ImageView image;
 
     @FXML
-    private ComboBox<String> ComboBox;
+    private ComboBox<String> comboBoxx;
 
   public void initialize() {
       // Initialize the ComboBox with items
       ObservableList<String> items = FXCollections.observableArrayList("Choose...","Garden", "Hall", "Beach", "Office","Stadium","Conference");
-      ComboBox.setItems(items);
+      comboBoxx.setItems(items);
 
       // Set an initial selection if needed
-      ComboBox.getSelectionModel().select(0);
+      comboBoxx.getSelectionModel().select(0);
   }
-
-    AdminUserManagement admin = new AdminUserManagement();
     @FXML
-    void backClicked(MouseEvent event) {
+    void goBackAgain(MouseEvent event) {
         try {
             Parent root;
             root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
@@ -126,7 +124,7 @@ public class ParticipantsEventRegistering {
               String time = eventTime.getText()+":00";
               String count = attendeCount.getText();
               String type = eventtype.getText();
-              String comboBoxValue =getSelectedComboBoxItem(ComboBox);
+              String comboBoxValue =getSelectedComboBoxItem(comboBoxx);
               String imagePath = getImagePathFromImageView(image);
 
               String dateString = date; // Replace this with your actual date string
