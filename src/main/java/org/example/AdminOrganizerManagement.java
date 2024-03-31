@@ -23,37 +23,30 @@ import java.sql.SQLException;
 import static org.example.Database.connect;
 import static org.example.SignUpController.logger;
 
-public class AdminOrganizerManagement {
+public class AdminOrganizerManagement
+{
+
 
     @FXML
     private Button AddBotton;
 
     @FXML
-    private Label Capacity;
+    private Button DeleteButton;
 
     @FXML
-    private Button DeleteBotton;
+    private Label ID;
 
     @FXML
     private Label Location;
 
     @FXML
-    private Label Pricing;
-
-    @FXML
-    private Label Pricing1;
+    private Label Name;
 
     @FXML
     private Button SearchBotton;
 
     @FXML
     private Button UpdateBotton;
-
-    @FXML
-    private Label VenueID;
-
-    @FXML
-    private Label VenueName;
 
     @FXML
     private Label VenueView;
@@ -65,7 +58,13 @@ public class AdminOrganizerManagement {
     private Label back;
 
     @FXML
+    private Label fone;
+
+    @FXML
     private TextField gmail;
+
+    @FXML
+    private Label gmll;
 
     @FXML
     private TextField oid;
@@ -74,37 +73,59 @@ public class AdminOrganizerManagement {
     private TextField orgname;
 
     @FXML
+    private Label pacc;
+
+    @FXML
     private TextField password;
 
     @FXML
     private TextField phone;
 
+    String name="";
+    String id="";
+    String gmailOrg="";
+    String phoneOrg="";
+    String addressOrg="";
+    String passOrg="";
+
+
+
+
 
     String error="An error occurred .";
     String typeError="ERROR";
-    @FXML
-    void addBottonClicked(ActionEvent event)
+
+    public void clear()
     {
-        String name=orgname.getText();
-        String id=oid.getText();
-        String gmailOrg=gmail.getText();
-        String phoneOrg=phone.getText();
-        String addressOrg=address.getText();
-        String passOrg=password.getText();
+        orgname.setText("");
+        oid.setText("");
+        gmail.setText("");
+        phone.setText("");
+        address.setText("");
+        password.setText("");
+    }
 
+    public void getStrings()
+    {
+        name=orgname.getText();
+         id=oid.getText();
+         gmailOrg=gmail.getText();
+         phoneOrg=phone.getText();
+         addressOrg=address.getText();
+         passOrg=password.getText();
+    }
 
+    @FXML
+    void AddBottonClicked(ActionEvent event)
+    {
+        getStrings();
         boolean isRegistered = Database.addOrg(id, name, addressOrg, gmailOrg, phoneOrg,passOrg );
+        System.out.println(addressOrg+id+name+gmailOrg+phoneOrg+passOrg );
 
-        if (isRegistered) {
+        if (isRegistered)
+        {
             JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            orgname.setText("");
-            oid.setText("");
-            gmail.setText("");
-            phone.setText("");
-            address.setText("");
-            password.setText("");
-
-
+            clear();
         }
         else
             JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
@@ -113,7 +134,7 @@ public class AdminOrganizerManagement {
 
 
     @FXML
-    void DeleteBottonClicked(ActionEvent event)
+    void DeleteButtonClicked(ActionEvent event)
     {
 
             String iD=oid.getText();
@@ -121,78 +142,64 @@ public class AdminOrganizerManagement {
             if (isRegistered)
             {
                 JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
-                orgname.setText("");
-                oid.setText("");
-                gmail.setText("");
-                phone.setText("");
-                address.setText("");
-                password.setText("");
-
-
+                clear();
             }
-            else
-                JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
 
+              else
+                JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
 
     }
 
     @FXML
-    void searchBottonClicked(ActionEvent event)
+    void SearchBottonClicked(ActionEvent event)
     {
 
 
         String iD=oid.getText();
-        String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ iD+"'" ;
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            ResultSet rs= pstmt.executeQuery();
-            if (rs.next())
+        String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" ='"+iD+"'" ;
+        try (Connection conn = connect()) {
+          //  assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql))
             {
+              //  pstmt.setString(1,iD);
+                ResultSet rs= pstmt.executeQuery();
+                if (rs.next())
+                {
 
-                orgname.setText(rs.getString(5));
-                oid.setText(rs.getString(1));
-                gmail.setText(rs.getString(4));
-                phone.setText(rs.getString(2));
-                address.setText(rs.getString(3));
-                password.setText(rs.getString(6));
+                    orgname.setText(rs.getString(5));
+                    oid.setText(rs.getString(1));
+                    gmail.setText(rs.getString(4));
+                    phone.setText(rs.getString(2));
+                    address.setText(rs.getString(3));
+                    password.setText(rs.getString(6));
 
+                }
             }
+
         }
 
         catch (SQLException e) {
             JOptionPane.showMessageDialog(null, error, typeError, JOptionPane.ERROR_MESSAGE);
             logger.info(e.toString());
         }
-
-
-
     }
-
-
 
 
     @FXML
-    void updateBottonClicked(ActionEvent event)
+    void UpdateBottonClicked(ActionEvent event)
     {
-        String name=orgname.getText();
-        String id=oid.getText();
-        String gmailOrg=gmail.getText();
-        String phoneOrg=phone.getText();
-        String addressOrg=address.getText();
-        String passOrg=password.getText();
+        getStrings();
+        String sql = " UPDATE   software2024.\"organizer\" SET  \"PASSWORD\" = '"+passOrg +"' ,\"PHONENUMBER\"= '"+phoneOrg+"'  ,   \"ADDRESS\" ='"+addressOrg+"'  , \"GMAIL\" ='"+gmailOrg+"'     , \"USERNAME\" ='"+name+"'    WHERE \"OID\" ='"+id+"'" ;
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql))
+            {
+                pstmt.executeUpdate();
+                clear();
 
-        String sql = " UPDATE   software2024.\"organizer\" SET  \"PASSWORD\" = '"+passOrg +"' ,\"PHONENUMBER\"= '"+phoneOrg+"'  ,   \"ADDRESS\" ='"+addressOrg+"'  , \"GMAIL\" ='"+gmailOrg+"'     , \"USERNAME\" ='"+name+"'    WHERE \"VenueID\" ='"+id+"'" ;
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.executeUpdate();
-            orgname.setText("");
-            oid.setText("");
-            gmail.setText("");
-            phone.setText("");
-            address.setText("");
-            password.setText("");
+                JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
 
-            JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            }
 
         }
 
@@ -201,10 +208,7 @@ public class AdminOrganizerManagement {
             logger.info(e.toString());
         }
 
-
     }
-
-
 
     @FXML
     void backClicked(MouseEvent event) {
