@@ -106,18 +106,23 @@ public class OrganizerVenueManagement {
     {
 readValue();
 
-        String sql = " SELECT * FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ getVenueId+"'" ;
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            ResultSet rs= pstmt.executeQuery();
-            if (rs.next())
+        String sql = " SELECT * FROM software2024.\"Venue\" WHERE \"VenueID\" =?" ;
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql))
             {
-                VenueIDtxt.setText(rs.getString(1));
-                VenueNametxt.setText(rs.getString(2));
-                Locationtxt.setText(rs.getString(3));
-                Capacitytxt.setText(rs.getString(4));
-                Pricingtxt.setText(rs.getString(5));
+                pstmt.setString(1,getVenueId);
+                ResultSet rs= pstmt.executeQuery();
+                if (rs.next())
+                {
+                    VenueIDtxt.setText(rs.getString(1));
+                    VenueNametxt.setText(rs.getString(2));
+                    Locationtxt.setText(rs.getString(3));
+                    Capacitytxt.setText(rs.getString(4));
+                    Pricingtxt.setText(rs.getString(5));
+                }
             }
+
         }
 
         catch (SQLException e) {
@@ -130,14 +135,24 @@ readValue();
     {
         readValue();
 
+        String sql = " UPDATE   software2024.\"Venue\" SET  \"VenueName\" = ? ,\"Location\"= ? ,   \"Capacity\" = ? , \"Pricing\" = ? WHERE \"VenueID\" = ? " ;
+        try (Connection conn = connect()) {
+            assert conn != null;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql))
+            {
+                pstmt.setString(1,getVenueName);
+                pstmt.setString(2, getLocation);
+                pstmt.setString(3,getCapacity);
+                pstmt.setString(4,getPricing);
+                pstmt.setString(5,getVenueId);
 
-        String sql = " UPDATE   software2024.\"Venue\" SET  \"VenueName\" = '"+getVenueName +"' ,\"Location\"= '"+Location+"'  ,   \"Capacity\" ='"+Capacity+"'  , \"Pricing\" ='"+Pricing+"'  WHERE \"VenueID\" ='"+getVenueId+"'" ;
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-             pstmt.executeUpdate();
 
-             clear();
-            JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                 pstmt.executeUpdate();
+
+                 clear();
+                JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+
+            }
 
         }
 
