@@ -156,16 +156,15 @@ public class AdminOrganizerManagement
 
 
         String iD=oid.getText();
-        String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" ='"+iD+"'" ;
+        String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" =?" ;
         try (Connection conn = connect()) {
-          //  assert conn != null;
+            assert conn != null;
             try (PreparedStatement pstmt = conn.prepareStatement(sql))
             {
-              //  pstmt.setString(1,iD);
+                pstmt.setString(1,iD);
                 ResultSet rs= pstmt.executeQuery();
                 if (rs.next())
                 {
-
                     orgname.setText(rs.getString(5));
                     oid.setText(rs.getString(1));
                     gmail.setText(rs.getString(4));
