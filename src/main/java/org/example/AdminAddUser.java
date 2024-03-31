@@ -43,16 +43,16 @@ public class AdminAddUser {
 
     @FXML
     private TextField usernameText;
-    private String errorMessege="An error occurred";
+
 
     @FXML
     void addNewUser(ActionEvent event) {
                 // User details
-                String phoneNumber = phoneNumberText.getText();
-                String address = addressText.getText();
-                String gmail = gmailText.getText();
-                String username = usernameText.getText();
-                String password = passwordText.getText();
+                //String phoneNumber = phoneNumberText.getText();
+                //String address = addressText.getText();
+                //String gmail = gmailText.getText();
+                //String username = usernameText.getText();
+                //String password = passwordText.getText();
 
                 // SQL statement to insert user into customer table
                 String sql = "INSERT INTO software2024.\"customer\" (\"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?)";
@@ -61,35 +61,31 @@ public class AdminAddUser {
                         PreparedStatement preparedStatement = connection.prepareStatement(sql)
                 ) {
                     // Setting parameter values
-                    preparedStatement.setString(1, phoneNumber);
-                    preparedStatement.setString(2, address);
-                    preparedStatement.setString(3, gmail);
-                    preparedStatement.setString(4, username);
-                    preparedStatement.setString(5, password);
+                    preparedStatement.setString(1, phoneNumberText.getText());
+                    preparedStatement.setString(2, addressText.getText());
+                    preparedStatement.setString(3, gmailText.getText());
+                    preparedStatement.setString(4, usernameText.getText());
+                    preparedStatement.setString(5, passwordText.getText());
                     int rowsAffected = preparedStatement.executeUpdate();
 
-                    // Checking if the insertion was successful
-                    if (rowsAffected > 0) {
                         logger.log(Level.SEVERE,"User added successfully.");
-                    } else {
-                        logger.log(Level.SEVERE, "Failed to add user.");
-                    }
                 } catch (SQLException e) {
-                    logger.log(Level.SEVERE,errorMessege , e);
+
+                    logger.log(Level.SEVERE, "Failed to add user.");
                 }
     }
 
     @FXML
     void backClicked(MouseEvent event) {
         try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManagement.fxml"));
+
+            Parent root = FXMLLoader.load(getClass().getResource("/org.example/AdminUserManagement.fxml"));
             Stage stage = (Stage) back.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
         }catch (IOException e){
-            logger.log(Level.SEVERE,errorMessege , e);
+            logger.log(Level.SEVERE,"Can't open a window" , e);
         }
 
     }
