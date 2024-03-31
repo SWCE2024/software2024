@@ -33,14 +33,14 @@ public class OrganizerDeleteServiceProvider {
     @FXML
     void backAgain(MouseEvent event) {
         try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/OrganizerVendorManagement.fxml"));
-            Stage stage = (Stage) back.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Parent windowRoot = FXMLLoader.load(getClass().getResource("/org.example/OrganizerVendorManagement.fxml"));
+            Stage stage;
+            stage= (Stage) back.getScene().getWindow();
+            stage.setScene(new Scene(windowRoot));
             stage.show();
-            new FadeIn(root).play();
+            new FadeIn(windowRoot).play();
         }catch (IOException e){
-            logger.log(Level.SEVERE, "An error", e);
+            logger.log(Level.SEVERE, "Can't Go Back", e);
         }
     }
 
