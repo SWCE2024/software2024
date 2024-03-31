@@ -1,4 +1,5 @@
 package org.example;
+
 import animatefx.animation.FadeIn;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,31 +91,61 @@ public class OrganizerEventManagement implements Initializable {
     private VBox updateProductBox;
 
     private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
-
-    private static final String ERROR_MESSAGE = "An error occurred .";
+    private static final String ERROR_MESSAGE = "An error occurred.";
     private static final String ERROR_TITLE = "ERROR";
 
     @FXML
     void updateProduct1Clicked(MouseEvent event) {
-        String oldEventName = eventNameUpdate1.getText();
-        String newEventName = eventNameUpdate1After.getText();
-        String eventDate = dateUpdate1.getText();
-        String eventLocation = locationUpdate1.getText();
-        String eventTime = timeUpdate1.getText();
-        updateEvent(oldEventName, newEventName, eventDate, eventLocation, eventTime);
+        updateEvent(eventNameUpdate1.getText(), eventNameUpdate1After.getText(), dateUpdate1.getText(), locationUpdate1.getText(), timeUpdate1.getText());
     }
-    private void updateEvent(String oldName, String newName, String date, String location, String time) {
-        String sql = "UPDATE software2024.\"EVENT\" SET \"EventName\" = ?, \"EventDate\" = ?, \"EventLocation\" = ?, \"EventTime\" = ? WHERE \"EventName\" = ?";
+
+    @FXML
+    void addClicked(MouseEvent event) {
+        setVisibility(true, false, false);
+    }
+
+    @FXML
+    void addProduct1Clicked(MouseEvent event) {
+        addEvent(eventNameAdd1.getText(), dateAdd1.getText(), loacationAdd1.getText(), timeAdd1.getText(), discriptionAdd11.getText());
+    }
+
+    @FXML
+    void backClicked(MouseEvent event) {
+        changeScene("/org.example/MenuOrganizer.fxml");
+    }
+
+    @FXML
+    void deleteClicked(MouseEvent event) {
+        setVisibility(false, true, false);
+    }
+
+    @FXML
+    void gitInformationClicked(MouseEvent event) {
+        getEventInformation(eventNameUpdate1.getText());
+    }
+
+    @FXML
+    void updateClicked(MouseEvent event) {
+        setVisibility(false, false, true);
+    }
+
+    @FXML
+    void eventDelete2Clicked(MouseEvent event) {
+        deleteEvent(eventNameDelete1.getText());
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setVisibility(false, false, false);
+    }
+
+    private void executeDBUpdate(String sql, PreparedStatementSetter setter) {
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, newName);
-            pstmt.setDate(2, Date.valueOf(date));
-            pstmt.setString(3, location);
-            pstmt.setString(4, time);
-            pstmt.setString(5, oldName);
+            setter.setValues(pstmt);
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
-                JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Operation Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, ERROR_MESSAGE, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
@@ -122,64 +153,35 @@ public class OrganizerEventManagement implements Initializable {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
-    @FXML
-    void addClicked(MouseEvent event) {
-        addProductBox.setVisible(true);
-        deleteBox.setVisible(false);
-        updateProductBox.setVisible(false);
-    }
-    @FXML
-    void addProduct1Clicked(MouseEvent event) {
-        String eventName = eventNameAdd1.getText();
-        String eventDate = dateAdd1.getText();
-        String eventLocation = loacationAdd1.getText();
-        String eventTime = timeAdd1.getText();
-        String eventDescription = discriptionAdd11.getText();
-        addEvent(eventName, eventDate, eventLocation, eventTime, eventDescription);
-    }
+
+
     private void addEvent(String name, String date, String location, String time, String description) {
         String sql = "INSERT INTO software2024.\"EVENT\" (\"EventName\", \"EventDate\", \"EventLocation\", \"EventTime\", \"EventDiscription\") VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        executeDBUpdate(sql, pstmt -> {
             pstmt.setString(1, name);
             pstmt.setDate(2, Date.valueOf(date));
             pstmt.setString(3, location);
             pstmt.setString(4, time);
             pstmt.setString(5, description);
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, ERROR_MESSAGE, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
-        }
+        });
     }
-    @FXML
-    void backClicked(MouseEvent event) {
-        try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
-            Stage stage = (Stage) back.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-            new FadeIn(root).play();
-        }catch (IOException e){
-            logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
-        }
+
+    private void updateEvent(String oldName, String newName, String date, String location, String time) {
+        String sql = "UPDATE software2024.\"EVENT\" SET \"EventName\" = ?, \"EventDate\" = ?, \"EventLocation\" = ?, \"EventTime\" = ? WHERE \"EventName\" = ?";
+        executeDBUpdate(sql, pstmt -> {
+            pstmt.setString(1, newName);
+            pstmt.setDate(2, Date.valueOf(date));
+            pstmt.setString(3, location);
+            pstmt.setString(4, time);
+            pstmt.setString(5, oldName);
+        });
     }
-    @FXML
-    void deleteClicked(MouseEvent event) {
-        addProductBox.setVisible(false);
-        deleteBox.setVisible(true);
-        updateProductBox.setVisible(false);
+
+    private void deleteEvent(String name) {
+        String sql = "DELETE FROM software2024.\"EVENT\" WHERE \"EventName\" = ?";
+        executeDBUpdate(sql, pstmt -> pstmt.setString(1, name));
     }
-    @FXML
-    void gitInformationClicked(MouseEvent event) {
-        String eventName = eventNameUpdate1.getText();
-        getEventInformation(eventName);
-    }
+
     private void getEventInformation(String name) {
         String sql = "SELECT \"EventName\", \"EventDate\", \"EventLocation\", \"EventTime\", \"EventDiscription\" FROM software2024.\"EVENT\" WHERE \"EventName\" = ?";
         try (Connection conn = Database.connect();
@@ -191,6 +193,8 @@ public class OrganizerEventManagement implements Initializable {
                 dateUpdate1.setText(rs.getDate("EventDate").toString());
                 locationUpdate1.setText(rs.getString("EventLocation"));
                 timeUpdate1.setText(rs.getString("EventTime"));
+                // Assuming there's a textField for description in your UI which I missed earlier.
+                discriptionAdd11.setText(rs.getString("EventDiscription"));
             } else {
                 JOptionPane.showMessageDialog(null, "Event not found.", ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
             }
@@ -199,37 +203,27 @@ public class OrganizerEventManagement implements Initializable {
         }
     }
 
-    @FXML
-    void updateClicked(MouseEvent event) {
-        addProductBox.setVisible(false);
-        deleteBox.setVisible(false);
-        updateProductBox.setVisible(true);
+
+    private void setVisibility(boolean addBox, boolean deleteBox, boolean updateBox) {
+        this.addProductBox.setVisible(addBox);
+        this.deleteBox.setVisible(deleteBox);
+        this.updateProductBox.setVisible(updateBox);
     }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        addProductBox.setVisible(false);
-        deleteBox.setVisible(false);
-        updateProductBox.setVisible(false);
-    }
-    @FXML
-    void eventDelete2Clicked(MouseEvent event) {
-        String eventName = eventNameDelete1.getText();
-        deleteEvent(eventName);
-    }
-    private void deleteEvent(String name) {
-        String sql = "DELETE FROM software2024.\"EVENT\" WHERE \"EventName\" = ?";
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, name);
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, ERROR_MESSAGE, ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException e) {
+
+    private void changeScene(String fxmlPath) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Stage stage = (Stage) back.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+            new FadeIn(root).play();
+        } catch (IOException e) {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
 
+    @FunctionalInterface
+    interface PreparedStatementSetter {
+        void setValues(PreparedStatement pstmt) throws SQLException;
+    }
 }
