@@ -20,7 +20,15 @@ public class SignUpController {
     public static final Logger logger = Logger.getLogger(SignUpController.class.getName());
 
     @FXML
-    private TextField address, userName, gmail, id, phoneNumber;
+    private TextField address;
+    @FXML
+    private TextField userName;
+    @FXML
+    private TextField gmail;
+    @FXML
+    private TextField id;
+    @FXML
+    private TextField phoneNumber;
     @FXML
     private PasswordField password;
     @FXML
@@ -67,7 +75,13 @@ public class SignUpController {
     }
 
     private static class FormInput {
-        private final String id, phoneNumber, address, gmail, userName, password;
+        private final String id;
+        private final String phoneNumber;
+        private final String address;
+        private final String gmail;
+        private final String userName;
+        private final String password;
+
 
         public FormInput(String id, String phoneNumber, String address, String gmail, String userName, String password) {
             this.id = id;
