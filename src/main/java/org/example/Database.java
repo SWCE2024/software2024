@@ -111,29 +111,31 @@ public class Database {
 
         return date;
     }
-    public static String getgmailReminder(String id ) throws SQLException {
-        String gml="";
-        String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\" WHERE \"CID\" ='"+id+"'" ;
+    public static String getgmailReminder(String id) throws SQLException {
+        String gml = "";
+        // Using a parameterized query to prevent SQL Injection
+        String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\" WHERE \"CID\" = ?";
 
-        try(  Connection conn = connect() )
-        {
+        try (Connection conn = connect();
+             // Create a PreparedStatement from the connection
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // Ensure the connection is not null
             assert conn != null;
-            try(Statement  stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql)  )
-            {
-                if (rs.next())
+            // Set the parameter (id) in the query
+            pstmt.setString(1, id);
+            // Execute the query
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
                     gml = rs.getString("GMAIL");
+                }
             }
-
-        }
-
-        catch (SQLException | NullPointerException e)
-        {
+        } catch (SQLException | NullPointerException e) {
             logger.info(e.toString());
         }
 
-        return gml ;
+        return gml;
     }
+
     public static boolean addOrg(String iD, String name, String address, String gmail, String phone , String pass)
     {
         String sql = "INSERT INTO software2024.\"organizer\" (\"OID\", \"PHONENUMBER\", \"ADDRESS\", \"GMAIL\", \"USERNAME\", \"PASSWORD\") VALUES (?, ?, ?, ?, ?, ?)";
@@ -157,22 +159,20 @@ public class Database {
             return false;
         }
     }
-    public static boolean deleteOrg(String iD)
-    {
-        String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" ="+"'"+ iD+"'" ;
-        try (Connection conn = connect()) {
+    public static boolean deleteOrg(String iD) {
+        String sql = "DELETE FROM software2024.\"organizer\" WHERE \"OID\" = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             assert conn != null;
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.executeUpdate();
-                pstmt.close();
-                return true;
-            }
-        }
-        catch (SQLException e) {
+            pstmt.setString(1, iD);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
             logger.info(e.toString());
             return false;
         }
     }
+
     public static List<String> fetchParticipantEmails() {
         List<String> emails = new ArrayList<>();
         String sql = "SELECT \"GMAIL\" FROM software2024.\"customer\"";
@@ -190,77 +190,66 @@ public class Database {
         }
         return emails;
     }
-    public static String getParticipantMessageTicket()
-    {
-        String  message= "";
-        int cid=0;
-        String sql = "SELECT \"CID\" FROM software2024.\"customer\"  WHERE \"GMAIL\" ="+"'"+ HelloController.getEmail()+"'" ;
-        try
-        {
-            Connection conn = connect();
+    public static String getParticipantMessageTicket() {
+        String message = "";
+        // Initialize cid as null to handle cases where the email does not correspond to a customer
+        Integer cid = null;
+        // Use parameterized queries to prevent SQL Injection
+        String getEmailSql = "SELECT \"CID\" FROM software2024.\"customer\" WHERE \"GMAIL\" = ?";
+        String getEventSql = "SELECT * FROM software2024.\"Events\" WHERE \"CID\" = ?";
+
+        try (Connection conn = connect()) {
             assert conn != null;
-            try(Statement stmt = conn.createStatement()) {
-
-                ResultSet rs = stmt.executeQuery(sql);
-                if (rs.next())
-                    cid = rs.getInt("CID");
-                stmt.close();
-            }
-        }
-        catch (SQLException e)
-        {
-            logger.log(null,"An error ",e);
-        }
-        try {
-            Logger logger = Logger.getLogger(Database.class.getName());
-
-            Connection conn = connect();
-            assert conn != null;
-            try(Statement stmt = conn.createStatement()){
-                ResultSet rs ;
-                if(cid==0)
-                    logger.info("error in the id");
-
-                else {
-                    sql = "SELECT * FROM software2024.\"Events\"  WHERE \"CID\" ='" + cid + "'";
-                    rs = stmt.executeQuery(sql);
+            try (PreparedStatement pstmt = conn.prepareStatement(getEmailSql)) {
+                pstmt.setString(1, HelloController.getEmail());
+                try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
-                        setSubject(rs.getString("EventName"));
-                        message = "Hello\n" +
-                                "We invite you to attend my private party on " + rs.getDate("EventDate") + " at " + rs.getTime("EventTime") + "\n" +
-                                "the location is " + rs.getString("Location") + ".\n" +
-                                "Your presence is an honor for us, and may you be well";
-                    } else
-                        logger.log(Level.SEVERE, "error in massage!", e);
+                        cid = rs.getInt("CID");
+                    }
                 }
-                stmt.close();
             }
-        }
-        catch (SQLException e)
-        {
-            logger.log(null,"An error ",e);
+            if (cid != null) {
+                try (PreparedStatement pstmt = conn.prepareStatement(getEventSql)) {
+                    pstmt.setInt(1, cid);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            setSubject(rs.getString("EventName"));
+                            message = "Hello\n" +
+                                    "We invite you to attend my private party on " + rs.getDate("EventDate") + " at " + rs.getTime("EventTime") + "\n" +
+                                    "the location is " + rs.getString("Location") + ".\n" +
+                                    "Your presence is an honor for us, and may you be well";
+                        } else {
+                            logger.log(Level.SEVERE, "error in message!");
+                        }
+                    }
+                }
+            } else {
+                logger.log(Level.SEVERE, "Error in the ID");
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "An error occurred while executing the query", e);
         }
         return message;
     }
 
+
     public static boolean validateLogin(String email, String password, String table) {
-        String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = '" + email + "' AND \"PASSWORD\" = '" + password + "'";
+        String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
         try (Connection conn = connect()) {
             assert conn != null;
-            try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(sql)) {
-
-                if (rs.next()) {
-                    stmt.close();
-                    return true;
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, email);
+                pstmt.setString(2, password);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    return rs.next();
                 }
-
             }
         } catch (Exception e) {
-            logger.log(null,"An error ",e);
+            logger.log(Level.SEVERE, "An error occurred while validating login", e);
         }
         return false;
     }
+
 
 
     public static boolean registerCustomer(String id, String phoneNumber, String address, String gmail, String userName, String password) {
@@ -310,24 +299,19 @@ public class Database {
 
 
     }
-    public static boolean deleteVenue(String venueID)
-    {
-        String sql = "DELETE FROM software2024.\"Venue\" WHERE \"VenueID\" ="+"'"+ venueID+"'" ;
+    public static boolean deleteVenue(String venueID) {
+        String sql = "DELETE FROM software2024.\"Venue\" WHERE \"VenueID\" = ?";
         try (Connection conn = connect()) {
             assert conn != null;
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.executeUpdate();
-                pstmt.close();
-                return true;
+                pstmt.setString(1, venueID);
+                int affectedRows = pstmt.executeUpdate();
+                return affectedRows > 0;
             }
-
-        }
-
-        catch (SQLException e) {
-            logger.log(null,"An error ",e);
+        } catch (SQLException e) {
+            logger.info(e.toString());
             return false;
         }
-
-
     }
+
 }
