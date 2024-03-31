@@ -118,7 +118,7 @@ public class AdminOrganizerManagement
     {
         getStrings();
         boolean isRegistered = Database.addOrg(getId, getName, addressOrg, gmailOrg, phoneOrg,passOrg );
-        System.out.println(addressOrg+getId+getName+gmailOrg+phoneOrg+passOrg );
+
 
         if (isRegistered)
         {
@@ -198,6 +198,7 @@ public class AdminOrganizerManagement
                 pstmt.setString(4,gmailOrg);
                 pstmt.setString(5,getName);
                 pstmt.setString(6,getId);
+
 
                 pstmt.executeUpdate();
                 clear();
