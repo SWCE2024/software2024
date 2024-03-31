@@ -32,10 +32,11 @@ public class HelloController {
     private static String emailreturn;
 
     private static final String ERROR_OPENING_WINDOW = "An error occurred while opening a new window:";
+    private static final String ROLE_ADMIN = "ADMIN";
+    private static final String ROLE_CUSTOMER = "customer";
+    private static final String ROLE_ORGANIZER = "organizer";
 
-
-    public  static String getEmail()
-    {
+    public  static String getEmail() {
         return emailreturn;
     }
 
@@ -44,16 +45,16 @@ public class HelloController {
         String email = gmailLogIn.getText();
         String password = passwordLogIn.getText();
         try {
-            if (Database.validateLogin(email, password, "ADMIN")) {
+            if (Database.validateLogin(email, password, ROLE_ADMIN)) {
                 transitionToScene("/org.example/MenuAdmin.fxml");
                 logger.log(Level.SEVERE, "login admin successfully");
-            } else if (Database.validateLogin(email, password, "customer")) {
-                int id = getUserId(email, "customer", "CID", "customer");
+            } else if (Database.validateLogin(email, password, ROLE_CUSTOMER)) {
+                int id = getUserId(email, ROLE_CUSTOMER, "CID", ROLE_CUSTOMER);
                 Database.setUserID(String.valueOf(id));
                 transitionToScene("/org.example/MenuParticipants.fxml");
                 logger.log(Level.SEVERE, "login customer successfully.");
-            } else if (Database.validateLogin(email, password, "organizer")) {
-                int id = getUserId(email, "organizer", "OID", "organizer");
+            } else if (Database.validateLogin(email, password, ROLE_ORGANIZER)) {
+                int id = getUserId(email, ROLE_ORGANIZER, "OID", ROLE_ORGANIZER);
                 Database.setUserID(String.valueOf(id));
                 transitionToScene("/org.example/MenuOrganizer.fxml");
                 logger.log(Level.SEVERE, "login organizer successfully.");
@@ -64,6 +65,7 @@ public class HelloController {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
+
 
     private void transitionToScene(String fxmlPath) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));

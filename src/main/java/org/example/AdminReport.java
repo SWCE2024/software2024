@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.logging.Level;
-import static org.example.DatabaseUtil.ResultSetProcessor;
 import static org.example.SignUpController.logger;
 
 public class AdminReport {
