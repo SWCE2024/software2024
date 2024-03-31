@@ -188,11 +188,19 @@ public class AdminOrganizerManagement
     void UpdateBottonClicked(ActionEvent event)
     {
         getStrings();
-        String sql = " UPDATE   software2024.\"organizer\" SET  \"PASSWORD\" = '"+passOrg +"' ,\"PHONENUMBER\"= '"+phoneOrg+"'  ,   \"ADDRESS\" ='"+addressOrg+"'  , \"GMAIL\" ='"+gmailOrg+"'     , \"USERNAME\" ='"+name+"'    WHERE \"OID\" ='"+id+"'" ;
+        String sql = " UPDATE   software2024.\"organizer\" SET  \"PASSWORD\" = ? ,\"PHONENUMBER\"= ?  ,   \"ADDRESS\" = ?  , \"GMAIL\" = ?    , \"USERNAME\" = ?    WHERE \"OID\" = ?" ;
         try (Connection conn = connect()) {
             assert conn != null;
             try (PreparedStatement pstmt = conn.prepareStatement(sql))
             {
+
+                pstmt.setString(1,passOrg);
+                pstmt.setString(2,phoneOrg);
+                pstmt.setString(3,addressOrg);
+                pstmt.setString(4,gmailOrg);
+                pstmt.setString(5,name);
+                pstmt.setString(6,id);
+
                 pstmt.executeUpdate();
                 clear();
 

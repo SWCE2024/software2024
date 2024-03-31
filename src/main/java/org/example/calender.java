@@ -117,12 +117,13 @@ public class calender {
     private void loadSpecifiedDate(String dateOfSearch)
     {
         String sql =
-                "SELECT * FROM software2024.\"Events\"  WHERE \"EventDate\" ="+"'"+ dateOfSearch+"'"  ;
+                "SELECT * FROM software2024.\"Events\"  WHERE \"EventDate\" = ? "  ;
 
         try (Connection conn = Database.connect()) {
             assert conn != null;
             try (PreparedStatement pstmt = conn.prepareStatement(sql))
             {
+                pstmt.setString(1,dateOfSearch);
                 ResultSet rs= pstmt.executeQuery();
                 table.getItems().clear();
                 while (rs.next()) {
