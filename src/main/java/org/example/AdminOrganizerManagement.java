@@ -132,11 +132,11 @@ public class AdminOrganizerManagement
 
 
     @FXML
-    void DeleteButtonClicked(ActionEvent event)
+    void deleteButtonClicked(ActionEvent event)
     {
 
-            String iD=oid.getText();
-            boolean isRegistered = Database.deleteOrg(iD );
+            String readId=oid.getText();
+            boolean isRegistered = Database.deleteOrg(readId );
             if (isRegistered)
             {
                 JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -153,13 +153,13 @@ public class AdminOrganizerManagement
     {
 
 
-        String iD=oid.getText();
+        String readId=oid.getText();
         String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" =?" ;
         try (Connection conn = connect()) {
             assert conn != null;
             try (PreparedStatement pstmt = conn.prepareStatement(sql))
             {
-                pstmt.setString(1,iD);
+                pstmt.setString(1,readId);
                 ResultSet rs= pstmt.executeQuery();
                 if (rs.next())
                 {

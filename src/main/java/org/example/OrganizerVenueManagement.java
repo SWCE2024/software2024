@@ -21,33 +21,33 @@ public class OrganizerVenueManagement {
     @FXML
     private Label back;
     @FXML
-    private Button AddBotton;
+    private Button addBotton;
     @FXML
-    private Label Capacity;
+    private Label capacity;
     @FXML
-    private TextField Capacitytxt;
+    private TextField capacityTxt;
     @FXML
-    private Button DeleteBotton;
+    private Button deleteBotton;
     @FXML
-    private Label Location;
+    private Label location;
     @FXML
-    private TextField Locationtxt;
+    private TextField locationTxt;
     @FXML
-    private Label Pricing;
+    private Label pricing;
     @FXML
-    private TextField Pricingtxt;
+    private TextField pricingTxt;
     @FXML
-    private Button SearchBotton;
+    private Button searchBotton;
     @FXML
-    private Button UpdateBotton;
+    private Button updateBotton;
     @FXML
-    private Label VenueID;
+    private Label venueId;
     @FXML
-    private TextField VenueIDtxt;
+    private TextField venueIdtxt;
     @FXML
-    private Label VenueName;
+    private Label venueName;
     @FXML
-    private TextField VenueNametxt;
+    private TextField venueNametxt;
     @FXML
     private Label VenueView;
     String getVenueId="";
@@ -57,20 +57,20 @@ public class OrganizerVenueManagement {
      String getPricing="";
 
     public void readValue(){
-        getVenueId=VenueIDtxt.getText();
-        getVenueName=VenueNametxt.getText();
-        getLocation=Locationtxt.getText();
-        getCapacity=Capacitytxt.getText();
-        getPricing=Pricingtxt.getText();
+        getVenueId=venueIdtxt.getText();
+        getVenueName=venueNametxt.getText();
+        getLocation=locationTxt.getText();
+        getCapacity=capacityTxt.getText();
+        getPricing=pricingTxt.getText();
     }
 
     public void clear()
     {
-        VenueIDtxt.setText("");
-        VenueNametxt.setText("");
-        Locationtxt.setText("");
-        Capacitytxt.setText("");
-        Pricingtxt.setText("");
+        venueIdtxt.setText("");
+        venueNametxt.setText("");
+        locationTxt.setText("");
+        capacityTxt.setText("");
+        pricingTxt.setText("");
     }
     @FXML
     void addBottonClicked(ActionEvent event) {
@@ -115,11 +115,11 @@ readValue();
                 ResultSet rs= pstmt.executeQuery();
                 if (rs.next())
                 {
-                    VenueIDtxt.setText(rs.getString(1));
-                    VenueNametxt.setText(rs.getString(2));
-                    Locationtxt.setText(rs.getString(3));
-                    Capacitytxt.setText(rs.getString(4));
-                    Pricingtxt.setText(rs.getString(5));
+                    venueIdtxt.setText(rs.getString(1));
+                    venueNametxt.setText(rs.getString(2));
+                    locationTxt.setText(rs.getString(3));
+                    capacityTxt.setText(rs.getString(4));
+                    pricingTxt.setText(rs.getString(5));
                 }
             }
 
