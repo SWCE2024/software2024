@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@../../../../target/classes/org.example/accessories/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AdminOrganizerManagement">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" styleClass="back" stylesheets="@../../../../../target/classes/org.example/accessories/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.AdminOrganizerManagement">
    <children>
       <VBox layoutX="244.0" layoutY="14.0" prefHeight="69.0" prefWidth="298.0">
          <children>
@@ -27,7 +27,7 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="DeleteButton" layoutX="408.0" layoutY="407.0" mnemonicParsing="false" onAction="#DeleteButtonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Delete" textFill="WHITE">
+      <Button fx:id="deleteButton" layoutX="408.0" layoutY="407.0" mnemonicParsing="false" onAction="#DeleteButtonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Delete" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
@@ -63,7 +63,7 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="SearchBotton" layoutX="408.0" layoutY="454.0" mnemonicParsing="false" onAction="#SearchBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Search" textFill="WHITE">
+      <Button fx:id="searchBotton" layoutX="408.0" layoutY="454.0" mnemonicParsing="false" onAction="#SearchBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Search" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
@@ -71,15 +71,16 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="UpdateBotton" layoutX="242.0" layoutY="454.0" mnemonicParsing="false" onAction="#UpdateBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Update" textFill="WHITE">
+      <Button fx:id="updateBotton" layoutX="242.0" layoutY="454.0" mnemonicParsing="false" onAction="#UpdateBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Update" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+
       </Button>
-      <Button fx:id="AddBotton" layoutX="242.0" layoutY="407.0" mnemonicParsing="false" onAction="#AddBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Add" textFill="WHITE">
+      <Button fx:id="addBotton" layoutX="242.0" layoutY="407.0" mnemonicParsing="false" onAction="#AddBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Add" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>

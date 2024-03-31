@@ -11,8 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
@@ -28,10 +26,10 @@ public class AdminOrganizerManagement
 
 
     @FXML
-    private Button AddBotton;
+    private Button addBotton;
 
     @FXML
-    private Button DeleteButton;
+    private Button deleteButton;
 
     @FXML
     private Label ID;
@@ -43,10 +41,10 @@ public class AdminOrganizerManagement
     private Label Name;
 
     @FXML
-    private Button SearchBotton;
+    private Button searchBotton;
 
     @FXML
-    private Button UpdateBotton;
+    private Button updateBotton;
 
     @FXML
     private Label VenueView;
@@ -81,8 +79,8 @@ public class AdminOrganizerManagement
     @FXML
     private TextField phone;
 
-    String name="";
-    String id="";
+    String getName="";
+    String getId="";
     String gmailOrg="";
     String phoneOrg="";
     String addressOrg="";
@@ -107,8 +105,8 @@ public class AdminOrganizerManagement
 
     public void getStrings()
     {
-        name=orgname.getText();
-         id=oid.getText();
+        getName=orgname.getText();
+        getId=oid.getText();
          gmailOrg=gmail.getText();
          phoneOrg=phone.getText();
          addressOrg=address.getText();
@@ -119,8 +117,8 @@ public class AdminOrganizerManagement
     void AddBottonClicked(ActionEvent event)
     {
         getStrings();
-        boolean isRegistered = Database.addOrg(id, name, addressOrg, gmailOrg, phoneOrg,passOrg );
-        System.out.println(addressOrg+id+name+gmailOrg+phoneOrg+passOrg );
+        boolean isRegistered = Database.addOrg(getId, getName, addressOrg, gmailOrg, phoneOrg,passOrg );
+
 
         if (isRegistered)
         {
@@ -198,8 +196,9 @@ public class AdminOrganizerManagement
                 pstmt.setString(2,phoneOrg);
                 pstmt.setString(3,addressOrg);
                 pstmt.setString(4,gmailOrg);
-                pstmt.setString(5,name);
-                pstmt.setString(6,id);
+                pstmt.setString(5,getName);
+                pstmt.setString(6,getId);
+
 
                 pstmt.executeUpdate();
                 clear();
