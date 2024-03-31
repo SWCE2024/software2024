@@ -267,8 +267,16 @@ public class Database {
             logger.log(Level.SEVERE, "Invalid table name provided for login validation");
             return false;
         }
+        String sql="";
+        if (table.equals("organizer"))
+         sql = "SELECT * FROM software2024.\"organizer\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
 
-        String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
+        else if (table.equals("customer"))
+            sql = "SELECT * FROM software2024.\"customer\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
+
+        else
+            sql = "SELECT * FROM software2024.\"ADMIN\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
+
         try (Connection conn = connect()) {
             assert conn != null;
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
