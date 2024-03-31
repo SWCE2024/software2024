@@ -2,9 +2,6 @@ package org.example;
 import animatefx.animation.FadeIn;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXMLLoader;
@@ -12,74 +9,84 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javax.swing.*;
 import javafx.scene.control.TextField;
-
+import javafx.stage.Stage;
+import javax.swing.JOptionPane;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SignUpController {
     public static final Logger logger = Logger.getLogger(SignUpController.class.getName());
+
     @FXML
-    private TextField address;
-    @FXML
-    private TextField userName;
-    @FXML
-    private TextField gmail;
-    @FXML
-    private TextField id;
-    @FXML
-    private TextField phoneNumber;
+    private TextField address, userName, gmail, id, phoneNumber;
     @FXML
     private PasswordField password;
     @FXML
     private Label back;
     @FXML
     private Button signUp2;
-    private String em="ERROR";
+    private static final String ERROR_MESSAGE = "ERROR";
+
     @FXML
     void backClicked(MouseEvent event) {
+        loadScene("/org.example/hello-view.fxml", back);
+    }
+
+    @FXML
+    void signUp2Clicked(ActionEvent event) {
+        FormInput input = new FormInput(id.getText(), phoneNumber.getText(), address.getText(), gmail.getText(), userName.getText(), password.getText());
+
+        if (input.isValid()) {
+            boolean isRegistered = Database.registerCustomer(input.getId(), input.getPhoneNumber(), input.getAddress(), input.getGmail(), input.getUserName(), input.getPassword());
+            if (isRegistered) {
+                loadScene("/org.example/MenuParticipants.fxml", signUp2);
+            } else {
+                showMessageDialog("Registration failed. Please check the information provided and try again.");
+            }
+        } else {
+            showMessageDialog("Please enter valid information in all fields.");
+        }
+    }
+
+    private void loadScene(String fxmlPath, javafx.scene.Node sceneNode) {
         try {
-            Parent root;
-            root = FXMLLoader.load(getClass().getResource("/org.example/hello-view.fxml"));
-            Stage stage = (Stage) back.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Stage stage = (Stage) sceneNode.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
             new FadeIn(root).play();
-        }catch (IOException e){
+        } catch (IOException e) {
             logger.log(Level.SEVERE, "An error occurred while opening a new window:", e);
         }
     }
-    @FXML
-    void signUp2Clicked(ActionEvent event) {
-        String idText = id.getText();
-        String phoneNumberText = phoneNumber.getText();
-        String addressText = address.getText();
-        String gmailText = gmail.getText();
-        String userNameText = userName.getText();
-        String passwordText = password.getText();
-        boolean validId = TESTINPUT.idTest(idText);
-        boolean validPhone = TESTINPUT.phoneNumberTest(phoneNumberText);
-        boolean validGmail = TESTINPUT.gmailTest(gmailText);
-        boolean validPassword = TESTINPUT.passwordTest(passwordText);
-        if (validId && validPhone && validGmail && validPassword) {
-            boolean isRegistered = Database.registerCustomer(idText, phoneNumberText, addressText, gmailText, userNameText, passwordText);
-            if (isRegistered) {
-                loadMenuParticipants();
-            } else {
-                JOptionPane.showMessageDialog(null, "Registration failed. Please check the information provided and try again.", em, JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please enter valid information in all fields.", em, JOptionPane.ERROR_MESSAGE);
-        }
+
+    private void showMessageDialog(String message) {
+        JOptionPane.showMessageDialog(null, message, ERROR_MESSAGE, JOptionPane.ERROR_MESSAGE);
     }
-    private void loadMenuParticipants() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
-            Stage stage = (Stage) signUp2.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            logger.log(null,"An error occurred while opening a new window:",e);
+
+    private static class FormInput {
+        private final String id, phoneNumber, address, gmail, userName, password;
+
+        public FormInput(String id, String phoneNumber, String address, String gmail, String userName, String password) {
+            this.id = id;
+            this.phoneNumber = phoneNumber;
+            this.address = address;
+            this.gmail = gmail;
+            this.userName = userName;
+            this.password = password;
         }
+
+        boolean isValid() {
+            return TESTINPUT.idTest(id) && TESTINPUT.phoneNumberTest(phoneNumber) && TESTINPUT.gmailTest(gmail) && TESTINPUT.passwordTest(password);
+        }
+
+        public String getId() { return id; }
+        public String getPhoneNumber() { return phoneNumber; }
+        public String getAddress() { return address; }
+        public String getGmail() { return gmail; }
+        public String getUserName() { return userName; }
+        public String getPassword() { return password; }
     }
 }
