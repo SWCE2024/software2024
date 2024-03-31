@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import static org.example.Password.getPassword;
 import static org.example.Password.getUser;
-import static org.example.SignUpController.logger;
+
 
 public class EmailTicket
 {

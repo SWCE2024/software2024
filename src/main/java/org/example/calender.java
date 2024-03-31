@@ -48,7 +48,7 @@ public class calender {
 
     public void initialize() {
         eventDate.setCellValueFactory(cellData -> cellData.getValue().eventDateProperty());
-        eventName.setCellValueFactory(cellData -> cellData.getValue().EventNameProperty());
+        eventName.setCellValueFactory(cellData -> cellData.getValue().eventNameProperty());
         eventTime.setCellValueFactory(cellData -> cellData.getValue().eventTimeProperty());
         eventType.setCellValueFactory(cellData -> cellData.getValue().eventTypeProperty());
         loadDate();

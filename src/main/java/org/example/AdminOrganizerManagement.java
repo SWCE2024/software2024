@@ -32,13 +32,13 @@ public class AdminOrganizerManagement
     private Button deleteButton;
 
     @FXML
-    private Label ID;
+    private Label iD;
 
     @FXML
-    private Label Location;
+    private Label location;
 
     @FXML
-    private Label Name;
+    private Label name;
 
     @FXML
     private Button searchBotton;
@@ -47,7 +47,7 @@ public class AdminOrganizerManagement
     private Button updateBotton;
 
     @FXML
-    private Label VenueView;
+    private Label venueView;
 
     @FXML
     private TextField address;
@@ -114,7 +114,7 @@ public class AdminOrganizerManagement
     }
 
     @FXML
-    void AddBottonClicked(ActionEvent event)
+    void addBottonClicked(ActionEvent event)
     {
         getStrings();
         boolean isRegistered = Database.addOrg(getId, getName, addressOrg, gmailOrg, phoneOrg,passOrg );
@@ -149,7 +149,7 @@ public class AdminOrganizerManagement
     }
 
     @FXML
-    void SearchBottonClicked(ActionEvent event)
+    void searchBottonClicked(ActionEvent event)
     {
 
 
@@ -183,7 +183,7 @@ public class AdminOrganizerManagement
 
 
     @FXML
-    void UpdateBottonClicked(ActionEvent event)
+    void updateBottonClicked(ActionEvent event)
     {
         getStrings();
         String sql = " UPDATE   software2024.\"organizer\" SET  \"PASSWORD\" = ? ,\"PHONENUMBER\"= ?  ,   \"ADDRESS\" = ?  , \"GMAIL\" = ?    , \"USERNAME\" = ?    WHERE \"OID\" = ?" ;
