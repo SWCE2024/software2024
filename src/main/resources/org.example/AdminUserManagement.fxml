@@ -18,7 +18,7 @@
                         <Insets left="60.0" />
                     </opaqueInsets>
                 </Label>
-                <Label fx:id="Add" layoutX="259.0" layoutY="161.0" onMouseClicked="#addClicked" prefHeight="51.0" prefWidth="198.0" text=". Add a new user" textFill="#bc4e2a">
+                <Label fx:id="add" layoutX="259.0" layoutY="161.0" onMouseClicked="#addClicked" prefHeight="51.0" prefWidth="198.0" text=". Add a new user" textFill="#bc4e2a">
                     <font>
                         <Font name="Berlin Sans FB Demi Bold" size="25.0" />
                     </font>

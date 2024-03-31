@@ -74,7 +74,7 @@ public class ParticipantsEventRegistering {
       comboBoxx.getSelectionModel().select(0);
   }
     @FXML
-    void goBackAgain(MouseEvent event) {
+    void move(MouseEvent event) {
         try {
             Parent root;
             root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));

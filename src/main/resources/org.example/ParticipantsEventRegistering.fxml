@@ -163,7 +163,7 @@
                 <Insets left="60.0" />
             </opaqueInsets>
         </Label>
-        <Label fx:id="back" layoutX="695.0" layoutY="14.0" onMouseClicked="#goBackAgain" prefHeight="24.0" prefWidth="47.0" text="Back " textFill="#bc4e2a">
+        <Label fx:id="back" layoutX="695.0" layoutY="14.0" onMouseClicked="#move" prefHeight="24.0" prefWidth="47.0" text="Back " textFill="#bc4e2a">
             <font>
                 <Font name="System Bold Italic" size="18.0" />
             </font>
