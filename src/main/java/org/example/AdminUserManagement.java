@@ -17,7 +17,7 @@ import static org.example.SignUpController.logger;
 public class AdminUserManagement {
 
     @FXML
-    private Label Add;
+    private Label add;
 
     @FXML
     private Label back;
@@ -27,7 +27,7 @@ public class AdminUserManagement {
 
     @FXML
     private Label update;
-    private static final String messege = "An error occurred while opening a new window:";
+    private static final String MESSEGE = "An error occurred while opening a new window:";
       Parent root;
     Stage stage;
 
@@ -36,11 +36,11 @@ public class AdminUserManagement {
         try {
 
             root = FXMLLoader.load(getClass().getResource("/org.example/AdminAddUser.fxml"));
-            stage=(Stage) Add.getScene().getWindow();
+            stage=(Stage) add.getScene().getWindow();
             callScreen();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, messege, e);
+            logger.log(Level.SEVERE, MESSEGE, e);
         }
 
     }
@@ -60,7 +60,7 @@ public class AdminUserManagement {
             callScreen();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, messege, e);
+            logger.log(Level.SEVERE, MESSEGE, e);
         }
 
     }
@@ -74,7 +74,7 @@ public class AdminUserManagement {
 
         } catch (IOException e) {
 
-            logger.log(Level.SEVERE,messege, e);
+            logger.log(Level.SEVERE,MESSEGE, e);
         }
 
     }
@@ -87,7 +87,7 @@ public class AdminUserManagement {
             callScreen();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE,messege, e);
+            logger.log(Level.SEVERE,MESSEGE, e);
         }
 
     }
