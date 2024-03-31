@@ -17,7 +17,7 @@ import static org.example.SignUpController.logger;
 public class OrganizerVendorManagement {
 
     @FXML
-    private Label Add;
+    private Label add;
 
     @FXML
     private Label back;
@@ -27,7 +27,7 @@ public class OrganizerVendorManagement {
 
     @FXML
     private Label update;
-    private static final String errorMessage = "An error occurred while opening a new window:";
+    private static final String ERRORMESSEGE = "An error occurred while opening a new window:";
      Parent root;
      Stage stage;
      void callWindow(){
@@ -42,10 +42,10 @@ public class OrganizerVendorManagement {
     void addClicked(MouseEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("/org.example/Organizer_AddServiceProvider.fxml"));
-            stage=(Stage) Add.getScene().getWindow();
+            stage=(Stage) add.getScene().getWindow();
             callWindow();
         } catch (IOException e) {
-            logger.log(Level.SEVERE, errorMessage, e);
+            logger.log(Level.SEVERE,ERRORMESSEGE, e);
         }
 
 
@@ -59,7 +59,7 @@ public class OrganizerVendorManagement {
             callWindow();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, errorMessage, e);
+            logger.log(Level.SEVERE, ERRORMESSEGE, e);
         }
 
     }
@@ -72,7 +72,7 @@ public class OrganizerVendorManagement {
             callWindow();
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, errorMessage, e);
+            logger.log(Level.SEVERE, ERRORMESSEGE, e);
         }
 
     }
@@ -85,7 +85,7 @@ public class OrganizerVendorManagement {
             stage=(Stage) back.getScene().getWindow();
             callWindow();
         } catch (IOException e) {
-            logger.log(Level.SEVERE, errorMessage, e);
+            logger.log(Level.SEVERE, ERRORMESSEGE, e);
         }
 
     }
