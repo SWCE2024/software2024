@@ -27,7 +27,7 @@
                 </Label>
             </children>
         </VBox>
-        <Button fx:id="DeleteBotton" layoutX="408.0" layoutY="377.0" mnemonicParsing="false" onAction="#deleteBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Delete" textFill="WHITE">
+        <Button fx:id="deleteBotton" layoutX="408.0" layoutY="377.0" mnemonicParsing="false" onAction="#deleteBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Delete" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="14.0" />
             </font>
@@ -36,34 +36,34 @@
             </cursor>
         </Button>
         <HBox layoutX="49.0" layoutY="40.0" prefHeight="34.0" prefWidth="86.0" />
-        <Label fx:id="VenueID" layoutX="125.0" layoutY="111.0" prefHeight="34.0" prefWidth="84.0" text="VenueID" textFill="#bc4e2a">
+        <Label fx:id="venueId" layoutX="125.0" layoutY="111.0" prefHeight="34.0" prefWidth="84.0" text="VenueID" textFill="#bc4e2a">
             <font>
                 <Font name="System Bold Italic" size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="VenueIDtxt" layoutX="244.0" layoutY="109.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
-        <Label fx:id="VenueName" layoutX="125.0" layoutY="159.0" prefHeight="44.0" prefWidth="112.0" text="VenueName" textFill="#bc4e2a">
+        <TextField fx:id="venueIdtxt" layoutX="244.0" layoutY="109.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
+        <Label fx:id="venueName" layoutX="125.0" layoutY="159.0" prefHeight="44.0" prefWidth="112.0" text="VenueName" textFill="#bc4e2a">
             <font>
                 <Font name="System Bold Italic" size="18.0" />
             </font>
         </Label>
-        <Label fx:id="Location" layoutX="125.0" layoutY="206.0" prefHeight="34.0" prefWidth="84.0" text="Location" textFill="#bc4e2a">
+        <Label fx:id="location" layoutX="125.0" layoutY="206.0" prefHeight="34.0" prefWidth="84.0" text="Location" textFill="#bc4e2a">
             <font>
                 <Font name="System Bold Italic" size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="Locationtxt" layoutX="244.0" layoutY="204.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
-        <Label fx:id="Capacity" layoutX="125.0" layoutY="251.0" prefHeight="44.0" prefWidth="112.0" text="Capacity" textFill="#bc4e2a">
+        <TextField fx:id="locationTxt" layoutX="244.0" layoutY="204.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
+        <Label fx:id="capacity" layoutX="125.0" layoutY="251.0" prefHeight="44.0" prefWidth="112.0" text="Capacity" textFill="#bc4e2a">
             <font>
                 <Font name="System Bold Italic" size="18.0" />
             </font>
         </Label>
-        <Label fx:id="Pricing" layoutX="125.0" layoutY="295.0" prefHeight="44.0" prefWidth="112.0" text="Pricing" textFill="#bc4e2a">
+        <Label fx:id="pricing" layoutX="125.0" layoutY="295.0" prefHeight="44.0" prefWidth="112.0" text="Pricing" textFill="#bc4e2a">
             <font>
                 <Font name="System Bold Italic" size="18.0" />
             </font>
         </Label>
-        <Button fx:id="SearchBotton" layoutX="408.0" layoutY="424.0" mnemonicParsing="false" onAction="#searchBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Search" textFill="WHITE">
+        <Button fx:id="searchBotton" layoutX="408.0" layoutY="424.0" mnemonicParsing="false" onAction="#searchBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Search" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="14.0" />
             </font>
@@ -71,7 +71,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button fx:id="UpdateBotton" layoutX="242.0" layoutY="424.0" mnemonicParsing="false" onAction="#updateBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Update" textFill="WHITE">
+        <Button fx:id="updateBotton" layoutX="242.0" layoutY="424.0" mnemonicParsing="false" onAction="#updateBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Update" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="14.0" />
             </font>
@@ -80,7 +80,7 @@
             </cursor>
         </Button>
 
-        <Button fx:id="AddBotton" layoutX="242.0" layoutY="377.0" mnemonicParsing="false" onAction="#addBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Add" textFill="WHITE">
+        <Button fx:id="addBotton" layoutX="242.0" layoutY="377.0" mnemonicParsing="false" onAction="#addBottonClicked" prefHeight="31.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #ffccc5;" text="Add" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="14.0" />
             </font>
@@ -89,9 +89,9 @@
             </cursor>
 
         </Button>
-        <TextField fx:id="VenueNametxt" layoutX="244.0" layoutY="159.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
-        <TextField fx:id="Pricingtxt" layoutX="244.0" layoutY="298.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
-        <TextField fx:id="Capacitytxt" layoutX="244.0" layoutY="253.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
+        <TextField fx:id="venueNametxt" layoutX="244.0" layoutY="159.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
+        <TextField fx:id="pricingTxt" layoutX="244.0" layoutY="298.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
+        <TextField fx:id="capacityTxt" layoutX="244.0" layoutY="253.0" prefHeight="38.0" prefWidth="311.0" style="-fx-background-radius: 50;" />
       <Label fx:id="back" layoutX="655.0" layoutY="14.0" onMouseClicked="#backClicked" prefHeight="51.0" prefWidth="58.0" text="Back" textFill="#bc4e2a">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="25.0" />
