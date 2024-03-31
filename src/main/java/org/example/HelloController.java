@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,65 +44,19 @@ public class HelloController {
         String email = gmailLogIn.getText();
         String password = passwordLogIn.getText();
         try {
-
             if (Database.validateLogin(email, password, "ADMIN")) {
+                transitionToScene("/org.example/MenuAdmin.fxml");
                 logger.log(Level.SEVERE, "login admin successfully");
-                Parent root;
-                root = FXMLLoader.load(getClass().getResource("/org.example/MenuAdmin.fxml"));
-                Stage stage = (Stage) login1.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-                new FadeIn(root).play();
             } else if (Database.validateLogin(email, password, "customer")) {
+                int id = getUserId(email, "customer", "CID", "customer");
+                Database.setUserID(String.valueOf(id));
+                transitionToScene("/org.example/MenuParticipants.fxml");
                 logger.log(Level.SEVERE, "login customer successfully.");
-                Parent root;
-                emailreturn=email;
-                root = FXMLLoader.load(getClass().getResource("/org.example/MenuParticipants.fxml"));
-                Stage stage = (Stage) login1.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-                new FadeIn(root).play();
-                String sql = "SELECT \"CID\" FROM software2024.\"customer\" WHERE \"GMAIL\" = ?";
-                int id = 0;
-
-                try (
-                        Connection connection=Database.connect();
-                        PreparedStatement preparedStatement = connection.prepareStatement(sql)
-                ) {
-                    preparedStatement.setString(1,email);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    if (resultSet.next()) {
-                         id = resultSet.getInt("CID");
-                    }
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, "An error occurred", e);
-                }
+            } else if (Database.validateLogin(email, password, "organizer")) {
+                int id = getUserId(email, "organizer", "OID", "organizer");
                 Database.setUserID(String.valueOf(id));
-            }
-            else if (Database.validateLogin(email, password, "organizer")) {
+                transitionToScene("/org.example/MenuOrganizer.fxml");
                 logger.log(Level.SEVERE, "login organizer successfully.");
-                Parent root;
-                root = FXMLLoader.load(getClass().getResource("/org.example/MenuOrganizer.fxml"));
-                Stage stage = (Stage) login1.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-                new FadeIn(root).play();
-                String sql = "SELECT \"OID\" FROM software2024.\"organizer\" WHERE \"GMAIL\" = ?";
-                int id = 0;
-
-                try (
-                        Connection connection=Database.connect();
-                        PreparedStatement preparedStatement = connection.prepareStatement(sql)
-                ) {
-                    preparedStatement.setString(1,email);
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    if (resultSet.next()) {
-                        id = resultSet.getInt("OID");
-                    }
-                } catch (SQLException e) {
-                    logger.log(Level.SEVERE, "An error occurred", e);
-                }
-                Database.setUserID(String.valueOf(id));
             } else {
                 logger.log(Level.SEVERE, "please signup");
             }
@@ -109,6 +64,33 @@ public class HelloController {
             logger.log(Level.SEVERE, ERROR_OPENING_WINDOW, e);
         }
     }
+
+    private void transitionToScene(String fxmlPath) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+        Stage stage = (Stage) login1.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+        new FadeIn(root).play();
+    }
+
+    private int getUserId(String email, String tableName, String columnId, String logMessage) {
+        String sql = String.format("SELECT \"%s\" FROM software2024.\"%s\" WHERE \"GMAIL\" = ?", columnId, tableName);
+        int id = 0;
+        try (
+                Connection connection = Database.connect();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ) {
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt(columnId);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "An error occurred", e);
+        }
+        return id;
+    }
+
     @FXML
     void signUp1Clicked(ActionEvent event) {
         try{
