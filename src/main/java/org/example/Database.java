@@ -270,8 +270,16 @@ public class Database {
             logger.log(Level.SEVERE, "Invalid table name provided for login validation");
             return false;
         }
-        String safeTable = validTables.get(table);
-        String sql = "SELECT * FROM software2024." + safeTable + " WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
+
+        String sql="";
+        if (table.equals("organizer"))
+         sql = "SELECT * FROM software2024.\"organizer\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
+
+        else if (table.equals("customer"))
+            sql = "SELECT * FROM software2024.\"customer\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
+
+        else
+            sql = "SELECT * FROM software2024.\"ADMIN\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
 
         try (Connection conn = connect()) {
             if (conn != null) {
