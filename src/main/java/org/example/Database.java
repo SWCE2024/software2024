@@ -3,7 +3,6 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.example.SignUpController.logger;
 
@@ -261,28 +260,35 @@ public class Database {
 
 
     public static boolean validateLogin(String email, String password, String table) {
-        Set<String> validTables = new HashSet<>(Arrays.asList("organizer", "customer", "ADMIN"));
+        // Map of allowed tables
+        Map<String, String> validTables = new HashMap<>();
+        validTables.put("organizer", "\"organizer\"");
+        validTables.put("customer", "\"customer\"");
+        validTables.put("ADMIN", "\"ADMIN\"");
 
-        if (!validTables.contains(table)) {
+        if (!validTables.containsKey(table)) {
             logger.log(Level.SEVERE, "Invalid table name provided for login validation");
             return false;
         }
+        String safeTable = validTables.get(table);
+        String sql = "SELECT * FROM software2024." + safeTable + " WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
 
-        String sql = "SELECT * FROM software2024.\"" + table + "\" WHERE \"GMAIL\" = ? AND \"PASSWORD\" = ?";
         try (Connection conn = connect()) {
-            assert conn != null;
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, email);
-                pstmt.setString(2, password);
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    return rs.next();
+            if (conn != null) {
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1, email);
+                    pstmt.setString(2, password);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        return rs.next();
+                    }
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             logger.log(Level.SEVERE, "An error occurred while validating login", e);
         }
         return false;
     }
+
 
 
 
