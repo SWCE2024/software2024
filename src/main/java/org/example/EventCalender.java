@@ -26,7 +26,7 @@ public class EventCalender {
     public String geteventType() { return eventType.get(); }
     public void seteventType(String eventType) { this.eventType.set(eventType); }
 
-    public SimpleStringProperty EventNameProperty() { return eventName; }
+    public SimpleStringProperty eventNameProperty() { return eventName; }
     public SimpleStringProperty eventDateProperty() { return eventDate; }
     public SimpleStringProperty eventTimeProperty() { return eventTime; }
     public SimpleStringProperty eventTypeProperty() { return eventType; }

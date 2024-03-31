@@ -9,7 +9,7 @@ import static org.example.SignUpController.logger;
 
 
 public class Database {
-    private static String e="message";
+
     private Database() {
         throw new IllegalStateException("Utility class");
     }
@@ -66,8 +66,7 @@ public class Database {
         }
         catch (Exception e)
         {
-            logger.log(Level.SEVERE, "An error occurred while trying to connect to the database:", e.getMessage());
-            logger.info(e.toString());
+            logger.info("An error occurred while trying to connect to the database:"+e.getMessage());
         }
         return conn;
     }
@@ -161,7 +160,7 @@ public class Database {
                 pstmt.setString(6, pass);
 
                 int affectedRows = pstmt.executeUpdate();
-                pstmt.close();
+
                 return affectedRows > 0;
             }
         }
@@ -224,11 +223,14 @@ public class Database {
         String getEmailSql = "SELECT \"CID\" FROM software2024.\"customer\" WHERE \"GMAIL\" = ?";
         String getEventSql = "SELECT * FROM software2024.\"Events\" WHERE \"CID\" = ?";
 
-        try (Connection conn = connect()) {
+        try (Connection conn = connect())
+        {
             assert conn != null;
-            try (PreparedStatement pstmt = conn.prepareStatement(getEmailSql)) {
+            try (PreparedStatement pstmt = conn.prepareStatement(getEmailSql))
+            {
                 pstmt.setString(1, HelloController.getEmail());
-                try (ResultSet rs = pstmt.executeQuery()) {
+                try (ResultSet rs = pstmt.executeQuery())
+                {
                     if (rs.next()) {
                         cid = rs.getInt("CID");
                     }
@@ -314,7 +316,7 @@ public class Database {
                 pstmt.setString(6, password);
 
                 int affectedRows = pstmt.executeUpdate();
-                pstmt.close();
+
                 return affectedRows > 0;
 
             }
@@ -337,7 +339,7 @@ public class Database {
                 pstmt.setString(5, pricing);
 
                 int affectedRows = pstmt.executeUpdate();
-                pstmt.close();
+
                 return affectedRows > 0;
             }
         }
