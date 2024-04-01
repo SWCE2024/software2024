@@ -20,8 +20,8 @@ public class EmailTicket
         Logger logger = Logger.getLogger(EmailTicket.class.getName());
 
 
-        String senderEmail = getUser;
-        String senderPassword = getPassword;
+        String senderEmail = getUser();
+        String senderPassword = getPassword();
 
         // Recipient's email address
         String recipientEmail = recipientEmailcustumer;
