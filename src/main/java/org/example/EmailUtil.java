@@ -12,7 +12,6 @@ public class EmailUtil {
 
     private static final Logger logger = Logger.getLogger(EmailUtil.class.getName());
     private static final Properties emailProperties = new Properties();
-
     static {
         try {
             emailProperties.load(new FileInputStream("src/main/java/org/example/mail.properties"));
@@ -22,9 +21,6 @@ public class EmailUtil {
             throw new IllegalStateException("Failed to load email configurations, check properties path: " + "src/main/java/org/example/mail.properties", e);
         }
     }
-
-
-
     private EmailUtil() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
