@@ -17,7 +17,6 @@ public class EmailTicket
     private EmailTicket(){
         throw new IllegalStateException(" EmailTicket class");
     }
-
     static {
         try {
             teketProperties.load(new FileInputStream("src/main/java/org/example/password.properties"));

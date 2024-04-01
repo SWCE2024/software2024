@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.example.SignUpController.logger;
-
 public class ReminderCustomer
 {
     private static final Properties teketProperties = new Properties();
