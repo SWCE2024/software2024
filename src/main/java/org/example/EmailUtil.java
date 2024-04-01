@@ -54,9 +54,9 @@ public class EmailUtil {
             message.setText(messageText);
 
             Transport.send(message);
-            logger.log(Level.INFO, "Email sent successfully to {0}", recipientEmail);
+            logger.info( "Email sent successfully to :"+ recipientEmail);
         } catch (MessagingException e) {
-            logger.log(Level.SEVERE, "Failed to send email to " + recipientEmail + " with subject: " + subject, e);
+            logger.info("Failed to send email to " + recipientEmail + " with subject: " + subject);
             throw new MessagingException("Email sending to " + recipientEmail + " failed.", e);
         }
     }
