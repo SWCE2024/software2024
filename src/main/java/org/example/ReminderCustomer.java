@@ -20,8 +20,8 @@ public class ReminderCustomer
     {
 
 
-        String senderEmail = getUser;
-        String senderPassword = getPassword;
+        String senderEmail = getUser();
+        String senderPassword = getPassword();
 
         // Recipient's email address
         String recipientEmail = email;
