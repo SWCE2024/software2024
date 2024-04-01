@@ -49,12 +49,15 @@ public class OrganizerVenueManagement {
     @FXML
     private TextField venueNametxt;
     @FXML
-    private Label VenueView;
+    private Label venueView;
     String getVenueId="";
     String getVenueName="";
     String getLocation="";
     String getCapacity="";
      String getPricing="";
+     String error="ERROR";
+     String info ="INFO";
+     String anError ="An error occurred .";
 
     public void readValue(){
         getVenueId=venueIdtxt.getText();
@@ -79,12 +82,12 @@ public class OrganizerVenueManagement {
         boolean isRegistered = Database.addVenue(getVenueId, getVenueName, getLocation, getCapacity, getPricing );
 
         if (isRegistered) {
-            JOptionPane.showMessageDialog(null, "Added Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Added Successfully.", info, JOptionPane.INFORMATION_MESSAGE);
            clear();
 
         }
         else
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, anError, error, JOptionPane.ERROR_MESSAGE);
     }
 
     @FXML
@@ -95,18 +98,18 @@ public class OrganizerVenueManagement {
         boolean isRegistered = Database.deleteVenue(getVenueId );
         if (isRegistered)
         {
-            JOptionPane.showMessageDialog(null, "Deleted Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Deleted Successfully.", info, JOptionPane.INFORMATION_MESSAGE);
            clear();
         }
         else
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, anError, error, JOptionPane.ERROR_MESSAGE);
     }
     @FXML
     void searchBottonClicked(ActionEvent event)
     {
 readValue();
 
-        String sql = " SELECT * FROM software2024.\"Venue\" WHERE \"VenueID\" =?" ;
+        String sql = " SELECT \"VenueName\" ,\"Location\" ,\"Capacity\" ,\"Pricing\" FROM software2024.\"Venue\" WHERE \"VenueID\" =?" ;
         try (Connection conn = connect()) {
             assert conn != null;
             try (PreparedStatement pstmt = conn.prepareStatement(sql))
@@ -126,7 +129,7 @@ readValue();
         }
 
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, anError, error, JOptionPane.ERROR_MESSAGE);
             logger.info(e.toString());
         }
     }
@@ -150,14 +153,14 @@ readValue();
                  pstmt.executeUpdate();
 
                  clear();
-                JOptionPane.showMessageDialog(null, "Updated Successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Updated Successfully.", info, JOptionPane.INFORMATION_MESSAGE);
 
             }
 
         }
 
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "An error occurred .", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, anError, error, JOptionPane.ERROR_MESSAGE);
             logger.info(e.toString());
         }
 
