@@ -3,26 +3,15 @@ package org.example;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.example.Password.getPassword;
+import static org.example.Password.getUser;
 import static org.example.SignUpController.logger;
+
 public class ReminderCustomer
 {
-    private static final Properties teketProperties = new Properties();
-
-    static {
-        try {
-            teketProperties.load(new FileInputStream("src/main/java/org/example/password.properties"));
-        } catch (IOException e) {
-            String errorMsg = "Failed to load email properties from src/main/java/org/example/password.properties";
-            logger.log(Level.SEVERE, errorMsg, e);
-            throw new IllegalStateException("Failed to load email configurations, check properties path: " + "src/main/java/org/example/password.properties", e);
-        }
-    }
 
     private ReminderCustomer(){
 
@@ -31,10 +20,8 @@ public class ReminderCustomer
     {
 
 
-        final String senderEmail = teketProperties.getProperty("teket.username");
-
-        final String senderPassword = teketProperties.getProperty("teket.password");
-
+        String senderEmail = getUser();
+        String senderPassword = getPassword();
 
         // Recipient's email address
         String recipientEmail = email;
