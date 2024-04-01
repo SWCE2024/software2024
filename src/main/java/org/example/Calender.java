@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import javafx.scene.control.Button;
 import static org.example.SignUpController.logger;
 
-public class calender {
+public class Calender {
 
     @FXML
     private Label back;
@@ -117,7 +117,7 @@ public class calender {
     private void loadSpecifiedDate(String dateOfSearch)
     {
         String sql =
-                "SELECT * FROM software2024.\"Events\"  WHERE \"EventDate\" = ? "  ;
+                "SELECT \"EventName\", \"EventDate\" , \"EventType\", \"EventTime\"  FROM software2024.\"Events\"  WHERE \"EventDate\" = ? "  ;
 
         try (Connection conn = Database.connect()) {
             assert conn != null;
@@ -127,12 +127,12 @@ public class calender {
                 ResultSet rs= pstmt.executeQuery();
                 table.getItems().clear();
                 while (rs.next()) {
-                    String TableEventName = rs.getString("EventName");
-                    String TableEventDate = rs.getString("EventDate");
-                    String TableEventType = rs.getString("EventType");
-                    String TableEventTime = rs.getString("EventTime");
+                    String tableEventName = rs.getString("EventName");
+                    String tableEventDate = rs.getString("EventDate");
+                    String tableEventType = rs.getString("EventType");
+                    String tableEventTime = rs.getString("EventTime");
 
-                    EventCalender eventCalender = new EventCalender(TableEventName, TableEventDate, TableEventTime, TableEventType);
+                    EventCalender eventCalender = new EventCalender(tableEventName, tableEventDate, tableEventTime, tableEventType);
                     table.getItems().add(eventCalender);
                 }
             }
