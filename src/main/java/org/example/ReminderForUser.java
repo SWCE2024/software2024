@@ -7,6 +7,10 @@ import java.util.List;
 
 public class ReminderForUser
 {
+    private ReminderForUser()
+    {
+    }
+
     public static void check() throws SQLException {
 
         LocalDate currentdate =LocalDate.now();
@@ -29,11 +33,6 @@ public class ReminderForUser
 
              }
 
-
-
-             System.out.println(currentdate);
-        System.out.println(currentdate);
-        System.out.println(date);
     }
 
 }
