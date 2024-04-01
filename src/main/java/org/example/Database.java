@@ -221,7 +221,7 @@ public class Database {
         String message = "";
         Integer cid = null;
         String getEmailSql = "SELECT \"CID\" FROM software2024.\"customer\" WHERE \"GMAIL\" = ?";
-        String getEventSql = "SELECT * FROM software2024.\"Events\" WHERE \"CID\" = ?";
+        String getEventSql = "SELECT  \"EventName\" , \"EventDate\", \"EventTime\" ,\"Location\"  FROM software2024.\"Events\" WHERE \"CID\" = ?";
 
         try (Connection conn = connect())
         {
