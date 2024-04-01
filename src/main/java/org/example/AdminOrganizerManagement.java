@@ -154,7 +154,7 @@ public class AdminOrganizerManagement
 
 
         String readId=oid.getText();
-        String sql = " SELECT * FROM software2024.\"organizer\" WHERE \"OID\" =?" ;
+        String sql = " SELECT \"USERNAME\",\"OID\",\"GMAIL\",\"PHONENUMBER\",\"ADDRESS\",\"PASSWORD\"  FROM software2024.\"organizer\" WHERE \"OID\" =?" ;
         try (Connection conn = connect()) {
             assert conn != null;
             try (PreparedStatement pstmt = conn.prepareStatement(sql))
